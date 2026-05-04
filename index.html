@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Nóesis del Caribe — Estudio de Ingeniería y Arquitectura en Santo Domingo, República Dominicana. Diseño arquitectónico, interiores, renders 3D y más." />
+  <meta name="theme-color" content="#191714" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Nóesis del Caribe — Ingeniería & Arquitectura" />
+  <meta property="og:description" content="Transformamos espacios con diseño inteligente, técnica precisa y visión creativa." />
+  <meta property="og:type" content="website" />
+
+  <title>Nóesis del Caribe — Ingeniería &amp; Arquitectura</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,300;0,400;0,700;0,900;1,300&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/nav.css" />
+  <link rel="stylesheet" href="css/hero.css" />
+  <link rel="stylesheet" href="css/services.css" />
+  <link rel="stylesheet" href="css/portfolio.css" />
+  <link rel="stylesheet" href="css/process.css" />
+  <link rel="stylesheet" href="css/quote-form.css" />
+  <link rel="stylesheet" href="css/payment.css" />
+  <link rel="stylesheet" href="css/about.css" />
+  <link rel="stylesheet" href="css/footer.css" />
+  <link rel="stylesheet" href="css/modals.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════
+       NAVIGATION
+  ═══════════════════════════════════════ -->
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Navegación principal">
+    <a href="#hero" class="nav__logo" aria-label="Nóesis del Caribe — Inicio">
+      <svg class="nav__logo-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <polygon points="18,80 18,28 38,18 38,80" fill="#D3AB2D"/>
+        <rect x="22" y="32" width="8" height="8" fill="rgba(25,23,20,0.35)"/>
+        <polygon points="46,80 46,38 72,22 72,56 58,56 58,80" fill="#D3AB2D"/>
+        <polygon points="58,56 72,56 72,80 58,80" fill="rgba(25,23,20,0.18)"/>
+      </svg>
+      <div class="nav__logo-text">
+        <strong>Nóesis del Caribe</strong>
+        <span>Ingeniería &amp; Arquitectura</span>
+      </div>
+    </a>
+
+    <button class="nav__hamburger" id="navToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="navMenu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav__links" id="navMenu" role="list">
+      <li><a href="#services">Servicios</a></li>
+      <li><a href="#portfolio">Portafolio</a></li>
+      <li><a href="#proceso">Proceso</a></li>
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#cotizar" class="nav__cta">Cotizar Proyecto</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <!-- ═══════════════════════════════════════
+         HERO
+    ═══════════════════════════════════════ -->
+    <section class="hero" id="hero" aria-label="Presentación">
+      <div class="hero__grid-bg" aria-hidden="true"></div>
+      <div class="hero__glow" aria-hidden="true"></div>
+
+      <div class="hero__content">
+        <div class="hero__eyebrow">Ingeniería &amp; Arquitectura — Santo Domingo, RD</div>
+
+        <h1 class="hero__title">
+          <span class="hero__title-accent">Nóesis</span><br>
+          del Caribe
+        </h1>
+
+        <p class="hero__brand-line">Ingeniería &amp; Arquitectura</p>
+
+        <p class="hero__desc">
+          Transformamos espacios con diseño inteligente, técnica precisa
+          y visión creativa. Del concepto al plano, hacemos realidad cada proyecto.
+        </p>
+
+        <div class="hero__actions">
+          <a href="#cotizar" class="btn btn--primary">Cotizar mi Proyecto</a>
+          <a href="#portfolio" class="btn btn--outline">Ver Portafolio</a>
+        </div>
+
+        <div class="hero__stats" aria-label="Estadísticas">
+          <div class="hero__stat">
+            <span class="hero__stat-num" data-target="150">0</span>
+            <span class="hero__stat-plus">+</span>
+            <span class="hero__stat-label">Proyectos completados</span>
+          </div>
+          <div class="hero__stat">
+            <span class="hero__stat-num" data-target="12">0</span>
+            <span class="hero__stat-label">Años de experiencia</span>
+          </div>
+          <div class="hero__stat">
+            <span class="hero__stat-num" data-target="98">0</span>
+            <span class="hero__stat-pct">%</span>
+            <span class="hero__stat-label">Clientes satisfechos</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         SERVICES
+    ═══════════════════════════════════════ -->
+    <section class="services" id="services" aria-labelledby="services-title">
+      <div class="services__header fade-up">
+        <div>
+          <p class="section-label">Lo que hacemos</p>
+          <h2 class="section-title" id="services-title">Nuestros servicios</h2>
+        </div>
+        <p class="section-desc">Elige uno o varios módulos de servicio, completa tus datos y confirma el pedido con pago online.</p>
+      </div>
+
+      <div class="services__grid">
+
+        <article class="service-card fade-up" data-service-id="arquitectonico" data-service-name="Diseño Arquitectónico" data-service-price="65000">
+          <div class="service-card__num" aria-hidden="true">01</div>
+          <h3 class="service-card__name">Diseño Arquitectónico</h3>
+          <p class="service-card__desc">Proyectos residenciales y comerciales con identidad propia. Planos constructivos, renders 3D y documentación técnica completa.</p>
+          <p class="service-card__price">Desde RD$ 65,000</p>
+          <button type="button" class="btn btn--outline service-card__action" data-add-service>Añadir al pedido</button>
+        </article>
+
+        <article class="service-card fade-up" data-service-id="interiores" data-service-name="Diseño de Interiores" data-service-price="35000">
+          <div class="service-card__num" aria-hidden="true">02</div>
+          <h3 class="service-card__name">Diseño de Interiores</h3>
+          <p class="service-card__desc">Transformamos interiores en experiencias. Distribución de espacios, selección de materiales, paletas de color y amueblamiento.</p>
+          <p class="service-card__price">Desde RD$ 35,000</p>
+          <button type="button" class="btn btn--outline service-card__action" data-add-service>Añadir al pedido</button>
+        </article>
+
+        <article class="service-card fade-up" data-service-id="estructural" data-service-name="Ingeniería Estructural" data-service-price="48000">
+          <div class="service-card__num" aria-hidden="true">03</div>
+          <h3 class="service-card__name">Ingeniería Estructural</h3>
+          <p class="service-card__desc">Cálculos y memorias estructurales que garantizan seguridad y durabilidad en cada proyecto de construcción.</p>
+          <p class="service-card__price">Desde RD$ 48,000</p>
+          <button type="button" class="btn btn--outline service-card__action" data-add-service>Añadir al pedido</button>
+        </article>
+
+        <article class="service-card fade-up" data-service-id="renders" data-service-name="Renders &amp; Visualización" data-service-price="12000">
+          <div class="service-card__num" aria-hidden="true">04</div>
+          <h3 class="service-card__name">Renders &amp; Visualización</h3>
+          <p class="service-card__desc">Imágenes fotorrealistas y recorridos virtuales para visualizar tu proyecto antes de construir.</p>
+          <p class="service-card__price">Desde RD$ 12,000</p>
+          <button type="button" class="btn btn--outline service-card__action" data-add-service>Añadir al pedido</button>
+        </article>
+
+        <article class="service-card fade-up" data-service-id="supervision" data-service-name="Supervisión de Obras" data-service-price="42000">
+          <div class="service-card__num" aria-hidden="true">05</div>
+          <h3 class="service-card__name">Supervisión de Obras</h3>
+          <p class="service-card__desc">Dirección y control de calidad en la ejecución de obras, asegurando el cumplimiento de planos y especificaciones.</p>
+          <p class="service-card__price">Desde RD$ 42,000</p>
+          <button type="button" class="btn btn--outline service-card__action" data-add-service>Añadir al pedido</button>
+        </article>
+
+        <article class="service-card fade-up" data-service-id="consultoria" data-service-name="Consultoría &amp; Asesoría" data-service-price="8500">
+          <div class="service-card__num" aria-hidden="true">06</div>
+          <h3 class="service-card__name">Consultoría &amp; Asesoría</h3>
+          <p class="service-card__desc">Orientación profesional en normativas, permisos de construcción, zonificación y optimización de presupuestos.</p>
+          <p class="service-card__price">Desde RD$ 8,500</p>
+          <button type="button" class="btn btn--outline service-card__action" data-add-service>Añadir al pedido</button>
+        </article>
+
+      </div>
+
+      <aside class="order-cart fade-up" aria-labelledby="cart-title">
+        <div>
+          <p class="section-label">Pedido actual</p>
+          <h3 class="order-cart__title" id="cart-title">Módulos seleccionados</h3>
+        </div>
+        <div class="order-cart__items" id="cartItems" aria-live="polite">
+          <p class="order-cart__empty">Aún no has elegido servicios.</p>
+        </div>
+        <div class="order-cart__footer">
+          <strong>Total</strong>
+          <span id="cartTotal">RD$ 0</span>
+        </div>
+        <a href="#cotizar" class="btn btn--primary order-cart__cta">Completar datos</a>
+      </aside>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         PORTFOLIO
+    ═══════════════════════════════════════ -->
+    <section class="portfolio" id="portfolio" aria-labelledby="portfolio-title">
+      <div class="portfolio__header fade-up">
+        <div>
+          <p class="section-label">Nuestro trabajo</p>
+          <h2 class="section-title" id="portfolio-title">Portafolio</h2>
+        </div>
+        <div class="portfolio__filters" role="group" aria-label="Filtrar proyectos">
+          <button class="filter-btn filter-btn--active" data-filter="all">Todos</button>
+          <button class="filter-btn" data-filter="residencial">Residencial</button>
+          <button class="filter-btn" data-filter="comercial">Comercial</button>
+          <button class="filter-btn" data-filter="interior">Interiores</button>
+        </div>
+      </div>
+
+      <div class="portfolio__grid" id="portfolioGrid" role="list">
+
+        <article class="port-item fade-up" data-cat="residencial" role="listitem" aria-label="Villa Panorámica Piantini">
+          <div class="port-item__thumb port-item__thumb--dark-gold"></div>
+          <div class="port-item__overlay">
+            <p class="port-item__cat">Residencial</p>
+            <h3 class="port-item__title">Villa Panorámica — Piantini</h3>
+          </div>
+        </article>
+
+        <article class="port-item fade-up" data-cat="interior" role="listitem" aria-label="Penthouse Naco">
+          <div class="port-item__thumb port-item__thumb--warm"></div>
+          <div class="port-item__overlay">
+            <p class="port-item__cat">Interiores</p>
+            <h3 class="port-item__title">Penthouse Naco</h3>
+          </div>
+        </article>
+
+        <article class="port-item fade-up" data-cat="comercial" role="listitem" aria-label="Oficinas Corporativas CBD">
+          <div class="port-item__thumb port-item__thumb--gold"></div>
+          <div class="port-item__overlay">
+            <p class="port-item__cat">Comercial</p>
+            <h3 class="port-item__title">Oficinas Corporativas CBD</h3>
+          </div>
+        </article>
+
+        <article class="port-item fade-up" data-cat="comercial" role="listitem" aria-label="Restaurante Fine Dining">
+          <div class="port-item__thumb port-item__thumb--black"></div>
+          <div class="port-item__overlay">
+            <p class="port-item__cat">Comercial</p>
+            <h3 class="port-item__title">Restaurante Fine Dining</h3>
+          </div>
+        </article>
+
+        <article class="port-item fade-up" data-cat="residencial" role="listitem" aria-label="Casa de Campo La Romana">
+          <div class="port-item__thumb port-item__thumb--olive"></div>
+          <div class="port-item__overlay">
+            <p class="port-item__cat">Residencial</p>
+            <h3 class="port-item__title">Casa de Campo — La Romana</h3>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         PROCESS
+    ═══════════════════════════════════════ -->
+    <section class="process" id="proceso" aria-labelledby="process-title">
+      <div class="process__header fade-up">
+        <div>
+          <p class="section-label">Cómo trabajamos</p>
+          <h2 class="section-title process__title" id="process-title">
+            Proceso simple,<br>resultados extraordinarios
+          </h2>
+        </div>
+        <p class="section-desc process__desc">
+          Desde el primer contacto hasta la entrega de tu diseño, acompañamos cada etapa del proyecto con profesionalismo y dedicación.
+        </p>
+      </div>
+
+      <ol class="process__steps" aria-label="Pasos del proceso">
+        <li class="process-step fade-up">
+          <div class="process-step__dot" aria-hidden="true">1</div>
+          <span class="process-step__icon" aria-hidden="true">📐</span>
+          <h3 class="process-step__name">Envías tu espacio</h3>
+          <p class="process-step__desc">Comparte las medidas y fotos de tu espacio a través de nuestro formulario online. Rápido y sencillo.</p>
+        </li>
+        <li class="process-step fade-up">
+          <div class="process-step__dot" aria-hidden="true">2</div>
+          <span class="process-step__icon" aria-hidden="true">💬</span>
+          <h3 class="process-step__name">Recibes tu cotización</h3>
+          <p class="process-step__desc">Analizamos tu proyecto y te enviamos una propuesta detallada con alcance, plazos y precio en 24–48h.</p>
+        </li>
+        <li class="process-step fade-up">
+          <div class="process-step__dot" aria-hidden="true">3</div>
+          <span class="process-step__icon" aria-hidden="true">💳</span>
+          <h3 class="process-step__name">Realizas el pago</h3>
+          <p class="process-step__desc">Aprobada la cotización, realizas el pago de forma segura a través de nuestro portal de pagos.</p>
+        </li>
+        <li class="process-step fade-up">
+          <div class="process-step__dot" aria-hidden="true">4</div>
+          <span class="process-step__icon" aria-hidden="true">🏆</span>
+          <h3 class="process-step__name">Recibes tu diseño</h3>
+          <p class="process-step__desc">Entregamos tu diseño final con planos, renders y documentación técnica completa según lo acordado.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         QUOTE FORM
+    ═══════════════════════════════════════ -->
+    <section class="quote-section" id="cotizar" aria-labelledby="quote-title">
+      <div class="quote-section__wrap">
+
+        <!-- Left info panel -->
+        <div class="quote-info fade-up">
+          <p class="section-label">¡Empieza ahora!</p>
+          <h2 class="section-title" id="quote-title">Cotiza tu proyecto</h2>
+          <p class="section-desc">Cuéntanos sobre tu espacio para crear el pedido borrador. Al confirmar, pasarás al pago.</p>
+
+          <ul class="quote-info__list" role="list">
+            <li class="quote-info__item">
+              <div class="quote-info__icon" aria-hidden="true">📏</div>
+              <div>
+                <strong>Comparte tus medidas</strong>
+                <p>Indica las dimensiones de cada área para una cotización precisa.</p>
+              </div>
+            </li>
+            <li class="quote-info__item">
+              <div class="quote-info__icon" aria-hidden="true">📸</div>
+              <div>
+                <strong>Sube tus fotografías</strong>
+                <p>Las fotos actuales nos permiten entender mejor el contexto del proyecto.</p>
+              </div>
+            </li>
+            <li class="quote-info__item">
+              <div class="quote-info__icon" aria-hidden="true">⚡</div>
+              <div>
+                <strong>Respuesta en 24–48 horas</strong>
+                <p>Nuestro equipo te enviará la cotización por correo electrónico.</p>
+              </div>
+            </li>
+            <li class="quote-info__item">
+              <div class="quote-info__icon" aria-hidden="true">🔒</div>
+              <div>
+                <strong>Pago seguro online</strong>
+                <p>Acepta tu cotización y paga de forma segura. Tu diseño comienza de inmediato.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Multi-step form -->
+        <div class="form-card fade-up" role="form" aria-label="Formulario de cotización">
+          <h3 class="form-card__title">Nueva solicitud de cotización</h3>
+
+          <!-- Progress indicator -->
+          <nav class="form-progress" aria-label="Progreso del formulario">
+            <div class="form-progress__step form-progress__step--active" id="prog-1" aria-current="step">
+              <span class="form-progress__label">Datos</span>
+            </div>
+            <div class="form-progress__step" id="prog-2">
+              <span class="form-progress__label">Espacio</span>
+            </div>
+            <div class="form-progress__step" id="prog-3">
+              <span class="form-progress__label">Fotos</span>
+            </div>
+            <div class="form-progress__step" id="prog-4">
+              <span class="form-progress__label">Revisión</span>
+            </div>
+          </nav>
+
+          <!-- Step 1: Personal data -->
+          <fieldset class="form-step form-step--active" id="step-1">
+            <legend class="sr-only">Paso 1: Datos personales</legend>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="f-nombre">Nombre</label>
+                <input type="text" id="f-nombre" name="nombre" placeholder="Tu nombre" autocomplete="given-name" />
+              </div>
+              <div class="form-group">
+                <label for="f-apellido">Apellido</label>
+                <input type="text" id="f-apellido" name="apellido" placeholder="Tu apellido" autocomplete="family-name" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="f-email">Correo electrónico</label>
+              <input type="email" id="f-email" name="email" placeholder="correo@ejemplo.com" autocomplete="email" />
+            </div>
+            <div class="form-group">
+              <label for="f-tel">Teléfono / WhatsApp</label>
+              <input type="tel" id="f-tel" name="telefono" placeholder="+1 (809) 000-0000" autocomplete="tel" />
+            </div>
+            <div class="form-group">
+              <label for="f-tipo">Tipo de proyecto</label>
+              <select id="f-tipo" name="tipo">
+                <option value="">Selecciona una opción</option>
+                <option>Diseño de interiores residencial</option>
+                <option>Diseño de interiores comercial</option>
+                <option>Diseño arquitectónico</option>
+                <option>Remodelación</option>
+                <option>Ingeniería estructural</option>
+                <option>Renders y visualización 3D</option>
+              </select>
+            </div>
+            <div class="form-nav">
+              <span></span>
+              <button type="button" class="btn btn--primary" id="step1-next">Siguiente →</button>
+            </div>
+          </fieldset>
+
+          <!-- Step 2: Space data -->
+          <fieldset class="form-step" id="step-2">
+            <legend class="sr-only">Paso 2: Datos del espacio</legend>
+            <div class="form-group">
+              <label for="f-desc">Descripción del proyecto</label>
+              <textarea id="f-desc" name="descripcion" placeholder="Describe tu visión, estilo deseado, referencias, etc." rows="4"></textarea>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="f-area">Área total (m²)</label>
+                <input type="number" id="f-area" name="area" placeholder="Ej: 85" min="1" />
+              </div>
+              <div class="form-group">
+                <label for="f-rooms">Número de ambientes</label>
+                <input type="number" id="f-rooms" name="ambientes" placeholder="Ej: 4" min="1" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Ambientes a intervenir</label>
+              <div class="checkbox-group" id="ambientesGroup" role="group" aria-label="Seleccionar ambientes">
+                <label class="checkbox-label"><input type="checkbox" value="Sala"> Sala</label>
+                <label class="checkbox-label"><input type="checkbox" value="Comedor"> Comedor</label>
+                <label class="checkbox-label"><input type="checkbox" value="Cocina"> Cocina</label>
+                <label class="checkbox-label"><input type="checkbox" value="Hab. principal"> Hab. principal</label>
+                <label class="checkbox-label"><input type="checkbox" value="Baño"> Baño</label>
+                <label class="checkbox-label"><input type="checkbox" value="Terraza"> Terraza</label>
+                <label class="checkbox-label"><input type="checkbox" value="Oficina"> Oficina</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="f-presupuesto">Presupuesto estimado (DOP)</label>
+              <select id="f-presupuesto" name="presupuesto">
+                <option value="">Selecciona un rango</option>
+                <option>Menos de RD$100,000</option>
+                <option>RD$100,000 – RD$300,000</option>
+                <option>RD$300,000 – RD$600,000</option>
+                <option>RD$600,000 – RD$1,000,000</option>
+                <option>Más de RD$1,000,000</option>
+              </select>
+            </div>
+            <div class="form-nav">
+              <button type="button" class="btn btn--ghost" id="step2-back">← Atrás</button>
+              <button type="button" class="btn btn--primary" id="step2-next">Siguiente →</button>
+            </div>
+          </fieldset>
+
+          <!-- Step 3: Photos -->
+          <fieldset class="form-step" id="step-3">
+            <legend class="sr-only">Paso 3: Fotografías del espacio</legend>
+            <p class="form-step__intro">
+              Sube fotografías actuales de tu espacio. Mientras más imágenes compartas, más precisa será la cotización.
+            </p>
+            <div class="upload-zone" id="dropZone" role="button" tabindex="0" aria-label="Zona de carga de fotos">
+              <span class="upload-zone__icon" aria-hidden="true">📁</span>
+              <p class="upload-zone__text">Arrastra tus fotos aquí o haz clic para seleccionar</p>
+              <p class="upload-zone__hint">JPG, PNG, HEIC — Máximo 10 archivos, 20 MB c/u</p>
+              <input type="file" id="fileInput" multiple accept="image/*" class="sr-only" aria-label="Seleccionar archivos de imagen" />
+            </div>
+            <div class="upload-preview" id="fileList" role="list" aria-label="Archivos seleccionados"></div>
+            <div class="form-group" style="margin-top: 1.5rem;">
+              <label for="f-fotos-notas">Notas adicionales sobre las fotos</label>
+              <textarea id="f-fotos-notas" name="notas_fotos" placeholder="Ej: La foto 1 es la sala principal, la foto 2 es el comedor..." rows="3"></textarea>
+            </div>
+            <div class="form-nav">
+              <button type="button" class="btn btn--ghost" id="step3-back">← Atrás</button>
+              <button type="button" class="btn btn--primary" id="step3-next">Siguiente →</button>
+            </div>
+          </fieldset>
+
+          <!-- Step 4: Review -->
+          <fieldset class="form-step" id="step-4">
+            <legend class="sr-only">Paso 4: Revisión y envío</legend>
+            <div class="review-box" id="reviewContent" aria-live="polite"></div>
+            <div class="review-box review-box--order" id="orderReview" aria-live="polite"></div>
+            <div class="form-group">
+              <label for="f-contacto">¿Cómo prefieres que te contactemos?</label>
+              <select id="f-contacto" name="preferencia_contacto">
+                <option>Correo electrónico</option>
+                <option>WhatsApp</option>
+                <option>Llamada telefónica</option>
+              </select>
+            </div>
+            <div class="form-check">
+              <input type="checkbox" id="terms" name="terms" />
+              <label for="terms">
+                Acepto los <a href="pages/terminos.html">términos y condiciones</a> y autorizo el tratamiento de mis datos para recibir cotización.
+              </label>
+            </div>
+            <div class="form-nav">
+              <button type="button" class="btn btn--ghost" id="step4-back">← Atrás</button>
+              <button type="button" class="btn btn--dark" id="submitBtn">Crear pedido y pagar</button>
+            </div>
+          </fieldset>
+
+        </div><!-- /.form-card -->
+      </div><!-- /.quote-section__wrap -->
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         PAYMENT
+    ═══════════════════════════════════════ -->
+    <section class="payment" id="pago" aria-labelledby="payment-title" hidden>
+      <div class="payment__wrap">
+
+        <header class="payment__header fade-up">
+          <p class="section-label">Pago seguro</p>
+          <h2 class="section-title" id="payment-title">Confirmar y pagar</h2>
+          <p class="section-desc payment__intro">Revisa tu cotización y elige tu método de pago preferido. El modo demo no realiza cargos reales.</p>
+        </header>
+
+        <!-- Quote summary -->
+        <div class="quote-summary fade-up" role="region" aria-label="Resumen de cotización">
+          <div class="quote-summary__amount">
+            <p class="quote-summary__label">Total a pagar</p>
+            <p class="quote-summary__price" id="paymentTotal">
+              <span class="quote-summary__currency">RD$</span>0
+            </p>
+            <p class="quote-summary__project" id="paymentProject">Pedido pendiente de confirmar</p>
+          </div>
+          <div class="quote-summary__breakdown" id="paymentBreakdown" role="table" aria-label="Desglose del precio">
+            <p class="order-cart__empty">Completa el formulario para generar un pedido.</p>
+          </div>
+        </div>
+
+        <!-- Payment methods -->
+        <div class="payment-methods fade-up" role="group" aria-label="Métodos de pago">
+          <button class="pay-method pay-method--selected" data-method="card" aria-pressed="true">
+            <span class="pay-method__icon" aria-hidden="true">💳</span>
+            <span class="pay-method__name">Tarjeta de crédito</span>
+            <span class="pay-method__desc">Visa, Mastercard, Amex</span>
+          </button>
+          <button class="pay-method" data-method="transfer" aria-pressed="false">
+            <span class="pay-method__icon" aria-hidden="true">🏦</span>
+            <span class="pay-method__name">Transferencia</span>
+            <span class="pay-method__desc">Popular, BHD, Banreservas</span>
+          </button>
+          <button class="pay-method" data-method="mobile" aria-pressed="false">
+            <span class="pay-method__icon" aria-hidden="true">📱</span>
+            <span class="pay-method__name">Pagos móviles</span>
+            <span class="pay-method__desc">tPago, Supérate</span>
+          </button>
+        </div>
+
+        <!-- Card form -->
+        <div class="pay-form fade-up">
+          <!-- Card visual preview -->
+          <div class="card-preview" role="img" aria-label="Vista previa de tarjeta">
+            <span class="card-preview__chip" aria-hidden="true">▪︎</span>
+            <p class="card-preview__number" id="cardNumPreview">•••• •••• •••• ••••</p>
+            <div class="card-preview__meta">
+              <div>
+                <p class="card-preview__meta-label">Titular</p>
+                <p class="card-preview__meta-value" id="cardNamePreview">NOMBRE APELLIDO</p>
+              </div>
+              <div>
+                <p class="card-preview__meta-label">Vence</p>
+                <p class="card-preview__meta-value" id="cardExpPreview">MM/AA</p>
+              </div>
+              <div class="card-preview__brand" aria-hidden="true">
+                <span class="card-preview__circle card-preview__circle--back"></span>
+                <span class="card-preview__circle card-preview__circle--front"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card inputs -->
+          <div class="card-fields">
+            <div class="form-group">
+              <label for="cardNum">Número de tarjeta de prueba</label>
+              <input type="text" id="cardNum" name="card_number" placeholder="4242 4242 4242 4242" maxlength="19" autocomplete="cc-number" inputmode="numeric" />
+            </div>
+            <div class="form-group">
+              <label for="cardName">Nombre en la tarjeta</label>
+              <input type="text" id="cardName" name="card_name" placeholder="Como aparece en la tarjeta" autocomplete="cc-name" />
+            </div>
+            <div class="form-row form-row--narrow">
+              <div class="form-group">
+                <label for="cardExp">Fecha de vencimiento</label>
+                <input type="text" id="cardExp" name="card_exp" placeholder="MM/AA" maxlength="5" autocomplete="cc-exp" inputmode="numeric" />
+              </div>
+              <div class="form-group">
+                <label for="cardCvv">CVV</label>
+                <input type="text" id="cardCvv" name="card_cvv" placeholder="•••" maxlength="4" autocomplete="cc-csc" inputmode="numeric" />
+              </div>
+            </div>
+
+            <div class="pay-security-note" role="note">
+              <span aria-hidden="true">🔒</span>
+              <span id="paymentModeNote">Modo demo: no se procesa ningún cargo real. En producción este botón redirige a Stripe Checkout desde el backend.</span>
+            </div>
+
+            <button type="button" class="btn btn--primary btn--full" id="payBtn">
+              Pagar RD$ 0
+            </button>
+          </div>
+        </div>
+
+      </div><!-- /.payment__wrap -->
+    </section>
+
+    <section class="admin-panel" id="admin" aria-labelledby="admin-title">
+      <div class="admin-panel__wrap fade-up">
+        <div class="admin-panel__header">
+          <div>
+            <p class="section-label">Gestión del estudio</p>
+            <h2 class="section-title" id="admin-title">Pedidos recibidos</h2>
+          </div>
+          <button type="button" class="btn btn--ghost" id="seedDemoOrder">Cargar ejemplo</button>
+        </div>
+        <div class="admin-panel__table" id="adminOrders" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         ABOUT
+    ═══════════════════════════════════════ -->
+    <section class="about" id="nosotros" aria-labelledby="about-title">
+      <div class="about__wrap">
+
+        <div class="about__images fade-up" aria-hidden="true">
+          <div class="about__img about__img--wide">
+            <div class="about__img-inner">🏗️</div>
+          </div>
+          <div class="about__img">
+            <div class="about__img-inner">✏️</div>
+          </div>
+          <div class="about__img">
+            <div class="about__img-inner">🎯</div>
+          </div>
+        </div>
+
+        <div class="about__content fade-up">
+          <p class="section-label">Quiénes somos</p>
+          <h2 class="section-title" id="about-title">Construimos con propósito</h2>
+          <p class="section-desc about__desc">
+            Nóesis del Caribe es un estudio de ingeniería y arquitectura fundado en Santo Domingo, República Dominicana. Nuestro equipo multidisciplinario combina rigor técnico con sensibilidad estética para crear espacios que elevan la calidad de vida.
+          </p>
+
+          <ul class="values-grid" role="list" aria-label="Nuestros valores">
+            <li class="value-card">
+              <h3 class="value-card__name">Solidez</h3>
+              <p class="value-card__desc">Cada proyecto está respaldado por cálculos precisos y materiales de calidad.</p>
+            </li>
+            <li class="value-card">
+              <h3 class="value-card__name">Utilidad</h3>
+              <p class="value-card__desc">Diseñamos espacios funcionales que se adaptan a la vida real de nuestros clientes.</p>
+            </li>
+            <li class="value-card">
+              <h3 class="value-card__name">Belleza</h3>
+              <p class="value-card__desc">La estética es inherente a cada decisión de diseño, nunca un elemento secundario.</p>
+            </li>
+            <li class="value-card">
+              <h3 class="value-card__name">Innovación</h3>
+              <p class="value-card__desc">Adoptamos tecnologías y metodologías actuales para resultados superiores.</p>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer__top">
+
+      <div class="footer__brand">
+        <p class="footer__brand-name">Nóesis del Caribe</p>
+        <p class="footer__brand-sub">Ingeniería &amp; Arquitectura</p>
+        <p class="footer__desc">Estudio de ingeniería y arquitectura con sede en Santo Domingo, República Dominicana. Transformamos espacios con diseño de excelencia.</p>
+        <div class="footer__social" role="list" aria-label="Redes sociales">
+          <a class="footer__social-btn" href="https://www.instagram.com/" target="_blank" rel="noopener" role="listitem" aria-label="Instagram" title="Instagram">📷</a>
+          <a class="footer__social-btn" href="https://www.facebook.com/" target="_blank" rel="noopener" role="listitem" aria-label="Facebook" title="Facebook">📘</a>
+          <a class="footer__social-btn" href="https://wa.me/18090000000" target="_blank" rel="noopener" role="listitem" aria-label="WhatsApp" title="WhatsApp">💬</a>
+          <a class="footer__social-btn" href="https://www.linkedin.com/" target="_blank" rel="noopener" role="listitem" aria-label="LinkedIn" title="LinkedIn">💼</a>
+        </div>
+      </div>
+
+      <div class="footer__col">
+        <h4 class="footer__col-title">Servicios</h4>
+        <ul class="footer__links" role="list">
+          <li><a href="#services">Diseño Arquitectónico</a></li>
+          <li><a href="#services">Diseño de Interiores</a></li>
+          <li><a href="#services">Ingeniería Estructural</a></li>
+          <li><a href="#services">Renders 3D</a></li>
+          <li><a href="#services">Supervisión de Obras</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h4 class="footer__col-title">Empresa</h4>
+        <ul class="footer__links" role="list">
+          <li><a href="#nosotros">Nosotros</a></li>
+          <li><a href="#portfolio">Portafolio</a></li>
+          <li><a href="#proceso">Proceso</a></li>
+          <li><a href="pages/blog.html">Blog</a></li>
+          <li><a href="pages/careers.html">Trabaja con nosotros</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h4 class="footer__col-title">Contacto</h4>
+        <ul class="footer__links" role="list">
+          <li><a href="https://maps.google.com" target="_blank" rel="noopener">📍 Santo Domingo, RD</a></li>
+          <li><a href="tel:+18090000000">📞 +1 (809) 000-0000</a></li>
+          <li><a href="mailto:info@noesisdelcaribe.com">✉️ info@noesisdelcaribe.com</a></li>
+          <li><a href="#cotizar" class="footer__links-cta">→ Cotizar proyecto</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer__bottom">
+      <p>© 2025 Nóesis del Caribe. Todos los derechos reservados.</p>
+      <p>Diseño web — Nóesis del Caribe</p>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════
+       MODALS
+  ═══════════════════════════════════════ -->
+  <div class="modal-overlay" id="successOverlay" role="dialog" aria-modal="true" aria-labelledby="successTitle" hidden>
+    <div class="modal">
+      <div class="modal__icon" aria-hidden="true">✅</div>
+      <h2 class="modal__title" id="successTitle">Pedido borrador creado</h2>
+      <p class="modal__desc">Guardamos tu selección y tus datos. Revisa el total en la sección de pago para completar el flujo de prueba.</p>
+      <button type="button" class="btn btn--primary" id="closeSuccess">Continuar al pago</button>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="paySuccessOverlay" role="dialog" aria-modal="true" aria-labelledby="paySuccessTitle" hidden>
+    <div class="modal">
+      <div class="modal__icon" aria-hidden="true">🎉</div>
+      <h2 class="modal__title" id="paySuccessTitle">¡Pago procesado!</h2>
+      <p class="modal__desc" id="paySuccessDesc">Tu pago fue procesado exitosamente. Recibirás un comprobante por correo. Nuestro equipo comenzará tu proyecto de inmediato y te mantendremos informado del progreso.</p>
+      <button type="button" class="btn btn--primary" id="closePaySuccess">¡Perfecto!</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       SCRIPTS
+  ═══════════════════════════════════════ -->
+  <script src="js/config.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/hero.js"></script>
+  <script src="js/portfolio.js"></script>
+  <script src="js/orders.js"></script>
+  <script src="js/form.js"></script>
+  <script src="js/upload.js"></script>
+  <script src="js/payment.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>

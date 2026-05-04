@@ -1,0 +1,94 @@
+/* ============================================================
+   variables.css — Design Tokens
+   Nóesis del Caribe — Ingeniería & Arquitectura
+   Brand identity: Rebrand 2025
+   ============================================================ */
+
+:root {
+
+  /* ── Brand Colors ──────────────────────────────────── */
+  --color-gold:         #D3AB2D;
+  --color-gold-light:   #E8C84A;
+  --color-gold-dark:    #A8881F;
+  --color-gold-faint:   rgba(211, 171, 45, 0.08);
+  --color-gold-border:  rgba(211, 171, 45, 0.25);
+
+  --color-olive:        #4D4637;
+  --color-olive-light:  #6b6045;
+  --color-warm-gray:    #B3AA99;
+  --color-near-black:   #191714;
+  --color-light-bg:     #E8E8E8;
+  --color-white:        #ffffff;
+
+  /* ── Semantic aliases ──────────────────────────────── */
+  --color-bg-primary:   var(--color-white);
+  --color-bg-section:   var(--color-light-bg);
+  --color-bg-dark:      var(--color-near-black);
+  --color-text-primary: var(--color-near-black);
+  --color-text-muted:   var(--color-olive);
+  --color-text-faint:   var(--color-warm-gray);
+  --color-accent:       var(--color-gold);
+
+  /* ── Typography ────────────────────────────────────── */
+  --font-family:        'Albert Sans', sans-serif;
+
+  --font-weight-light:  300;
+  --font-weight-regular:400;
+  --font-weight-bold:   700;
+  --font-weight-black:  900;
+
+  --font-size-xs:       0.6875rem;  /* 11px */
+  --font-size-sm:       0.8125rem;  /* 13px */
+  --font-size-base:     0.9375rem;  /* 15px */
+  --font-size-md:       1.0625rem;  /* 17px */
+  --font-size-lg:       1.25rem;    /* 20px */
+  --font-size-xl:       1.5rem;     /* 24px */
+
+  --line-height-tight:  1.05;
+  --line-height-normal: 1.5;
+  --line-height-loose:  1.75;
+
+  --letter-spacing-wide:  0.08em;
+  --letter-spacing-wider: 0.15em;
+  --letter-spacing-caps:  0.25em;
+
+  /* ── Spacing ───────────────────────────────────────── */
+  --space-xs:   0.25rem;
+  --space-sm:   0.5rem;
+  --space-md:   1rem;
+  --space-lg:   1.5rem;
+  --space-xl:   2rem;
+  --space-2xl:  3rem;
+  --space-3xl:  4rem;
+  --space-4xl:  6rem;
+
+  --section-padding-v: 6.25rem;   /* 100px */
+  --section-padding-h: 3.75rem;   /* 60px */
+
+  --container-max:      1200px;
+
+  /* ── Borders & Radius ──────────────────────────────── */
+  --border-radius-sm:  2px;
+  --border-radius-md:  4px;
+  --border-radius-lg:  8px;
+  --border-radius-pill:9999px;
+
+  --border-color:            rgba(25, 23, 20, 0.10);
+  --border-color-medium:     rgba(25, 23, 20, 0.18);
+  --border-color-gold:       rgba(211, 171, 45, 0.30);
+  --border-color-light:      rgba(255, 255, 255, 0.10);
+
+  /* ── Transitions ───────────────────────────────────── */
+  --transition-fast:   150ms ease;
+  --transition-base:   220ms ease;
+  --transition-slow:   380ms ease;
+
+  /* ── Z-index layers ────────────────────────────────── */
+  --z-nav:     100;
+  --z-overlay: 200;
+  --z-modal:   300;
+
+  /* ── Shadows ───────────────────────────────────────── */
+  --shadow-card:  0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+  --shadow-focus: 0 0 0 3px rgba(211, 171, 45, 0.35);
+}

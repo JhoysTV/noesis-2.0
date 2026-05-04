@@ -1,0 +1,98 @@
+/* ============================================================
+   process.css — Process Section
+   ============================================================ */
+
+.process {
+  background-color: var(--color-bg-dark);
+}
+
+.process__title {
+  color: var(--color-white);
+}
+
+.process__desc {
+  color: var(--color-warm-gray);
+}
+
+.process__header {
+  max-width: var(--container-max);
+  margin: 0 auto var(--space-4xl);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-2xl);
+}
+
+/* ── Steps list ───────────────────────────────────────────── */
+.process__steps {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  position: relative;
+  list-style: none;
+}
+
+/* Connector line between dots */
+.process__steps::before {
+  content: '';
+  position: absolute;
+  top: 1.75rem;
+  left: calc(12.5% + 1rem);
+  right: calc(12.5% + 1rem);
+  height: 1px;
+  background-color: var(--border-color-gold);
+  pointer-events: none;
+}
+
+/* ── Individual step ──────────────────────────────────────── */
+.process-step {
+  padding: 0 2rem;
+  text-align: center;
+  position: relative;
+}
+
+.process-step__dot {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  background-color: rgba(211, 171, 45, 0.08);
+  border: 1px solid var(--border-color-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 2rem;
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-black);
+  color: var(--color-gold);
+  position: relative;
+  z-index: 1;
+  transition:
+    background-color var(--transition-base),
+    color var(--transition-base);
+}
+
+.process-step:hover .process-step__dot {
+  background-color: var(--color-gold);
+  color: var(--color-near-black);
+}
+
+.process-step__icon {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.process-step__name {
+  font-size: 1rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-white);
+  margin-bottom: 0.75rem;
+}
+
+.process-step__desc {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-light);
+  color: var(--color-warm-gray);
+  line-height: var(--line-height-loose);
+}

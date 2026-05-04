@@ -1,0 +1,142 @@
+/* ============================================================
+   hero.css — Hero Section
+   ============================================================ */
+
+.hero {
+  min-height: 100vh;
+  background-color: var(--color-bg-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 5rem var(--section-padding-h) 0;
+  text-align: center;
+}
+
+/* ── Background grid ──────────────────────────────────────── */
+.hero__grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(211, 171, 45, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(211, 171, 45, 0.05) 1px, transparent 1px);
+  background-size: 3.75rem 3.75rem;
+  pointer-events: none;
+}
+
+/* ── Ambient glow ─────────────────────────────────────────── */
+.hero__glow {
+  position: absolute;
+  right: -4rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40rem;
+  height: 40rem;
+  background: radial-gradient(circle, rgba(211, 171, 45, 0.10) 0%, transparent 68%);
+  pointer-events: none;
+}
+
+/* ── Content ──────────────────────────────────────────────── */
+.hero__content {
+  position: relative;
+  z-index: 2;
+  max-width: 52rem;
+  width: 100%;
+}
+
+/* Eyebrow label */
+.hero__eyebrow {
+  display: inline-block;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-caps);
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 1.75rem;
+  padding: 0.375rem 1rem;
+  border: 1px solid var(--border-color-gold);
+  border-radius: var(--border-radius-sm);
+}
+
+/* Main title */
+.hero__title {
+  font-size: clamp(3rem, 7.5vw, 5.5rem);
+  font-weight: var(--font-weight-black);
+  line-height: var(--line-height-tight);
+  color: var(--color-white);
+  letter-spacing: -0.025em;
+  margin-bottom: 0.5rem;
+}
+
+.hero__title-accent {
+  color: var(--color-gold);
+}
+
+/* Brand tagline */
+.hero__brand-line {
+  font-size: clamp(0.875rem, 2vw, 1.25rem);
+  font-weight: var(--font-weight-light);
+  color: var(--color-warm-gray);
+  letter-spacing: var(--letter-spacing-wider);
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+
+/* Description paragraph */
+.hero__desc {
+  font-size: 1.125rem;
+  font-weight: var(--font-weight-light);
+  color: var(--color-warm-gray);
+  line-height: var(--line-height-loose);
+  max-width: 35rem;
+  margin: 0 auto 3rem;
+}
+
+/* CTA buttons */
+.hero__actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ── Stats ────────────────────────────────────────────────── */
+.hero__stats {
+  display: flex;
+  gap: 3.75rem;
+  justify-content: center;
+  margin-top: 5rem;
+  padding-top: 3rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.hero__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.hero__stat-num {
+  font-size: 2.25rem;
+  font-weight: var(--font-weight-black);
+  color: var(--color-gold);
+  line-height: 1;
+  display: inline;
+}
+
+.hero__stat-plus,
+.hero__stat-pct {
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-black);
+  color: var(--color-gold);
+}
+
+.hero__stat-label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-warm-gray);
+  letter-spacing: var(--letter-spacing-wider);
+  text-transform: uppercase;
+}

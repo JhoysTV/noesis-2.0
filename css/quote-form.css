@@ -1,0 +1,254 @@
+/* ============================================================
+   quote-form.css — Quote / Contact Form Section
+   ============================================================ */
+
+.quote-section {
+  background-color: var(--color-bg-section);
+}
+
+.quote-section__wrap {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+/* ── Left info panel ──────────────────────────────────────── */
+.quote-info .section-desc {
+  margin-bottom: var(--space-2xl);
+  max-width: 100%;
+}
+
+.quote-info__list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-top: var(--space-xl);
+  list-style: none;
+}
+
+.quote-info__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.quote-info__icon {
+  width: 2.25rem;
+  height: 2.25rem;
+  flex-shrink: 0;
+  background-color: var(--color-gold);
+  border-radius: var(--border-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.quote-info__item strong {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.quote-info__item p {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-light);
+  color: var(--color-text-muted);
+  line-height: var(--line-height-loose);
+}
+
+/* ── Form card ────────────────────────────────────────────── */
+.form-card {
+  background-color: var(--color-bg-primary);
+  padding: 3.5rem 3rem;
+  border-radius: var(--border-radius-sm);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-card);
+}
+
+.form-card__title {
+  font-size: 1.375rem;
+  font-weight: var(--font-weight-black);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-xl);
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* ── Multi-step progress ──────────────────────────────────── */
+.form-progress {
+  display: flex;
+  margin-bottom: var(--space-xl);
+}
+
+.form-progress__step {
+  flex: 1;
+  text-align: center;
+  padding-bottom: 1rem;
+  position: relative;
+}
+
+.form-progress__step::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--color-light-bg);
+  transition: background-color var(--transition-base);
+}
+
+.form-progress__step--active::after {
+  background-color: var(--color-gold);
+}
+
+.form-progress__step--done::after {
+  background-color: var(--color-olive);
+}
+
+.form-progress__label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-regular);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+  color: var(--color-warm-gray);
+  transition: color var(--transition-base);
+}
+
+.form-progress__step--active .form-progress__label {
+  color: var(--color-gold);
+  font-weight: var(--font-weight-bold);
+}
+
+.form-progress__step--done .form-progress__label {
+  color: var(--color-olive);
+}
+
+/* ── Form steps ───────────────────────────────────────────── */
+.form-step {
+  display: none;
+}
+
+.form-step--active {
+  display: block;
+}
+
+.form-step__intro {
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-light);
+  color: var(--color-text-muted);
+  line-height: var(--line-height-loose);
+  margin-bottom: var(--space-lg);
+}
+
+/* ── Form navigation ──────────────────────────────────────── */
+.form-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--space-xl);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--border-color);
+}
+
+/* ── Upload zone ──────────────────────────────────────────── */
+.upload-zone {
+  border: 2px dashed var(--border-color-medium);
+  border-radius: var(--border-radius-sm);
+  padding: 2.5rem;
+  text-align: center;
+  cursor: pointer;
+  background-color: var(--color-bg-section);
+  transition:
+    border-color var(--transition-base),
+    background-color var(--transition-base);
+  position: relative;
+}
+
+.upload-zone:hover,
+.upload-zone--dragover {
+  border-color: var(--color-gold);
+  background-color: var(--color-gold-faint);
+}
+
+.upload-zone:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+.upload-zone__icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.upload-zone__text {
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-light);
+  color: var(--color-text-muted);
+}
+
+.upload-zone__hint {
+  font-size: var(--font-size-xs);
+  color: var(--color-warm-gray);
+  margin-top: 0.375rem;
+}
+
+/* ── File preview chips ───────────────────────────────────── */
+.upload-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: 1rem;
+}
+
+.upload-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.875rem;
+  background-color: var(--color-bg-section);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.upload-chip__size {
+  color: var(--color-warm-gray);
+}
+
+/* ── Review box ───────────────────────────────────────────── */
+.review-box {
+  background-color: var(--color-bg-section);
+  border-radius: var(--border-radius-sm);
+  padding: 1.5rem;
+  margin-bottom: var(--space-lg);
+}
+
+.review-row {
+  display: flex;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border-color);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-light);
+  color: var(--color-text-muted);
+}
+
+.review-row:last-child {
+  border-bottom: none;
+}
+
+.review-row__key {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  min-width: 7.5rem;
+  flex-shrink: 0;
+}

@@ -1,0 +1,68 @@
+/* ============================================================
+   modals.css — Dialog / Modal Overlays
+   ============================================================ */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(25, 23, 20, 0.88);
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.modal-overlay[hidden] {
+  display: none;
+}
+
+.modal {
+  background-color: var(--color-bg-primary);
+  padding: 4rem;
+  border-radius: var(--border-radius-md);
+  text-align: center;
+  max-width: 30rem;
+  width: 100%;
+  animation: modal-in 0.35s ease;
+}
+
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modal__icon {
+  width: 4.5rem;
+  height: 4.5rem;
+  background-color: var(--color-gold-faint);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.75rem;
+  font-size: 2rem;
+}
+
+.modal__title {
+  font-size: 1.75rem;
+  font-weight: var(--font-weight-black);
+  color: var(--color-text-primary);
+  margin-bottom: 1rem;
+}
+
+.modal__desc {
+  font-size: 0.9375rem;
+  font-weight: var(--font-weight-light);
+  color: var(--color-text-muted);
+  line-height: var(--line-height-loose);
+  margin-bottom: var(--space-xl);
+}

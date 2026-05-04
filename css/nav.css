@@ -1,0 +1,157 @@
+/* ============================================================
+   nav.css — Navigation Bar
+   ============================================================ */
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-nav);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--section-padding-h);
+  height: 4.5rem;
+  background-color: rgba(25, 23, 20, 0.96);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border-color-gold);
+  transition: box-shadow var(--transition-base);
+}
+
+.nav--scrolled {
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Logo ─────────────────────────────────────────────────── */
+.nav__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.nav__logo-icon {
+  width: 2.375rem;
+  height: 2.375rem;
+  flex-shrink: 0;
+}
+
+.nav__logo-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.nav__logo-text strong {
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-black);
+  color: var(--color-white);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+}
+
+.nav__logo-text span {
+  font-size: 0.625rem;
+  font-weight: var(--font-weight-light);
+  color: var(--color-warm-gray);
+  letter-spacing: var(--letter-spacing-wider);
+}
+
+/* ── Links ────────────────────────────────────────────────── */
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: 2.25rem;
+  list-style: none;
+}
+
+.nav__links a {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-warm-gray);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color var(--transition-base);
+  position: relative;
+  padding-bottom: 0.2rem;
+}
+
+.nav__links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: var(--color-gold);
+  transform: scaleX(0);
+  transition: transform var(--transition-base);
+}
+
+.nav__links a:hover,
+.nav__links a[aria-current="page"] {
+  color: var(--color-gold);
+}
+
+.nav__links a:hover::after,
+.nav__links a[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+
+/* ── CTA button ───────────────────────────────────────────── */
+.nav__cta {
+  background-color: var(--color-gold) !important;
+  color: var(--color-near-black) !important;
+  padding: 0.5625rem 1.25rem !important;
+  border-radius: var(--border-radius-sm) !important;
+  font-weight: var(--font-weight-bold) !important;
+  letter-spacing: var(--letter-spacing-wide) !important;
+  transition: background-color var(--transition-base) !important;
+}
+
+.nav__cta:hover {
+  background-color: var(--color-gold-light) !important;
+}
+
+.nav__cta::after {
+  display: none !important;
+}
+
+/* ── Mobile hamburger ─────────────────────────────────────── */
+.nav__hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.nav__hamburger span {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: var(--color-white);
+  border-radius: 1px;
+  transition: transform var(--transition-base), opacity var(--transition-base);
+}
+
+.nav__hamburger[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.nav__hamburger[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav__hamburger[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}

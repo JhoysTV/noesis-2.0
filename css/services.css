@@ -1,0 +1,226 @@
+/* ============================================================
+   services.css — Services Section
+   ============================================================ */
+
+.services {
+  background-color: var(--color-bg-section);
+}
+
+.services__header {
+  max-width: var(--container-max);
+  margin: 0 auto var(--space-4xl);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-2xl);
+}
+
+.services__grid {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+
+/* ── Service card ─────────────────────────────────────────── */
+.service-card {
+  background-color: var(--color-bg-primary);
+  padding: 3rem 2.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--transition-slow);
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: var(--color-gold);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--transition-slow);
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+}
+
+.service-card:hover::before {
+  transform: scaleX(1);
+}
+
+.service-card__num {
+  font-size: 3.5rem;
+  font-weight: var(--font-weight-black);
+  color: var(--color-light-bg);
+  line-height: 1;
+  margin-bottom: 1.5rem;
+  font-variant-numeric: tabular-nums;
+  user-select: none;
+}
+
+.service-card__name {
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-black);
+  color: var(--color-text-primary);
+  margin-bottom: 0.875rem;
+  line-height: 1.25;
+}
+
+.service-card__desc {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-light);
+  color: var(--color-text-muted);
+  line-height: var(--line-height-loose);
+}
+
+.service-card__price {
+  margin-top: 1.25rem;
+  font-size: 1rem;
+  font-weight: var(--font-weight-black);
+  color: var(--color-olive);
+}
+
+.service-card__action {
+  margin-top: 1.25rem;
+}
+
+.service-card--selected {
+  outline: 2px solid var(--color-gold);
+  outline-offset: -2px;
+}
+
+.order-cart {
+  max-width: var(--container-max);
+  margin: var(--space-2xl) auto 0;
+  padding: 2rem;
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  box-shadow: var(--shadow-card);
+}
+
+.order-cart__title {
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-black);
+  color: var(--color-text-primary);
+  margin-top: 0.25rem;
+}
+
+.order-cart__items {
+  display: grid;
+  gap: 0.75rem;
+  margin: 1.25rem 0;
+}
+
+.order-cart__empty {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-warm-gray);
+}
+
+.order-cart__item {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border-color);
+  font-size: var(--font-size-sm);
+}
+
+.order-cart__remove {
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  background-color: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.order-cart__remove:hover,
+.order-cart__remove:focus-visible {
+  border-color: var(--color-gold);
+  color: var(--color-text-primary);
+}
+
+.order-cart__footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 2px solid var(--color-light-bg);
+  font-size: 1.125rem;
+  color: var(--color-text-primary);
+}
+
+.order-cart__cta {
+  margin-top: 1.25rem;
+}
+
+.admin-panel {
+  background-color: var(--color-bg-section);
+}
+
+.admin-panel__wrap {
+  max-width: var(--container-max);
+  margin: 0 auto;
+}
+
+.admin-panel__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: var(--space-xl);
+  margin-bottom: var(--space-xl);
+}
+
+.admin-panel__table {
+  overflow-x: auto;
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+}
+
+.admin-orders {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 48rem;
+}
+
+.admin-orders th,
+.admin-orders td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  text-align: left;
+  vertical-align: top;
+  font-size: var(--font-size-sm);
+}
+
+.admin-orders th {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-black);
+  background-color: var(--color-bg-section);
+}
+
+.admin-orders td {
+  color: var(--color-text-muted);
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.625rem;
+  border-radius: 999px;
+  background-color: var(--color-gold-faint);
+  color: var(--color-olive);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+}
