@@ -1,13 +1,13 @@
 CATALOG_ITEMS = {
     "arquitectonico": {
         "id": "arquitectonico",
-        "name": "Diseño Arquitectónico Virtual",
+        "name": "Diseño Arquitectónico",
         "price": 65000,
         "description": "Concepto, distribución, planos base y lineamientos arquitectónicos en modalidad remota.",
     },
     "interiores": {
         "id": "interiores",
-        "name": "Diseño de Interiores Virtual",
+        "name": "Diseño de Interiores",
         "price": 35000,
         "description": "Distribución, estilo, paleta, materiales, mobiliario y visualización en modalidad remota.",
     },
