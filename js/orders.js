@@ -35,7 +35,6 @@ const Orders = (() => {
 
   const saveOrders = (orders) => {
     writeJson(ORDERS_KEY, orders);
-    renderAdmin();
   };
 
   const getTotal = (items = cart) =>
@@ -129,41 +128,6 @@ const Orders = (() => {
     payBtn.textContent = `Pagar ${money(active.total)}`;
   };
 
-  const renderAdmin = () => {
-    const container = qs('#adminOrders');
-    if (!container) return;
-    const orders = getOrders();
-
-    if (!orders.length) {
-      container.innerHTML = '<p class="order-cart__empty" style="padding: 1.5rem;">No hay pedidos todavía.</p>';
-      return;
-    }
-
-    container.innerHTML = `
-      <table class="admin-orders">
-        <thead>
-          <tr>
-            <th>Pedido</th>
-            <th>Cliente</th>
-            <th>Servicios</th>
-            <th>Total</th>
-            <th>Estado</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${orders.map((order) => `
-            <tr>
-              <td><strong>${order.id}</strong><br>${new Date(order.createdAt).toLocaleString('es-DO')}</td>
-              <td>${order.customer.name}<br>${order.customer.email}<br>${order.customer.phone || ''}</td>
-              <td>${order.items.map((item) => item.name).join('<br>')}</td>
-              <td>${money(order.total)}</td>
-              <td><span class="status-pill">${order.status}</span></td>
-            </tr>
-          `).join('')}
-        </tbody>
-      </table>`;
-  };
-
   const addFromCard = (card) => {
     if (!card?.dataset.serviceId) return;
     const item = {
@@ -244,36 +208,12 @@ const Orders = (() => {
     return paidOrder;
   };
 
-  const seedDemoOrder = () => {
-    const demo = {
-      id: `NOE-${Date.now().toString().slice(-6)}`,
-      status: 'pagado',
-      paymentProvider: 'stripe_test_simulado',
-      stripeSessionId: 'cs_test_demo',
-      createdAt: new Date().toISOString(),
-      paidAt: new Date().toISOString(),
-      customer: {
-        name: 'Cliente Demo',
-        email: 'cliente@demo.com',
-        phone: '+1 (809) 555-0101',
-        contactPreference: 'Correo electrónico',
-      },
-      projectType: 'Diseño de interiores residencial',
-      area: '85',
-      requirements: 'Sala, comedor y cocina con renders.',
-      budget: 'RD$300,000 – RD$600,000',
-      items: [
-        { id: 'interiores', name: 'Diseño de Interiores', price: 35000 },
-        { id: 'renders', name: 'Renders & Visualización', price: 12000 },
-      ],
-      total: 47000,
-      emailNotifications: ['Resumen enviado al cliente', 'Orden enviada al arquitecto'],
-    };
-    saveOrders([demo, ...getOrders()]);
-  };
-
   const init = () => {
     cart = readJson(CART_KEY, []);
+    const availableIds = qsa('[data-service-id]').map((card) => card.dataset.serviceId);
+    cart = cart.filter((item) => availableIds.includes(item.id));
+    persistCart();
+
     qsa('[data-add-service]').forEach((btn) => {
       btn.addEventListener('click', () => addFromCard(btn.closest('.service-card')));
     });
@@ -287,11 +227,9 @@ const Orders = (() => {
       renderOrderReview();
     });
 
-    qs('#seedDemoOrder')?.addEventListener('click', seedDemoOrder);
     renderCart();
     renderOrderReview();
     renderPayment();
-    renderAdmin();
   };
 
   return {

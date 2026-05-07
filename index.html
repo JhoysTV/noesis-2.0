@@ -124,56 +124,24 @@
           <p class="section-label">Lo que hacemos</p>
           <h2 class="section-title" id="services-title">Nuestros servicios</h2>
         </div>
-        <p class="section-desc">Elige uno o varios módulos de servicio, completa tus datos y confirma el pedido con pago online.</p>
+        <p class="section-desc">Servicios de diseño arquitectónico e interiores. Elige el módulo que necesitas, completa tus datos y confirma el pedido online.</p>
       </div>
 
       <div class="services__grid">
 
-        <article class="service-card fade-up" data-service-id="arquitectonico" data-service-name="Diseño Arquitectónico" data-service-price="65000">
+        <article class="service-card fade-up" data-service-id="arquitectonico" data-service-name="Diseño Arquitectónico Virtual" data-service-price="65000">
           <div class="service-card__num" aria-hidden="true">01</div>
           <h3 class="service-card__name">Diseño Arquitectónico</h3>
-          <p class="service-card__desc">Proyectos residenciales y comerciales con identidad propia. Planos constructivos, renders 3D y documentación técnica completa.</p>
+          <p class="service-card__desc">Desarrollo remoto de concepto, distribución, planos base y lineamientos arquitectónicos para proyectos residenciales o comerciales.</p>
           <p class="service-card__price">Desde RD$ 65,000</p>
           <button type="button" class="btn btn--outline service-card__action" data-add-service>Añadir al pedido</button>
         </article>
 
-        <article class="service-card fade-up" data-service-id="interiores" data-service-name="Diseño de Interiores" data-service-price="35000">
+        <article class="service-card fade-up" data-service-id="interiores" data-service-name="Diseño de Interiores Virtual" data-service-price="35000">
           <div class="service-card__num" aria-hidden="true">02</div>
           <h3 class="service-card__name">Diseño de Interiores</h3>
-          <p class="service-card__desc">Transformamos interiores en experiencias. Distribución de espacios, selección de materiales, paletas de color y amueblamiento.</p>
+          <p class="service-card__desc">Asesoría y propuesta remota de distribución, estilo, paleta, materiales, mobiliario y visualización para transformar tus espacios.</p>
           <p class="service-card__price">Desde RD$ 35,000</p>
-          <button type="button" class="btn btn--outline service-card__action" data-add-service>Añadir al pedido</button>
-        </article>
-
-        <article class="service-card fade-up" data-service-id="estructural" data-service-name="Ingeniería Estructural" data-service-price="48000">
-          <div class="service-card__num" aria-hidden="true">03</div>
-          <h3 class="service-card__name">Ingeniería Estructural</h3>
-          <p class="service-card__desc">Cálculos y memorias estructurales que garantizan seguridad y durabilidad en cada proyecto de construcción.</p>
-          <p class="service-card__price">Desde RD$ 48,000</p>
-          <button type="button" class="btn btn--outline service-card__action" data-add-service>Añadir al pedido</button>
-        </article>
-
-        <article class="service-card fade-up" data-service-id="renders" data-service-name="Renders &amp; Visualización" data-service-price="12000">
-          <div class="service-card__num" aria-hidden="true">04</div>
-          <h3 class="service-card__name">Renders &amp; Visualización</h3>
-          <p class="service-card__desc">Imágenes fotorrealistas y recorridos virtuales para visualizar tu proyecto antes de construir.</p>
-          <p class="service-card__price">Desde RD$ 12,000</p>
-          <button type="button" class="btn btn--outline service-card__action" data-add-service>Añadir al pedido</button>
-        </article>
-
-        <article class="service-card fade-up" data-service-id="supervision" data-service-name="Supervisión de Obras" data-service-price="42000">
-          <div class="service-card__num" aria-hidden="true">05</div>
-          <h3 class="service-card__name">Supervisión de Obras</h3>
-          <p class="service-card__desc">Dirección y control de calidad en la ejecución de obras, asegurando el cumplimiento de planos y especificaciones.</p>
-          <p class="service-card__price">Desde RD$ 42,000</p>
-          <button type="button" class="btn btn--outline service-card__action" data-add-service>Añadir al pedido</button>
-        </article>
-
-        <article class="service-card fade-up" data-service-id="consultoria" data-service-name="Consultoría &amp; Asesoría" data-service-price="8500">
-          <div class="service-card__num" aria-hidden="true">06</div>
-          <h3 class="service-card__name">Consultoría &amp; Asesoría</h3>
-          <p class="service-card__desc">Orientación profesional en normativas, permisos de construcción, zonificación y optimización de presupuestos.</p>
-          <p class="service-card__price">Desde RD$ 8,500</p>
           <button type="button" class="btn btn--outline service-card__action" data-add-service>Añadir al pedido</button>
         </article>
 
@@ -390,12 +358,9 @@
               <label for="f-tipo">Tipo de proyecto</label>
               <select id="f-tipo" name="tipo">
                 <option value="">Selecciona una opción</option>
-                <option>Diseño de interiores residencial</option>
-                <option>Diseño de interiores comercial</option>
-                <option>Diseño arquitectónico</option>
-                <option>Remodelación</option>
-                <option>Ingeniería estructural</option>
-                <option>Renders y visualización 3D</option>
+                <option>Diseño arquitectónico virtual</option>
+                <option>Diseño de interiores virtual</option>
+                <option>Diseño arquitectónico + interiores virtual</option>
               </select>
             </div>
             <div class="form-nav">
@@ -604,19 +569,6 @@
       </div><!-- /.payment__wrap -->
     </section>
 
-    <section class="admin-panel" id="admin" aria-labelledby="admin-title">
-      <div class="admin-panel__wrap fade-up">
-        <div class="admin-panel__header">
-          <div>
-            <p class="section-label">Gestión del estudio</p>
-            <h2 class="section-title" id="admin-title">Pedidos recibidos</h2>
-          </div>
-          <button type="button" class="btn btn--ghost" id="seedDemoOrder">Cargar ejemplo</button>
-        </div>
-        <div class="admin-panel__table" id="adminOrders" aria-live="polite"></div>
-      </div>
-    </section>
-
     <!-- ═══════════════════════════════════════
          ABOUT
     ═══════════════════════════════════════ -->
@@ -688,11 +640,8 @@
       <div class="footer__col">
         <h4 class="footer__col-title">Servicios</h4>
         <ul class="footer__links" role="list">
-          <li><a href="#services">Diseño Arquitectónico</a></li>
-          <li><a href="#services">Diseño de Interiores</a></li>
-          <li><a href="#services">Ingeniería Estructural</a></li>
-          <li><a href="#services">Renders 3D</a></li>
-          <li><a href="#services">Supervisión de Obras</a></li>
+          <li><a href="#services">Diseño Arquitectónico Virtual</a></li>
+          <li><a href="#services">Diseño de Interiores Virtual</a></li>
         </ul>
       </div>
 

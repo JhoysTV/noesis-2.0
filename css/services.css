@@ -19,7 +19,7 @@
   max-width: var(--container-max);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 2px;
 }
 
@@ -161,66 +161,4 @@
 
 .order-cart__cta {
   margin-top: 1.25rem;
-}
-
-.admin-panel {
-  background-color: var(--color-bg-section);
-}
-
-.admin-panel__wrap {
-  max-width: var(--container-max);
-  margin: 0 auto;
-}
-
-.admin-panel__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
-  gap: var(--space-xl);
-  margin-bottom: var(--space-xl);
-}
-
-.admin-panel__table {
-  overflow-x: auto;
-  background-color: var(--color-bg-primary);
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius-sm);
-}
-
-.admin-orders {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 48rem;
-}
-
-.admin-orders th,
-.admin-orders td {
-  padding: 1rem;
-  border-bottom: 1px solid var(--border-color);
-  text-align: left;
-  vertical-align: top;
-  font-size: var(--font-size-sm);
-}
-
-.admin-orders th {
-  color: var(--color-text-primary);
-  font-weight: var(--font-weight-black);
-  background-color: var(--color-bg-section);
-}
-
-.admin-orders td {
-  color: var(--color-text-muted);
-}
-
-.status-pill {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.25rem 0.625rem;
-  border-radius: 999px;
-  background-color: var(--color-gold-faint);
-  color: var(--color-olive);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-bold);
-  text-transform: uppercase;
-  letter-spacing: var(--letter-spacing-wide);
 }

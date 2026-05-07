@@ -130,11 +130,6 @@
     grid-column: 1;
   }
 
-  .admin-panel__header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
   /* Portfolio */
   .portfolio__header {
     flex-direction: column;
