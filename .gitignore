@@ -7,3 +7,5 @@ backend/data/*.sqlite3
 backend/data/*.sqlite3-*
 noesis-entrega-cliente.zip
 noesis-produccion.zip
+.claude/
+backend/data/uploads/

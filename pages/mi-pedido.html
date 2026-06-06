@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Estado de tu solicitud — Nóesis del Caribe" />
+  <title>Mi Pedido — Nóesis del Caribe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,300;0,400;0,700;0,900;1,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/variables.css" />
+  <link rel="stylesheet" href="/css/reset.css" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/order-status.css" />
+</head>
+<body class="order-status-body">
+
+  <!-- NAV -->
+  <nav class="os-nav">
+    <a href="/" class="os-nav__logo" aria-label="Volver al portal Nóesis">
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" width="36" height="36">
+        <polygon points="18,80 18,28 38,18 38,80" fill="#D3AB2D"/>
+        <rect x="22" y="32" width="8" height="8" fill="rgba(25,23,20,0.35)"/>
+        <polygon points="46,80 46,38 72,22 72,56 58,56 58,80" fill="#D3AB2D"/>
+        <polygon points="58,56 72,56 72,80 58,80" fill="rgba(25,23,20,0.18)"/>
+      </svg>
+      <div>
+        <strong>Nóesis del Caribe</strong>
+        <span>Portal de cliente</span>
+      </div>
+    </a>
+    <a href="/" class="os-nav__back">← Volver al portal</a>
+  </nav>
+
+  <main class="os-main">
+
+    <!-- Loading state -->
+    <div class="os-loading" id="osLoading">
+      <div class="os-loading__spinner" aria-hidden="true"></div>
+      <p>Cargando tu solicitud...</p>
+    </div>
+
+    <!-- Error state -->
+    <div class="os-error" id="osError" hidden>
+      <div class="os-error__icon" aria-hidden="true">🔍</div>
+      <h1>Solicitud no encontrada</h1>
+      <p>El enlace puede haber expirado o ser incorrecto. Revisa tu correo de confirmación o contáctanos.</p>
+      <a href="/" class="btn btn--primary">Volver al portal</a>
+    </div>
+
+    <!-- Payment success banner -->
+    <div class="os-success-banner" id="paymentSuccessBanner" hidden>
+      <span>✓</span>
+      <div>
+        <strong>¡Pago confirmado!</strong>
+        <p>Hemos recibido tu pago. Nuestro equipo comenzará a trabajar en tu proyecto de inmediato.</p>
+      </div>
+    </div>
+
+    <!-- Order content -->
+    <div class="os-content" id="osContent" hidden>
+
+      <!-- Header -->
+      <header class="os-header">
+        <div>
+          <p class="os-header__eyebrow">Solicitud de proyecto</p>
+          <h1 class="os-header__title" id="osOrderId"></h1>
+        </div>
+        <div class="os-status-badge" id="osStatusBadge"></div>
+      </header>
+
+      <!-- Status timeline -->
+      <div class="os-timeline" id="osTimeline" aria-label="Estado del proyecto">
+        <div class="os-timeline__step" data-step="recibido">
+          <div class="os-timeline__dot"></div>
+          <div class="os-timeline__text">
+            <strong>Solicitud recibida</strong>
+            <span>Revisando tu proyecto</span>
+          </div>
+        </div>
+        <div class="os-timeline__step" data-step="cotizado">
+          <div class="os-timeline__dot"></div>
+          <div class="os-timeline__text">
+            <strong>Cotización enviada</strong>
+            <span>Revisa y acepta para continuar</span>
+          </div>
+        </div>
+        <div class="os-timeline__step" data-step="pagado">
+          <div class="os-timeline__dot"></div>
+          <div class="os-timeline__text">
+            <strong>Pago recibido</strong>
+            <span>En producción</span>
+          </div>
+        </div>
+        <div class="os-timeline__step" data-step="en_curso">
+          <div class="os-timeline__dot"></div>
+          <div class="os-timeline__text">
+            <strong>Diseño en proceso</strong>
+            <span>Tu proyecto está en manos de nuestro equipo</span>
+          </div>
+        </div>
+        <div class="os-timeline__step" data-step="entregado">
+          <div class="os-timeline__dot"></div>
+          <div class="os-timeline__text">
+            <strong>Diseños entregados</strong>
+            <span>Listo para descargar</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="os-grid">
+
+        <!-- Left: order summary -->
+        <div class="os-card">
+          <h2 class="os-card__title">Resumen de tu solicitud</h2>
+          <div class="os-info-table" id="orderSummary"></div>
+        </div>
+
+        <!-- Right: action area (changes by status) -->
+        <div class="os-action-area">
+
+          <!-- Quote panel (shown when status = cotizado) -->
+          <div class="os-quote-panel" id="quotePanel" hidden>
+            <div class="os-quote-panel__header">
+              <p class="os-quote-panel__label">Tu cotización</p>
+              <p class="os-quote-panel__amount" id="quoteAmount">RD$ —</p>
+            </div>
+            <div class="os-quote-panel__details" id="quoteDetails"></div>
+            <button class="btn btn--primary os-pay-btn" id="payBtn">
+              Aceptar y pagar ahora
+            </button>
+            <p class="os-quote-panel__note">
+              Pago seguro a través de Stripe. No almacenamos datos de tarjeta.
+            </p>
+          </div>
+
+          <!-- Pending panel (shown when status = recibido) -->
+          <div class="os-pending-panel" id="pendingPanel" hidden>
+            <div class="os-pending-panel__icon" aria-hidden="true">⏳</div>
+            <h3>En revisión</h3>
+            <p>Nuestro equipo está revisando tu solicitud. Recibirás tu cotización por correo electrónico en 24–48 horas hábiles.</p>
+          </div>
+
+          <!-- In progress panel -->
+          <div class="os-pending-panel" id="inProgressPanel" hidden>
+            <div class="os-pending-panel__icon" aria-hidden="true">🏗️</div>
+            <h3>Tu diseño está en proceso</h3>
+            <p>Nuestro equipo está trabajando en tu proyecto. Te notificaremos por correo cuando los diseños estén listos.</p>
+          </div>
+
+          <!-- Delivery panel (shown when status = entregado) -->
+          <div class="os-delivery-panel" id="deliveryPanel" hidden>
+            <div class="os-delivery-panel__header">
+              <span class="os-delivery-panel__icon" aria-hidden="true">🏆</span>
+              <h3>Tus diseños están listos</h3>
+              <p>Descarga los archivos de tu proyecto a continuación.</p>
+            </div>
+            <div class="os-file-list" id="deliveryFileList"></div>
+          </div>
+
+          <!-- Paid panel -->
+          <div class="os-pending-panel" id="paidPanel" hidden>
+            <div class="os-pending-panel__icon" aria-hidden="true">✅</div>
+            <h3>Pago confirmado</h3>
+            <p>Hemos recibido tu pago. El equipo de Nóesis comenzará tu diseño de inmediato.</p>
+          </div>
+
+        </div>
+
+      </div><!-- /.os-grid -->
+
+      <!-- Contact footer -->
+      <footer class="os-footer">
+        <p>¿Tienes preguntas sobre tu proyecto? Escríbenos a
+          <a href="mailto:info@noesisdelcaribe.com">info@noesisdelcaribe.com</a>
+          o contáctanos por WhatsApp.
+        </p>
+      </footer>
+
+    </div><!-- /#osContent -->
+
+  </main>
+
+  <script src="/js/order-status.js"></script>
+</body>
+</html>

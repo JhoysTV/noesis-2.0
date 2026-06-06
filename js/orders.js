@@ -232,6 +232,15 @@ const Orders = (() => {
     renderPayment();
   };
 
+  const getCart = () => [...cart];
+
+  const clearCart = () => {
+    cart = [];
+    persistCart();
+    renderCart();
+    renderOrderReview();
+  };
+
   return {
     init,
     money,
@@ -240,5 +249,7 @@ const Orders = (() => {
     markActiveOrderPaid,
     getActiveOrder,
     clearActiveOrder,
+    getCart,
+    clearCart,
   };
 })();

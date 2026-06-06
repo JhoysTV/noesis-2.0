@@ -39,6 +39,42 @@ class CheckoutRequest(BaseModel):
     order: DraftOrder
 
 
+class SubmitRequest(BaseModel):
+    """Request to submit a new project request (no immediate payment)."""
+    customer: Customer
+    projectType: str = Field(min_length=2, max_length=120)
+    area: str = Field(default="", max_length=40)
+    requirements: str = Field(default="", max_length=2000)
+    budget: str = Field(default="", max_length=120)
+    photoNotes: str = Field(default="", max_length=1000)
+    items: list[OrderLine] = Field(min_length=1)
+    total: int = Field(default=0, ge=0)
+
+    @field_validator("items")
+    @classmethod
+    def unique_items(cls, items: list[OrderLine]) -> list[OrderLine]:
+        ids = [item.id for item in items]
+        if len(ids) != len(set(ids)):
+            raise ValueError("No se permiten servicios duplicados.")
+        return items
+
+
+class QuoteCreate(BaseModel):
+    total: int = Field(ge=0)
+    notes: str = Field(default="", max_length=2000)
+    scope: str = Field(default="", max_length=2000)
+    deadlineDays: int | None = Field(default=None, ge=1, le=365)
+
+
+class StatusUpdate(BaseModel):
+    status: str = Field(min_length=2, max_length=40)
+
+
+class CheckoutFromToken(BaseModel):
+    """Initiate Stripe checkout using the client's secure token."""
+    token: str = Field(min_length=10, max_length=100)
+
+
 class OrderResponse(BaseModel):
     id: str
     status: str

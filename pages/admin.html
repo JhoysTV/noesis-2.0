@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel de Administración — Nóesis del Caribe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@300;400;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/variables.css" />
+  <link rel="stylesheet" href="/css/reset.css" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/admin.css" />
+</head>
+<body class="admin-body">
+
+  <!-- LOGIN OVERLAY -->
+  <div class="admin-login" id="loginOverlay">
+    <div class="admin-login__card">
+      <div class="admin-login__logo">
+        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" width="48" height="48">
+          <polygon points="18,80 18,28 38,18 38,80" fill="#D3AB2D"/>
+          <rect x="22" y="32" width="8" height="8" fill="rgba(25,23,20,0.35)"/>
+          <polygon points="46,80 46,38 72,22 72,56 58,56 58,80" fill="#D3AB2D"/>
+          <polygon points="58,56 72,56 72,80 58,80" fill="rgba(25,23,20,0.18)"/>
+        </svg>
+        <div>
+          <strong>Nóesis del Caribe</strong>
+          <span>Panel de Administración</span>
+        </div>
+      </div>
+      <h1 class="admin-login__title">Acceso restringido</h1>
+      <p class="admin-login__desc">Ingresa el token de administrador para continuar.</p>
+      <div class="admin-login__form">
+        <label for="tokenInput">Token de acceso</label>
+        <input type="password" id="tokenInput" placeholder="••••••••••••••••" autocomplete="current-password" />
+        <button class="btn btn--primary" id="loginBtn">Ingresar</button>
+        <p class="admin-login__error" id="loginError" hidden>Token incorrecto. Intenta de nuevo.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN PANEL -->
+  <div class="admin-panel" id="adminPanel" hidden>
+
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="admin-sidebar__brand">
+        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" width="36" height="36">
+          <polygon points="18,80 18,28 38,18 38,80" fill="#D3AB2D"/>
+          <rect x="22" y="32" width="8" height="8" fill="rgba(25,23,20,0.35)"/>
+          <polygon points="46,80 46,38 72,22 72,56 58,56 58,80" fill="#D3AB2D"/>
+          <polygon points="58,56 72,56 72,80 58,80" fill="rgba(25,23,20,0.18)"/>
+        </svg>
+        <span>Nóesis Admin</span>
+      </div>
+
+      <nav class="admin-sidebar__nav">
+        <button class="admin-nav-btn admin-nav-btn--active" data-view="list" id="navList">
+          <span class="admin-nav-btn__icon">📋</span> Solicitudes
+        </button>
+        <button class="admin-nav-btn" data-view="detail" id="navDetail" hidden>
+          <span class="admin-nav-btn__icon">🔍</span> Detalle
+        </button>
+      </nav>
+
+      <div class="admin-sidebar__filters">
+        <p class="admin-sidebar__label">Filtrar por estado</p>
+        <label class="admin-filter"><input type="checkbox" value="recibido" checked> Recibidas</label>
+        <label class="admin-filter"><input type="checkbox" value="cotizado" checked> Cotizadas</label>
+        <label class="admin-filter"><input type="checkbox" value="pagado" checked> Pagadas</label>
+        <label class="admin-filter"><input type="checkbox" value="en_curso" checked> En curso</label>
+        <label class="admin-filter"><input type="checkbox" value="entregado"> Entregadas</label>
+        <label class="admin-filter"><input type="checkbox" value="cancelado"> Canceladas</label>
+      </div>
+
+      <button class="admin-logout" id="logoutBtn">Cerrar sesión</button>
+    </aside>
+
+    <!-- Main content -->
+    <main class="admin-main">
+
+      <!-- Orders list view -->
+      <section class="admin-view" id="viewList">
+        <header class="admin-main__header">
+          <h2>Solicitudes de proyecto</h2>
+          <button class="btn btn--outline" id="refreshBtn">↻ Actualizar</button>
+        </header>
+
+        <div class="admin-stats" id="statsBar">
+          <div class="admin-stat">
+            <span class="admin-stat__num" id="statTotal">—</span>
+            <span class="admin-stat__label">Total</span>
+          </div>
+          <div class="admin-stat">
+            <span class="admin-stat__num" id="statRecibido">—</span>
+            <span class="admin-stat__label">Nuevas</span>
+          </div>
+          <div class="admin-stat">
+            <span class="admin-stat__num" id="statPagado">—</span>
+            <span class="admin-stat__label">Pagadas</span>
+          </div>
+          <div class="admin-stat">
+            <span class="admin-stat__num" id="statEntregado">—</span>
+            <span class="admin-stat__label">Entregadas</span>
+          </div>
+        </div>
+
+        <div class="admin-orders" id="ordersList">
+          <div class="admin-loading" id="listLoading">Cargando solicitudes...</div>
+        </div>
+      </section>
+
+      <!-- Order detail view -->
+      <section class="admin-view" id="viewDetail" hidden>
+        <header class="admin-main__header">
+          <button class="btn btn--ghost" id="backToList">← Volver</button>
+          <span class="admin-order-id" id="detailOrderId"></span>
+          <span class="admin-badge" id="detailStatus"></span>
+        </header>
+
+        <div class="admin-detail-grid">
+
+          <!-- Left column: client info + project -->
+          <div class="admin-detail-col">
+            <div class="admin-card">
+              <h3 class="admin-card__title">Datos del cliente</h3>
+              <div class="admin-info-grid" id="clientInfo"></div>
+            </div>
+
+            <div class="admin-card">
+              <h3 class="admin-card__title">Proyecto</h3>
+              <div class="admin-info-grid" id="projectInfo"></div>
+            </div>
+
+            <div class="admin-card" id="photosCard">
+              <h3 class="admin-card__title">Fotografías del cliente</h3>
+              <div class="admin-photos" id="photosList"></div>
+            </div>
+
+            <div class="admin-card" id="deliveryCard">
+              <h3 class="admin-card__title">Archivos entregados</h3>
+              <div class="admin-photos" id="deliveryList"></div>
+            </div>
+          </div>
+
+          <!-- Right column: actions -->
+          <div class="admin-detail-col admin-detail-col--actions">
+
+            <!-- Quote section -->
+            <div class="admin-card" id="quoteCard">
+              <h3 class="admin-card__title">Cotización</h3>
+              <div class="admin-current-quote" id="currentQuote"></div>
+
+              <form class="admin-quote-form" id="quoteForm">
+                <div class="admin-form-group">
+                  <label for="qTotal">Monto total (DOP)</label>
+                  <input type="number" id="qTotal" min="0" step="500" placeholder="65000" />
+                </div>
+                <div class="admin-form-group">
+                  <label for="qScope">Alcance incluido</label>
+                  <textarea id="qScope" rows="4" placeholder="Planos arquitectónicos, renders 3D, etc."></textarea>
+                </div>
+                <div class="admin-form-group">
+                  <label for="qNotes">Notas adicionales para el cliente</label>
+                  <textarea id="qNotes" rows="3" placeholder="Observaciones, condiciones, etc."></textarea>
+                </div>
+                <div class="admin-form-group">
+                  <label for="qDeadline">Plazo estimado (días hábiles)</label>
+                  <input type="number" id="qDeadline" min="1" max="365" placeholder="15" />
+                </div>
+                <button type="submit" class="btn btn--primary" id="sendQuoteBtn">
+                  Enviar cotización al cliente
+                </button>
+              </form>
+            </div>
+
+            <!-- Status update -->
+            <div class="admin-card">
+              <h3 class="admin-card__title">Cambiar estado</h3>
+              <div class="admin-form-group">
+                <select id="statusSelect">
+                  <option value="recibido">Recibida</option>
+                  <option value="cotizado">Cotizada</option>
+                  <option value="pagado">Pagada</option>
+                  <option value="en_curso">En curso</option>
+                  <option value="entregado">Entregada</option>
+                  <option value="cancelado">Cancelada</option>
+                </select>
+              </div>
+              <button class="btn btn--outline" id="updateStatusBtn">Actualizar estado</button>
+            </div>
+
+            <!-- Delivery section -->
+            <div class="admin-card" id="deliveryFormCard">
+              <h3 class="admin-card__title">Entregar diseños</h3>
+              <p class="admin-card__desc">Sube los archivos de diseño finales. El cliente recibirá un correo con el enlace de descarga.</p>
+              <form class="admin-delivery-form" id="deliveryForm">
+                <div class="admin-upload-zone" id="deliveryDropZone">
+                  <span>📁</span>
+                  <p>Arrastra archivos o haz clic para seleccionar</p>
+                  <p class="admin-upload-zone__hint">PDF, DWG, ZIP, imágenes — Sin límite de tamaño</p>
+                  <input type="file" id="deliveryFiles" multiple class="sr-only" />
+                </div>
+                <div id="deliveryFileList" class="admin-file-list"></div>
+                <div class="admin-form-group">
+                  <label for="deliveryNotes">Nota para el cliente (opcional)</label>
+                  <textarea id="deliveryNotes" rows="2" placeholder="Instrucciones de uso, contraseñas, etc."></textarea>
+                </div>
+                <button type="submit" class="btn btn--dark" id="deliverBtn">
+                  Enviar diseños y notificar cliente
+                </button>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Toast notification -->
+  <div class="admin-toast" id="adminToast" role="alert" aria-live="polite"></div>
+
+  <script src="/js/admin.js"></script>
+</body>
+</html>

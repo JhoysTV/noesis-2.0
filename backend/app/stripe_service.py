@@ -24,10 +24,15 @@ class StripeService:
         if not self._stripe:
             raise HTTPException(status_code=503, detail="Stripe SDK no disponible.")
 
-    def create_checkout_session(self, order: dict) -> dict:
+    def create_checkout_session(self, order: dict, client_token: str | None = None) -> dict:
         self.ensure_configured()
-        success_url = f"{self.settings.app_base_url}/index.html?checkout=success&order={order['id']}"
-        cancel_url = f"{self.settings.app_base_url}/index.html?checkout=cancelled&order={order['id']}"
+        token = client_token or order.get("clientToken", "")
+        if token:
+            success_url = f"{self.settings.app_base_url}/mi-pedido?token={token}&payment=success"
+            cancel_url = f"{self.settings.app_base_url}/mi-pedido?token={token}&payment=cancelled"
+        else:
+            success_url = f"{self.settings.app_base_url}/index.html?checkout=success&order={order['id']}"
+            cancel_url = f"{self.settings.app_base_url}/index.html?checkout=cancelled&order={order['id']}"
         session = self._stripe.checkout.Session.create(
             mode="payment",
             success_url=success_url,

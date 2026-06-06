@@ -52,6 +52,27 @@ CREATE TABLE IF NOT EXISTS email_logs (
     created_at TEXT NOT NULL,
     error TEXT
 );
+
+CREATE TABLE IF NOT EXISTS quotes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    order_id TEXT NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
+    total INTEGER NOT NULL,
+    notes TEXT NOT NULL DEFAULT '',
+    scope TEXT NOT NULL DEFAULT '',
+    deadline_days INTEGER,
+    created_at TEXT NOT NULL,
+    sent_at TEXT
+);
+
+CREATE TABLE IF NOT EXISTS uploads (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    order_id TEXT NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
+    upload_type TEXT NOT NULL,
+    original_name TEXT NOT NULL,
+    stored_name TEXT NOT NULL,
+    size_bytes INTEGER NOT NULL,
+    uploaded_at TEXT NOT NULL
+);
 """
 
 
@@ -77,6 +98,18 @@ class Database:
     def init(self) -> None:
         with self.connect() as conn:
             conn.executescript(SCHEMA)
+        self._migrate()
+
+    def _migrate(self) -> None:
+        """Safe incremental migrations for existing databases."""
+        with self.connect() as conn:
+            # Add client_token column to orders if missing
+            existing = {row[1] for row in conn.execute("PRAGMA table_info(orders)")}
+            if "client_token" not in existing:
+                conn.execute("ALTER TABLE orders ADD COLUMN client_token TEXT")
+            conn.execute(
+                "CREATE UNIQUE INDEX IF NOT EXISTS idx_orders_token ON orders(client_token)"
+            )
 
     def upsert_order(self, order: dict) -> None:
         with self.connect() as conn:
@@ -86,8 +119,8 @@ class Database:
                     id, status, customer_name, customer_email, customer_phone,
                     contact_preference, project_type, area, requirements, budget,
                     total, stripe_session_id, stripe_payment_intent, created_at,
-                    paid_at, raw_json
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    paid_at, raw_json, client_token
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 ON CONFLICT(id) DO UPDATE SET
                     status=excluded.status,
                     customer_name=excluded.customer_name,
@@ -102,7 +135,8 @@ class Database:
                     stripe_session_id=COALESCE(excluded.stripe_session_id, orders.stripe_session_id),
                     stripe_payment_intent=COALESCE(excluded.stripe_payment_intent, orders.stripe_payment_intent),
                     paid_at=COALESCE(excluded.paid_at, orders.paid_at),
-                    raw_json=excluded.raw_json
+                    raw_json=excluded.raw_json,
+                    client_token=COALESCE(orders.client_token, excluded.client_token)
                 """,
                 (
                     order["id"],
@@ -121,6 +155,7 @@ class Database:
                     order["createdAt"],
                     order.get("paidAt"),
                     json.dumps(order, ensure_ascii=False),
+                    order.get("clientToken"),
                 ),
             )
             conn.execute("DELETE FROM order_lines WHERE order_id = ?", (order["id"],))
@@ -167,15 +202,161 @@ class Database:
             conn.execute("UPDATE orders SET raw_json = ? WHERE id = ?", (json.dumps(order, ensure_ascii=False), order_id))
             return order
 
+    def update_status(self, order_id: str, status: str) -> dict | None:
+        with self.connect() as conn:
+            conn.execute(
+                "UPDATE orders SET status = ? WHERE id = ?",
+                (status, order_id),
+            )
+            row = conn.execute("SELECT raw_json FROM orders WHERE id = ?", (order_id,)).fetchone()
+            if not row:
+                return None
+            order = json.loads(row["raw_json"])
+            order["status"] = status
+            conn.execute(
+                "UPDATE orders SET raw_json = ? WHERE id = ?",
+                (json.dumps(order, ensure_ascii=False), order_id),
+            )
+            return order
+
     def find_order_by_session(self, session_id: str) -> dict | None:
         with self.connect() as conn:
             row = conn.execute("SELECT raw_json FROM orders WHERE stripe_session_id = ?", (session_id,)).fetchone()
+            return json.loads(row["raw_json"]) if row else None
+
+    def find_order_by_token(self, token: str) -> dict | None:
+        with self.connect() as conn:
+            row = conn.execute(
+                "SELECT raw_json FROM orders WHERE client_token = ?", (token,)
+            ).fetchone()
+            return json.loads(row["raw_json"]) if row else None
+
+    def get_order(self, order_id: str) -> dict | None:
+        with self.connect() as conn:
+            row = conn.execute(
+                "SELECT raw_json FROM orders WHERE id = ?", (order_id,)
+            ).fetchone()
             return json.loads(row["raw_json"]) if row else None
 
     def list_orders(self) -> list[dict]:
         with self.connect() as conn:
             rows = conn.execute("SELECT raw_json FROM orders ORDER BY created_at DESC").fetchall()
             return [json.loads(row["raw_json"]) for row in rows]
+
+    # ── Quotes ──────────────────────────────────────────────────
+
+    def save_quote(self, order_id: str, total: int, notes: str, scope: str, deadline_days: int | None) -> dict:
+        with self.connect() as conn:
+            now = utcnow()
+            cursor = conn.execute(
+                """
+                INSERT INTO quotes (order_id, total, notes, scope, deadline_days, created_at)
+                VALUES (?, ?, ?, ?, ?, ?)
+                """,
+                (order_id, total, notes, scope, deadline_days, now),
+            )
+            quote_id = cursor.lastrowid
+            conn.execute(
+                "UPDATE orders SET status = 'cotizado', total = ? WHERE id = ?",
+                (total, order_id),
+            )
+            row = conn.execute("SELECT raw_json FROM orders WHERE id = ?", (order_id,)).fetchone()
+            order = json.loads(row["raw_json"])
+            order["status"] = "cotizado"
+            order["total"] = total
+            order["quote"] = {
+                "id": quote_id,
+                "total": total,
+                "notes": notes,
+                "scope": scope,
+                "deadlineDays": deadline_days,
+                "createdAt": now,
+            }
+            conn.execute(
+                "UPDATE orders SET raw_json = ? WHERE id = ?",
+                (json.dumps(order, ensure_ascii=False), order_id),
+            )
+            return order
+
+    def mark_quote_sent(self, order_id: str) -> None:
+        with self.connect() as conn:
+            conn.execute(
+                """
+                UPDATE quotes SET sent_at = ?
+                WHERE order_id = ? AND sent_at IS NULL
+                ORDER BY created_at DESC
+                LIMIT 1
+                """,
+                (utcnow(), order_id),
+            )
+
+    def get_latest_quote(self, order_id: str) -> dict | None:
+        with self.connect() as conn:
+            row = conn.execute(
+                "SELECT * FROM quotes WHERE order_id = ? ORDER BY created_at DESC LIMIT 1",
+                (order_id,),
+            ).fetchone()
+            if not row:
+                return None
+            return {
+                "id": row["id"],
+                "orderId": row["order_id"],
+                "total": row["total"],
+                "notes": row["notes"],
+                "scope": row["scope"],
+                "deadlineDays": row["deadline_days"],
+                "createdAt": row["created_at"],
+                "sentAt": row["sent_at"],
+            }
+
+    # ── Uploads ─────────────────────────────────────────────────
+
+    def save_upload(self, order_id: str, upload_type: str, original_name: str, stored_name: str, size_bytes: int) -> dict:
+        with self.connect() as conn:
+            now = utcnow()
+            cursor = conn.execute(
+                """
+                INSERT INTO uploads (order_id, upload_type, original_name, stored_name, size_bytes, uploaded_at)
+                VALUES (?, ?, ?, ?, ?, ?)
+                """,
+                (order_id, upload_type, original_name, stored_name, size_bytes, now),
+            )
+            return {
+                "id": cursor.lastrowid,
+                "orderId": order_id,
+                "type": upload_type,
+                "originalName": original_name,
+                "storedName": stored_name,
+                "sizeBytes": size_bytes,
+                "uploadedAt": now,
+            }
+
+    def list_uploads(self, order_id: str, upload_type: str | None = None) -> list[dict]:
+        with self.connect() as conn:
+            if upload_type:
+                rows = conn.execute(
+                    "SELECT * FROM uploads WHERE order_id = ? AND upload_type = ? ORDER BY uploaded_at",
+                    (order_id, upload_type),
+                ).fetchall()
+            else:
+                rows = conn.execute(
+                    "SELECT * FROM uploads WHERE order_id = ? ORDER BY upload_type, uploaded_at",
+                    (order_id,),
+                ).fetchall()
+            return [
+                {
+                    "id": r["id"],
+                    "orderId": r["order_id"],
+                    "type": r["upload_type"],
+                    "originalName": r["original_name"],
+                    "storedName": r["stored_name"],
+                    "sizeBytes": r["size_bytes"],
+                    "uploadedAt": r["uploaded_at"],
+                }
+                for r in rows
+            ]
+
+    # ── Events & Emails ─────────────────────────────────────────
 
     def event_seen(self, event_id: str) -> bool:
         with self.connect() as conn:
