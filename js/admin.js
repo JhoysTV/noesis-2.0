@@ -84,6 +84,17 @@ let deliverySelectedFiles = [];
 
 // ── Login ─────────────────────────────────────────────────────────────────────
 
+function showLoginError(errEl, msg) {
+  errEl.textContent = msg;
+  errEl.hidden = false;
+}
+
+function activatePanel(overlay, panel) {
+  overlay.style.display = 'none';
+  panel.removeAttribute('hidden');
+  panel.style.display = '';
+}
+
 async function initLogin() {
   const overlay = $('#loginOverlay');
   const panel = $('#adminPanel');
@@ -92,27 +103,40 @@ async function initLogin() {
   const passwordInput = $('#loginPassword');
   const errEl = $('#loginError');
 
+  if (!overlay || !panel || !btn || !usernameInput || !passwordInput || !errEl) {
+    console.error('[Admin] Elementos del formulario de login no encontrados.');
+    return;
+  }
+
   async function tryLogin() {
     const username = usernameInput.value.trim();
-    const password = passwordInput.value;
-    if (!username || !password) return;
+    const password = passwordInput.value.trim();
+    if (!username || !password) {
+      showLoginError(errEl, 'Completa usuario y contraseña.');
+      return;
+    }
     btn.textContent = 'Verificando...';
     btn.disabled = true;
     errEl.hidden = true;
-    const token = await loginWithCredentials(username, password);
-    if (token) {
-      AUTH_TOKEN = token;
-      sessionStorage.setItem('noesis_admin_token', token);
-      overlay.hidden = true;
-      panel.hidden = false;
-      loadOrders();
-    } else {
-      errEl.hidden = false;
-      passwordInput.value = '';
-      passwordInput.focus();
+    try {
+      const token = await loginWithCredentials(username, password);
+      if (token) {
+        AUTH_TOKEN = token;
+        sessionStorage.setItem('noesis_admin_token', token);
+        activatePanel(overlay, panel);
+        loadOrders();
+      } else {
+        showLoginError(errEl, 'Usuario o contraseña incorrectos.');
+        passwordInput.value = '';
+        passwordInput.focus();
+      }
+    } catch (err) {
+      showLoginError(errEl, 'Error de conexión. Verifica que el servidor esté disponible.');
+      console.error('[Admin] Login error:', err);
+    } finally {
+      btn.textContent = 'Ingresar';
+      btn.disabled = false;
     }
-    btn.textContent = 'Ingresar';
-    btn.disabled = false;
   }
 
   btn.addEventListener('click', tryLogin);
@@ -121,13 +145,14 @@ async function initLogin() {
   });
 
   if (AUTH_TOKEN) {
-    const ok = await verifyToken(AUTH_TOKEN);
-    if (ok) {
-      overlay.hidden = true;
-      panel.hidden = false;
-      loadOrders();
-      return;
-    }
+    try {
+      const ok = await verifyToken(AUTH_TOKEN);
+      if (ok) {
+        activatePanel(overlay, panel);
+        loadOrders();
+        return;
+      }
+    } catch (_) { /* token inválido o red caída */ }
     sessionStorage.removeItem('noesis_admin_token');
     AUTH_TOKEN = '';
   }
