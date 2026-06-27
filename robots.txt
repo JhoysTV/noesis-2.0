@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /mi-pedido
+Disallow: /uploads/
+Disallow: /api/
+Disallow: /docs/
+
+Sitemap: https://noesisdelcaribe.com/sitemap.xml

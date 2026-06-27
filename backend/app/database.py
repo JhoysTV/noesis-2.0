@@ -238,9 +238,12 @@ class Database:
             ).fetchone()
             return json.loads(row["raw_json"]) if row else None
 
-    def list_orders(self) -> list[dict]:
+    def list_orders(self, skip: int = 0, limit: int = 100) -> list[dict]:
         with self.connect() as conn:
-            rows = conn.execute("SELECT raw_json FROM orders ORDER BY created_at DESC").fetchall()
+            rows = conn.execute(
+                "SELECT raw_json FROM orders ORDER BY created_at DESC LIMIT ? OFFSET ?",
+                (limit, skip),
+            ).fetchall()
             return [json.loads(row["raw_json"]) for row in rows]
 
     # ── Quotes ──────────────────────────────────────────────────

@@ -5,10 +5,11 @@ import secrets
 import uuid
 from pathlib import Path
 
-from fastapi import Depends, FastAPI, File, Form, Header, HTTPException, Request, UploadFile
+from fastapi import Depends, FastAPI, File, Form, Header, HTTPException, Query, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
+from starlette.middleware.base import BaseHTTPMiddleware
 
 from .catalog import list_catalog
 from .config import Settings, get_settings
@@ -28,27 +29,112 @@ stripe_service = StripeService(settings)
 UPLOADS_DIR = settings.database_file.parent / "uploads"
 UPLOADS_DIR.mkdir(parents=True, exist_ok=True)
 
-app = FastAPI(title="Noesis del Caribe API", version="2.0.0")
+# ── File upload constraints ───────────────────────────────────────────────────
+
+ALLOWED_EXTENSIONS = {".jpg", ".jpeg", ".png", ".gif", ".webp", ".heic", ".pdf"}
+MAX_FILE_SIZE = 20 * 1024 * 1024   # 20 MB per file
+MAX_TOTAL_SIZE = 80 * 1024 * 1024  # 80 MB total per request
+MAX_FILES = 10
+
+# (signature_bytes, minimum_match_length)
+FILE_SIGNATURES = [
+    (b"\xff\xd8\xff", 3),         # JPEG
+    (b"\x89PNG\r\n\x1a\n", 8),   # PNG
+    (b"GIF87a", 6),               # GIF 87
+    (b"GIF89a", 6),               # GIF 89
+    (b"RIFF", 4),                 # WebP (RIFF....WEBP)
+    (b"%PDF", 4),                 # PDF
+    (b"\x00\x00\x00", 3),        # HEIC/HEIF (ftyp box)
+]
+
+
+def _validate_upload(filename: str, content: bytes) -> None:
+    ext = Path(filename).suffix.lower()
+    if ext not in ALLOWED_EXTENSIONS:
+        raise HTTPException(status_code=400, detail=f"Tipo de archivo no permitido: {ext}. Se aceptan imágenes y PDF.")
+    if len(content) > MAX_FILE_SIZE:
+        raise HTTPException(status_code=400, detail=f"El archivo '{filename}' supera el límite de 20 MB.")
+    head = content[:8]
+    if any(head[:length] == sig[:length] for sig, length in FILE_SIGNATURES):
+        return
+    raise HTTPException(status_code=400, detail=f"El contenido del archivo '{filename}' no corresponde a un tipo permitido.")
+
+
+# ── Order status state machine ────────────────────────────────────────────────
+
+STATUS_TRANSITIONS: dict[str, set[str]] = {
+    "recibido": {"cotizado", "cancelado"},
+    "cotizado": {"recibido", "pagado", "cancelado"},
+    "pagado":   {"en_curso", "cancelado"},
+    "en_curso": {"entregado", "cancelado"},
+    "entregado": set(),
+    "cancelado": set(),
+}
+
+# ── Application ───────────────────────────────────────────────────────────────
+
+app = FastAPI(title="Noesis del Caribe API", version="2.0.0", docs_url=None, redoc_url=None)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.cors_origins,
     allow_credentials=True,
-    allow_methods=["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PATCH", "OPTIONS"],
+    allow_headers=["Authorization", "Content-Type", "Stripe-Signature"],
 )
 
 
-# ── Auth helpers ─────────────────────────────────────────────────────────────
+class SecurityHeadersMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request: Request, call_next):
+        response = await call_next(request)
+        response.headers["X-Content-Type-Options"] = "nosniff"
+        response.headers["X-Frame-Options"] = "DENY"
+        response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+        response.headers["Permissions-Policy"] = "camera=(), microphone=(), geolocation=()"
+        if settings.app_env == "production":
+            response.headers["Strict-Transport-Security"] = "max-age=63072000; includeSubDomains; preload"
+        return response
+
+
+app.add_middleware(SecurityHeadersMiddleware)
+
+
+# ── Rate limiting ─────────────────────────────────────────────────────────────
+
+try:
+    from slowapi import Limiter, _rate_limit_exceeded_handler
+    from slowapi.errors import RateLimitExceeded
+    from slowapi.util import get_remote_address
+
+    limiter = Limiter(key_func=get_remote_address)
+    app.state.limiter = limiter
+    app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+    _RATE_LIMITING = True
+except ImportError:
+    _RATE_LIMITING = False
+    limiter = None
+
+
+def _rate_limit(limit: str):
+    """Decorator that applies rate limiting only when slowapi is installed."""
+    def decorator(func):
+        if _RATE_LIMITING and limiter is not None:
+            return limiter.limit(limit)(func)
+        return func
+    return decorator
+
+
+# ── Auth helpers ──────────────────────────────────────────────────────────────
 
 def require_admin(authorization: str = Header(default="")) -> None:
     if not settings.admin_token:
         raise HTTPException(status_code=503, detail="ADMIN_TOKEN no está configurado.")
     expected = f"Bearer {settings.admin_token}"
-    if authorization != expected:
+    if not secrets.compare_digest(authorization, expected):
         raise HTTPException(status_code=401, detail="No autorizado.")
 
 
-# ── Health & Catalog ─────────────────────────────────────────────────────────
+# ── Health & Catalog ──────────────────────────────────────────────────────────
 
 @app.get("/api/health")
 def health() -> dict:
@@ -60,10 +146,12 @@ def catalog() -> list[dict]:
     return list_catalog()
 
 
-# ── Public: Submit new request ───────────────────────────────────────────────
+# ── Public: Submit new request ────────────────────────────────────────────────
 
 @app.post("/api/orders/submit")
+@_rate_limit("5/minute")
 async def submit_order(
+    request: Request,
     order_data: str = Form(...),
     files: list[UploadFile] = File(default=[]),
 ) -> dict:
@@ -75,6 +163,9 @@ async def submit_order(
         payload = SubmitRequest.model_validate_json(order_data)
     except Exception as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
+
+    if len(files) > MAX_FILES:
+        raise HTTPException(status_code=400, detail=f"Máximo {MAX_FILES} archivos por solicitud.")
 
     order_id = f"NOE-{uuid.uuid4().hex[:8].upper()}"
     client_token = secrets.token_urlsafe(24)
@@ -99,19 +190,23 @@ async def submit_order(
 
     db.upsert_order(order)
 
-    # Persist uploaded reference photos
     saved_photos: list[dict] = []
+    total_size = 0
     for upload in files:
-        if upload.filename:
-            ext = Path(upload.filename).suffix.lower()
-            stored = f"{order_id}_{uuid.uuid4().hex[:8]}{ext}"
-            dest = UPLOADS_DIR / stored
-            content = await upload.read()
-            dest.write_bytes(content)
-            record = db.save_upload(order_id, "client_photo", upload.filename, stored, len(content))
-            saved_photos.append(record)
+        if not upload.filename:
+            continue
+        content = await upload.read()
+        total_size += len(content)
+        if total_size > MAX_TOTAL_SIZE:
+            raise HTTPException(status_code=400, detail="El tamaño total de los archivos supera el límite de 80 MB.")
+        _validate_upload(upload.filename, content)
+        ext = Path(upload.filename).suffix.lower()
+        stored = f"{order_id}_{uuid.uuid4().hex[:8]}{ext}"
+        dest = UPLOADS_DIR / stored
+        dest.write_bytes(content)
+        record = db.save_upload(order_id, "client_photo", upload.filename, stored, len(content))
+        saved_photos.append(record)
 
-    # Email notifications
     email_service.send_request_received(order, saved_photos)
 
     return {
@@ -144,7 +239,8 @@ def get_order_by_token(token: str) -> dict:
 # ── Public: Stripe checkout from client token ─────────────────────────────────
 
 @app.post("/api/order/checkout")
-def checkout_from_token(payload: CheckoutFromToken) -> dict:
+@_rate_limit("10/minute")
+def checkout_from_token(request: Request, payload: CheckoutFromToken) -> dict:
     """Client initiates Stripe payment using their secure token."""
     stripe_service.ensure_configured()
     order = db.find_order_by_token(payload.token)
@@ -199,11 +295,14 @@ async def stripe_webhook(
     return {"received": True}
 
 
-# ── Admin: List orders ────────────────────────────────────────────────────────
+# ── Admin: List orders (paginated) ────────────────────────────────────────────
 
 @app.get("/api/admin/orders", dependencies=[Depends(require_admin)])
-def admin_orders() -> list[dict]:
-    orders = db.list_orders()
+def admin_orders(
+    skip: int = Query(default=0, ge=0),
+    limit: int = Query(default=100, ge=1, le=500),
+) -> list[dict]:
+    orders = db.list_orders(skip=skip, limit=limit)
     result = []
     for order in orders:
         order_id = order["id"]
@@ -250,13 +349,25 @@ def admin_send_quote(order_id: str, payload: QuoteCreate) -> dict:
     return updated
 
 
-# ── Admin: Update order status ────────────────────────────────────────────────
+# ── Admin: Update order status (with state machine) ───────────────────────────
 
 @app.patch("/api/admin/orders/{order_id}/status", dependencies=[Depends(require_admin)])
 def admin_update_status(order_id: str, payload: StatusUpdate) -> dict:
-    allowed = {"recibido", "cotizado", "pagado", "en_curso", "entregado", "cancelado"}
-    if payload.status not in allowed:
+    if payload.status not in STATUS_TRANSITIONS:
         raise HTTPException(status_code=400, detail=f"Estado inválido: {payload.status}")
+
+    order = db.get_order(order_id)
+    if not order:
+        raise HTTPException(status_code=404, detail="Pedido no encontrado.")
+
+    current = order["status"]
+    allowed_next = STATUS_TRANSITIONS.get(current, set())
+    if payload.status not in allowed_next:
+        raise HTTPException(
+            status_code=400,
+            detail=f"No se puede cambiar de '{current}' a '{payload.status}'.",
+        )
+
     updated = db.update_status(order_id, payload.status)
     if not updated:
         raise HTTPException(status_code=404, detail="Pedido no encontrado.")
@@ -282,14 +393,15 @@ async def admin_deliver(
 
     saved: list[dict] = []
     for upload in files:
-        if upload.filename:
-            ext = Path(upload.filename).suffix.lower()
-            stored = f"{order_id}_design_{uuid.uuid4().hex[:8]}{ext}"
-            dest = UPLOADS_DIR / stored
-            content = await upload.read()
-            dest.write_bytes(content)
-            record = db.save_upload(order_id, "delivery", upload.filename, stored, len(content))
-            saved.append(record)
+        if not upload.filename:
+            continue
+        ext = Path(upload.filename).suffix.lower()
+        stored = f"{order_id}_design_{uuid.uuid4().hex[:8]}{ext}"
+        dest = UPLOADS_DIR / stored
+        content = await upload.read()
+        dest.write_bytes(content)
+        record = db.save_upload(order_id, "delivery", upload.filename, stored, len(content))
+        saved.append(record)
 
     updated = db.update_status(order_id, "entregado")
     email_service.send_design_delivered(updated, saved, notes)
@@ -324,6 +436,16 @@ app.mount("/pages", StaticFiles(directory=ROOT / "pages"), name="pages")
 app.mount("/docs", StaticFiles(directory=ROOT / "docs"), name="docs")
 
 
+@app.get("/sitemap.xml", include_in_schema=False)
+def sitemap() -> FileResponse:
+    return FileResponse(ROOT / "sitemap.xml", media_type="application/xml")
+
+
+@app.get("/robots.txt", include_in_schema=False)
+def robots() -> FileResponse:
+    return FileResponse(ROOT / "robots.txt", media_type="text/plain")
+
+
 @app.get("/")
 def index() -> FileResponse:
     return FileResponse(ROOT / "index.html")
@@ -342,6 +464,21 @@ def admin_page() -> FileResponse:
 @app.get("/mi-pedido")
 def client_order_page() -> FileResponse:
     return FileResponse(ROOT / "pages" / "mi-pedido.html")
+
+
+@app.get("/blog")
+def blog_page() -> FileResponse:
+    return FileResponse(ROOT / "pages" / "blog.html")
+
+
+@app.get("/careers")
+def careers_page() -> FileResponse:
+    return FileResponse(ROOT / "pages" / "careers.html")
+
+
+@app.get("/terminos")
+def terminos_page() -> FileResponse:
+    return FileResponse(ROOT / "pages" / "terminos.html")
 
 
 # ── Utility ───────────────────────────────────────────────────────────────────

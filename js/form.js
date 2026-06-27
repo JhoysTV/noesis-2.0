@@ -93,7 +93,7 @@ const QuoteForm = (() => {
         ([key, val]) => `
         <div class="review-row">
           <span class="review-row__key">${key}</span>
-          <span>${val}</span>
+          <span>${escapeHTML(val)}</span>
         </div>`
       )
       .join('');
@@ -191,10 +191,10 @@ const QuoteForm = (() => {
       const successDesc = qs('#successDesc');
       if (successDesc) {
         successDesc.innerHTML = `
-          Tu solicitud <strong>${result.orderId}</strong> fue enviada correctamente.<br>
-          Recibirás tu cotización en <strong>${formData.email}</strong> en 24–48 horas hábiles.
+          Tu solicitud <strong>${escapeHTML(result.orderId)}</strong> fue enviada correctamente.<br>
+          Recibirás tu cotización en <strong>${escapeHTML(formData.email)}</strong> en 24–48 horas hábiles.
           <br><br>
-          <a href="/mi-pedido?token=${result.clientToken}" class="btn btn--outline" style="margin-top:.5rem">
+          <a href="/mi-pedido?token=${escapeHTML(result.clientToken)}" class="btn btn--outline" style="margin-top:.5rem">
             Ver estado de mi solicitud →
           </a>
         `;

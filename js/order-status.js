@@ -58,7 +58,7 @@ function renderSummary(order) {
   qs('#orderSummary').innerHTML = rows.map(([k, v]) => `
     <div class="os-info-row">
       <span class="os-info-row__key">${k}</span>
-      <span>${v || '—'}</span>
+      <span>${escapeHTML(v) || '—'}</span>
     </div>
   `).join('');
 }
@@ -70,9 +70,9 @@ function renderQuote(order, quote) {
   qs('#quoteAmount').textContent = money(quote.total);
 
   const details = [];
-  if (quote.scope) details.push(`<p><strong>Alcance:</strong> ${quote.scope}</p>`);
-  if (quote.notes) details.push(`<p><strong>Notas del arquitecto:</strong> ${quote.notes}</p>`);
-  if (quote.deadlineDays) details.push(`<p><strong>Plazo estimado:</strong> ${quote.deadlineDays} días hábiles</p>`);
+  if (quote.scope) details.push(`<p><strong>Alcance:</strong> ${escapeHTML(quote.scope)}</p>`);
+  if (quote.notes) details.push(`<p><strong>Notas del arquitecto:</strong> ${escapeHTML(quote.notes)}</p>`);
+  if (quote.deadlineDays) details.push(`<p><strong>Plazo estimado:</strong> ${escapeHTML(String(quote.deadlineDays))} días hábiles</p>`);
   qs('#quoteDetails').innerHTML = details.join('') || '';
 }
 
@@ -118,9 +118,9 @@ function renderDeliveryFiles(files) {
     return;
   }
   list.innerHTML = files.map((f) => `
-    <a class="os-file-chip" href="/uploads/${f.storedName}" download="${f.originalName}" target="_blank" rel="noopener">
+    <a class="os-file-chip" href="/uploads/${escapeHTML(f.storedName)}" download="${escapeHTML(f.originalName)}" target="_blank" rel="noopener">
       <span class="os-file-chip__icon" aria-hidden="true">📦</span>
-      <span class="os-file-chip__name">${f.originalName}</span>
+      <span class="os-file-chip__name">${escapeHTML(f.originalName)}</span>
       <span class="os-file-chip__size">${(f.sizeBytes / 1024).toFixed(0)} KB</span>
       <span class="os-file-chip__dl" aria-hidden="true">↓</span>
     </a>

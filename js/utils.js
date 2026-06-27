@@ -129,3 +129,18 @@ const formatBytes = (bytes) => {
   if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(0) + ' KB';
   return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
 };
+
+/**
+ * Escape special HTML characters to prevent XSS when inserting user data via innerHTML.
+ * @param {unknown} value
+ * @returns {string}
+ */
+const escapeHTML = (value) => {
+  if (value == null) return '';
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;');
+};

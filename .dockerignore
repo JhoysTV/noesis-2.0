@@ -1,0 +1,15 @@
+.env
+.venv/
+.claude/
+__pycache__/
+*.py[cod]
+*.sqlite3
+*.sqlite3-*
+backend/data/uploads/
+backend/data/*.log
+.pytest_cache/
+.git/
+.gitignore
+docs/
+*.md
+*.zip

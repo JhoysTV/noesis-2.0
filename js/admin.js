@@ -25,7 +25,8 @@ const STATUS_COLORS = {
 };
 
 function badge(status) {
-  return `<span class="admin-badge" style="background:${STATUS_COLORS[status] || '#888'}">${STATUS_LABELS[status] || status}</span>`;
+  const label = STATUS_LABELS[status] || escapeHTML(status);
+  return `<span class="admin-badge" style="background:${STATUS_COLORS[status] || '#888'}">${label}</span>`;
 }
 
 function showToast(msg, error = false) {
@@ -134,15 +135,15 @@ function renderOrderCard(order) {
   const uploads = (order.uploads || []).filter((u) => u.type === 'client_photo');
 
   return `
-    <div class="admin-order-card" data-id="${order.id}" role="button" tabindex="0">
+    <div class="admin-order-card" data-id="${escapeHTML(order.id)}" role="button" tabindex="0">
       <div class="admin-order-card__header">
-        <span class="admin-order-card__id">${order.id}</span>
+        <span class="admin-order-card__id">${escapeHTML(order.id)}</span>
         ${badge(order.status)}
       </div>
       <div class="admin-order-card__body">
-        <strong>${c.name || '—'}</strong>
-        <span>${c.email || '—'}</span>
-        <span>${order.projectType || '—'}</span>
+        <strong>${escapeHTML(c.name || '—')}</strong>
+        <span>${escapeHTML(c.email || '—')}</span>
+        <span>${escapeHTML(order.projectType || '—')}</span>
         ${uploads.length ? `<span class="admin-order-card__photos">📷 ${uploads.length} foto${uploads.length !== 1 ? 's' : ''}</span>` : ''}
       </div>
       <div class="admin-order-card__footer">
@@ -219,24 +220,24 @@ function infoRow(label, value) {
 function renderClientInfo(order) {
   const c = order.customer || {};
   $('#clientInfo').innerHTML = [
-    infoRow('Nombre', c.name),
-    infoRow('Correo', `<a href="mailto:${c.email}">${c.email}</a>`),
-    infoRow('Teléfono', c.phone ? `<a href="tel:${c.phone}">${c.phone}</a>` : null),
-    infoRow('Contacto preferido', c.contactPreference),
+    infoRow('Nombre', escapeHTML(c.name)),
+    infoRow('Correo', `<a href="mailto:${escapeHTML(c.email)}">${escapeHTML(c.email)}</a>`),
+    infoRow('Teléfono', c.phone ? `<a href="tel:${escapeHTML(c.phone)}">${escapeHTML(c.phone)}</a>` : null),
+    infoRow('Contacto preferido', escapeHTML(c.contactPreference)),
     infoRow('Fecha de solicitud', fmt(order.createdAt)),
-    infoRow('Token de cliente', `<code style="font-size:.75rem">${order.clientToken || '—'}</code>`),
+    infoRow('Token de cliente', `<code style="font-size:.75rem">${escapeHTML(order.clientToken || '—')}</code>`),
   ].join('');
 }
 
 function renderProjectInfo(order) {
   $('#projectInfo').innerHTML = [
-    infoRow('Tipo de proyecto', order.projectType),
-    infoRow('Área', order.area ? `${order.area} m²` : null),
-    infoRow('Presupuesto declarado', order.budget),
+    infoRow('Tipo de proyecto', escapeHTML(order.projectType)),
+    infoRow('Área', order.area ? `${escapeHTML(order.area)} m²` : null),
+    infoRow('Presupuesto declarado', escapeHTML(order.budget)),
     infoRow('Estado', badge(order.status)),
     infoRow('Total', money(order.total)),
-    infoRow('Descripción', order.requirements ? `<em style="white-space:pre-wrap">${order.requirements}</em>` : null),
-    infoRow('Notas de fotos', order.photoNotes || null),
+    infoRow('Descripción', order.requirements ? `<em style="white-space:pre-wrap">${escapeHTML(order.requirements)}</em>` : null),
+    infoRow('Notas de fotos', order.photoNotes ? escapeHTML(order.photoNotes) : null),
   ].join('');
 }
 
@@ -248,8 +249,8 @@ function renderPhotos(order) {
     return;
   }
   container.innerHTML = photos.map((f) => `
-    <a class="admin-photo-chip" href="/uploads/${f.storedName}" target="_blank" rel="noopener">
-      📎 ${f.originalName}
+    <a class="admin-photo-chip" href="/uploads/${escapeHTML(f.storedName)}" target="_blank" rel="noopener">
+      📎 ${escapeHTML(f.originalName)}
       <span>${(f.sizeBytes / 1024).toFixed(0)} KB</span>
     </a>
   `).join('');
@@ -263,8 +264,8 @@ function renderDeliveries(order) {
     return;
   }
   container.innerHTML = files.map((f) => `
-    <a class="admin-photo-chip admin-photo-chip--delivery" href="/uploads/${f.storedName}" target="_blank" rel="noopener">
-      📦 ${f.originalName}
+    <a class="admin-photo-chip admin-photo-chip--delivery" href="/uploads/${escapeHTML(f.storedName)}" target="_blank" rel="noopener">
+      📦 ${escapeHTML(f.originalName)}
       <span>${(f.sizeBytes / 1024).toFixed(0)} KB</span>
     </a>
   `).join('');
@@ -280,9 +281,9 @@ function renderCurrentQuote(order) {
   container.innerHTML = `
     <div class="admin-quote-summary">
       <div class="admin-quote-summary__amount">${money(q.total)}</div>
-      ${q.scope ? `<p><strong>Alcance:</strong> ${q.scope}</p>` : ''}
-      ${q.notes ? `<p><strong>Notas:</strong> ${q.notes}</p>` : ''}
-      ${q.deadlineDays ? `<p><strong>Plazo:</strong> ${q.deadlineDays} días hábiles</p>` : ''}
+      ${q.scope ? `<p><strong>Alcance:</strong> ${escapeHTML(q.scope)}</p>` : ''}
+      ${q.notes ? `<p><strong>Notas:</strong> ${escapeHTML(q.notes)}</p>` : ''}
+      ${q.deadlineDays ? `<p><strong>Plazo:</strong> ${escapeHTML(String(q.deadlineDays))} días hábiles</p>` : ''}
       <p class="admin-quote-summary__meta">Enviada ${fmt(q.sentAt || q.createdAt)}</p>
     </div>
   `;
@@ -395,8 +396,8 @@ const deliveryFileList = $('#deliveryFileList');
 function renderDeliveryFileChips() {
   deliveryFileList.innerHTML = deliverySelectedFiles.map((f, i) => `
     <div class="admin-file-chip">
-      📄 ${f.name} <span>(${(f.size / 1024).toFixed(0)} KB)</span>
-      <button type="button" data-idx="${i}" aria-label="Quitar ${f.name}">×</button>
+      📄 ${escapeHTML(f.name)} <span>(${(f.size / 1024).toFixed(0)} KB)</span>
+      <button type="button" data-idx="${i}" aria-label="Quitar ${escapeHTML(f.name)}">×</button>
     </div>
   `).join('');
 
