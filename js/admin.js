@@ -44,6 +44,17 @@ function getHeaders() {
   return { 'Content-Type': 'application/json', Authorization: `Bearer ${AUTH_TOKEN}` };
 }
 
+async function loginWithCredentials(username, password) {
+  const res = await fetch('/api/admin/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username, password }),
+  });
+  if (!res.ok) return null;
+  const data = await res.json();
+  return data.token || null;
+}
+
 async function verifyToken(token) {
   const res = await fetch('/api/admin/orders', {
     headers: { Authorization: `Bearer ${token}` },
@@ -77,33 +88,37 @@ async function initLogin() {
   const overlay = $('#loginOverlay');
   const panel = $('#adminPanel');
   const btn = $('#loginBtn');
-  const input = $('#tokenInput');
+  const usernameInput = $('#loginUsername');
+  const passwordInput = $('#loginPassword');
   const errEl = $('#loginError');
 
   async function tryLogin() {
-    const token = input.value.trim();
-    if (!token) return;
+    const username = usernameInput.value.trim();
+    const password = passwordInput.value;
+    if (!username || !password) return;
     btn.textContent = 'Verificando...';
     btn.disabled = true;
-    const ok = await verifyToken(token);
-    if (ok) {
+    errEl.hidden = true;
+    const token = await loginWithCredentials(username, password);
+    if (token) {
       AUTH_TOKEN = token;
       sessionStorage.setItem('noesis_admin_token', token);
       overlay.hidden = true;
       panel.hidden = false;
-      errEl.hidden = true;
       loadOrders();
     } else {
       errEl.hidden = false;
-      input.value = '';
-      input.focus();
+      passwordInput.value = '';
+      passwordInput.focus();
     }
     btn.textContent = 'Ingresar';
     btn.disabled = false;
   }
 
   btn.addEventListener('click', tryLogin);
-  input.addEventListener('keydown', (e) => { if (e.key === 'Enter') tryLogin(); });
+  [usernameInput, passwordInput].forEach((el) => {
+    el.addEventListener('keydown', (e) => { if (e.key === 'Enter') tryLogin(); });
+  });
 
   if (AUTH_TOKEN) {
     const ok = await verifyToken(AUTH_TOKEN);

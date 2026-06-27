@@ -30,12 +30,14 @@
         </div>
       </div>
       <h1 class="admin-login__title">Acceso restringido</h1>
-      <p class="admin-login__desc">Ingresa el token de administrador para continuar.</p>
+      <p class="admin-login__desc">Ingresa tus credenciales de administrador para continuar.</p>
       <div class="admin-login__form">
-        <label for="tokenInput">Token de acceso</label>
-        <input type="password" id="tokenInput" placeholder="••••••••••••••••" autocomplete="current-password" />
-        <button class="btn btn--primary" id="loginBtn">Ingresar</button>
-        <p class="admin-login__error" id="loginError" hidden>Token incorrecto. Intenta de nuevo.</p>
+        <label for="loginUsername">Usuario</label>
+        <input type="text" id="loginUsername" placeholder="Usuario" autocomplete="username" />
+        <label for="loginPassword" style="margin-top:.75rem">Contraseña</label>
+        <input type="password" id="loginPassword" placeholder="••••••••••••••••" autocomplete="current-password" />
+        <button class="btn btn--primary" id="loginBtn" style="margin-top:1.25rem">Ingresar</button>
+        <p class="admin-login__error" id="loginError" hidden>Usuario o contraseña incorrectos.</p>
       </div>
     </div>
   </div>

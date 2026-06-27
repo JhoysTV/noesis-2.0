@@ -27,6 +27,8 @@ class Settings(BaseSettings):
     smtp_use_tls: bool = Field(default=True, alias="SMTP_USE_TLS")
 
     admin_token: str = Field(default="", alias="ADMIN_TOKEN")
+    admin_username: str = Field(default="", alias="ADMIN_USERNAME")
+    admin_password: str = Field(default="", alias="ADMIN_PASSWORD")
 
     @property
     def root_dir(self) -> Path:

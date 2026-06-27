@@ -15,7 +15,7 @@ from .catalog import list_catalog
 from .config import Settings, get_settings
 from .database import Database
 from .email_service import EmailService
-from .models import CheckoutFromToken, CheckoutRequest, QuoteCreate, StatusUpdate, SubmitRequest
+from .models import AdminLogin, CheckoutFromToken, CheckoutRequest, QuoteCreate, StatusUpdate, SubmitRequest
 from .orders import normalize_order
 from .stripe_service import StripeService
 
@@ -132,6 +132,21 @@ def require_admin(authorization: str = Header(default="")) -> None:
     expected = f"Bearer {settings.admin_token}"
     if not secrets.compare_digest(authorization, expected):
         raise HTTPException(status_code=401, detail="No autorizado.")
+
+
+# ── Admin: Login ─────────────────────────────────────────────────────────────
+
+@app.post("/api/admin/login")
+@_rate_limit("10/minute")
+def admin_login(request: Request, payload: AdminLogin) -> dict:
+    """Verify admin credentials and return the session token."""
+    if not settings.admin_username or not settings.admin_password:
+        raise HTTPException(status_code=503, detail="Credenciales de admin no configuradas.")
+    username_ok = secrets.compare_digest(payload.username, settings.admin_username)
+    password_ok = secrets.compare_digest(payload.password, settings.admin_password)
+    if not (username_ok and password_ok):
+        raise HTTPException(status_code=401, detail="Usuario o contraseña incorrectos.")
+    return {"token": settings.admin_token}
 
 
 # ── Health & Catalog ──────────────────────────────────────────────────────────

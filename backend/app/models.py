@@ -75,6 +75,11 @@ class CheckoutFromToken(BaseModel):
     token: str = Field(min_length=10, max_length=100)
 
 
+class AdminLogin(BaseModel):
+    username: str = Field(min_length=1, max_length=80)
+    password: str = Field(min_length=1, max_length=200)
+
+
 class OrderResponse(BaseModel):
     id: str
     status: str
