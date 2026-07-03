@@ -118,7 +118,7 @@ function renderDeliveryFiles(files) {
     return;
   }
   list.innerHTML = files.map((f) => `
-    <a class="os-file-chip" href="/uploads/${escapeHTML(f.storedName)}" download="${escapeHTML(f.originalName)}" target="_blank" rel="noopener">
+    <a class="os-file-chip" href="/api/files/${encodeURIComponent(f.storedName)}?t=${encodeURIComponent(TOKEN)}" download="${escapeHTML(f.originalName)}" target="_blank" rel="noopener">
       <span class="os-file-chip__icon" aria-hidden="true">📦</span>
       <span class="os-file-chip__name">${escapeHTML(f.originalName)}</span>
       <span class="os-file-chip__size">${(f.sizeBytes / 1024).toFixed(0)} KB</span>

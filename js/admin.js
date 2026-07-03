@@ -289,7 +289,7 @@ function renderPhotos(order) {
     return;
   }
   container.innerHTML = photos.map((f) => `
-    <a class="admin-photo-chip" href="/uploads/${escapeHTML(f.storedName)}" target="_blank" rel="noopener">
+    <a class="admin-photo-chip" href="/api/files/${encodeURIComponent(f.storedName)}?ak=${encodeURIComponent(AUTH_TOKEN)}" target="_blank" rel="noopener" download="${escapeHTML(f.originalName)}">
       📎 ${escapeHTML(f.originalName)}
       <span>${(f.sizeBytes / 1024).toFixed(0)} KB</span>
     </a>
@@ -304,7 +304,7 @@ function renderDeliveries(order) {
     return;
   }
   container.innerHTML = files.map((f) => `
-    <a class="admin-photo-chip admin-photo-chip--delivery" href="/uploads/${escapeHTML(f.storedName)}" target="_blank" rel="noopener">
+    <a class="admin-photo-chip admin-photo-chip--delivery" href="/api/files/${encodeURIComponent(f.storedName)}?ak=${encodeURIComponent(AUTH_TOKEN)}" target="_blank" rel="noopener" download="${escapeHTML(f.originalName)}">
       📦 ${escapeHTML(f.originalName)}
       <span>${(f.sizeBytes / 1024).toFixed(0)} KB</span>
     </a>
