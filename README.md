@@ -44,11 +44,28 @@ El frontend usa rutas relativas en [config.js](js/config.js), por lo que no expo
 
 ## Endpoints
 
+- `GET /` — Portal principal
+- `GET /terminos` — Términos contractuales y política de privacidad (Leyes 65-00 y 172-13)
+- `GET /blog` — Criterios de diseño y artículos arquitectónicos
+- `GET /careers` — Portal de talento y postulación
+- `GET /admin` — Panel de administración de pedidos y cotizaciones
+- `GET /mi-pedido` — Portal del cliente con token seguro
+- `GET /robots.txt` & `GET /sitemap.xml` — SEO y rastreo
 - `GET /api/health`
 - `GET /api/catalog`
+- `POST /api/orders/submit`
+- `GET /api/order/{token}`
 - `POST /api/payments/checkout-session`
 - `POST /api/webhooks/stripe`
 - `GET /api/admin/orders`
+
+## Pruebas automatizadas
+
+Ejecutar la suite completa de pruebas unitarias y de integración:
+
+```powershell
+.\.venv\Scripts\python.exe -m unittest discover tests
+```
 
 ## Despliegue con Docker
 
@@ -77,6 +94,9 @@ Por defecto usa SQLite en `backend/data/noesis.sqlite3`. Para migrar a Supabase/
 
 ## Verificación realizada
 
-- Compilación Python de `backend/`.
-- Chequeo de sintaxis JS.
-- Pruebas locales con FastAPI `TestClient` para `/`, `/api/health` y `/api/catalog`.
+- Compilación Python limpia de `backend/`.
+- Suite de pruebas automatizadas con 8 pruebas (`unittest` / `TestClient`).
+- Corrección de sintaxis SQL en actualización de cotizaciones.
+- Soporte dual de correos transaccionales: HTML responsive con branding Nóesis y texto plano alternativo.
+- Enrutamiento limpio para `/terminos`, `/blog`, `/careers`, `/robots.txt` y `/sitemap.xml`.
+

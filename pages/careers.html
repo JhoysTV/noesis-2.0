@@ -3,29 +3,532 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Únete al equipo de Nóesis del Caribe — buscamos arquitectos, diseñadores, ingenieros y visualizadores en República Dominicana." />
+  <meta name="description" content="Únete al equipo de Nóesis del Caribe — oportunidades para arquitectos, visualizadores 3D, diseñadores de interiores y modeladores BIM en República Dominicana." />
   <meta name="author" content="Nóesis del Caribe" />
   <link rel="canonical" href="https://noesisdelcaribe.com/careers" />
-  <meta property="og:title" content="Trabaja con nosotros — Nóesis del Caribe" />
-  <meta property="og:description" content="Únete al equipo de Nóesis del Caribe. Envianos tu portafolio." />
+  <meta property="og:title" content="Trabaja con Nosotros — Nóesis del Caribe" />
+  <meta property="og:description" content="Oportunidades profesionales y colaboración para arquitectos y diseñadores en Santo Domingo y remoto." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://noesisdelcaribe.com/careers" />
   <meta property="og:site_name" content="Nóesis del Caribe" />
-  <title>Trabaja con nosotros — Nóesis del Caribe</title>
+  <title>Trabaja con Nosotros &amp; Colaboraciones — Nóesis del Caribe</title>
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,300;0,400;0,700;0,900;1,300&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../css/variables.css" />
-  <link rel="stylesheet" href="../css/reset.css" />
-  <link rel="stylesheet" href="../css/base.css" />
-  <style>.simple-page{max-width:48rem;margin:0 auto;padding:6rem 1.5rem}.simple-page p{color:var(--color-text-muted);line-height:var(--line-height-loose)}.simple-page .btn{margin-top:2rem}</style>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="/css/variables.css" />
+  <link rel="stylesheet" href="/css/reset.css" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/nav.css" />
+  <link rel="stylesheet" href="/css/footer.css" />
+
+  <style>
+    .careers-hero {
+      background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(211, 171, 45, 0.22), transparent 70%),
+                  var(--color-bg-dark);
+      color: var(--color-white);
+      padding: 8.5rem var(--section-padding-h) 4.5rem;
+      border-bottom: 1px solid var(--border-color-gold);
+    }
+
+    .careers-hero__wrap {
+      max-width: var(--container-max);
+      margin: 0 auto;
+    }
+
+    .careers-hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: var(--letter-spacing-caps);
+      text-transform: uppercase;
+      color: var(--color-gold);
+      margin-bottom: 1rem;
+    }
+
+    .careers-hero__eyebrow::before {
+      content: "";
+      width: 1.5rem;
+      height: 2px;
+      background: var(--color-gold);
+    }
+
+    .careers-hero__title {
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: var(--font-weight-black);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.25rem;
+    }
+
+    .careers-hero__subtitle {
+      font-size: var(--font-size-md);
+      color: var(--color-warm-gray);
+      max-width: 44rem;
+      line-height: var(--line-height-loose);
+      font-weight: var(--font-weight-light);
+    }
+
+    /* Culture grid */
+    .careers-culture {
+      background: var(--color-light-bg);
+      padding: 5rem var(--section-padding-h);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .careers-culture__wrap {
+      max-width: var(--container-max);
+      margin: 0 auto;
+    }
+
+    .culture-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .culture-card {
+      background: var(--color-white);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius-lg);
+      padding: 2.25rem;
+      box-shadow: var(--shadow-card);
+      transition: transform var(--transition-base), border-color var(--transition-base);
+    }
+
+    .culture-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--color-gold);
+    }
+
+    .culture-card__icon {
+      font-size: 2.5rem;
+      margin-bottom: 1.25rem;
+      display: block;
+    }
+
+    .culture-card__title {
+      font-size: 1.2rem;
+      font-weight: var(--font-weight-bold);
+      color: var(--color-near-black);
+      margin-bottom: 0.65rem;
+    }
+
+    .culture-card__desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-olive);
+      line-height: var(--line-height-loose);
+      font-weight: var(--font-weight-light);
+    }
+
+    /* Open Roles */
+    .careers-body {
+      background: var(--color-bg-primary);
+      padding: 5rem var(--section-padding-h) 7rem;
+    }
+
+    .careers-wrap {
+      max-width: var(--container-max);
+      margin: 0 auto;
+    }
+
+    .roles-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+      margin-top: 3rem;
+    }
+
+    .role-card {
+      background: var(--color-white);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius-lg);
+      padding: 2.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+      box-shadow: var(--shadow-card);
+      transition: all var(--transition-base);
+    }
+
+    .role-card:hover {
+      border-color: var(--color-gold);
+      box-shadow: 0 8px 24px rgba(25, 23, 20, 0.06);
+    }
+
+    .role-card__main {
+      flex: 1;
+    }
+
+    .role-card__tags {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 0.65rem;
+      flex-wrap: wrap;
+    }
+
+    .role-tag {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: var(--letter-spacing-wide);
+      text-transform: uppercase;
+      padding: 0.25rem 0.6rem;
+      border-radius: var(--border-radius-pill);
+      background: var(--color-light-bg);
+      color: var(--color-olive);
+    }
+
+    .role-tag--gold {
+      background: var(--color-gold-faint);
+      color: var(--color-gold-dark);
+      border: 1px solid var(--border-color-gold);
+    }
+
+    .role-card__title {
+      font-size: 1.35rem;
+      font-weight: var(--font-weight-bold);
+      color: var(--color-near-black);
+      margin-bottom: 0.5rem;
+    }
+
+    .role-card__desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-olive);
+      line-height: var(--line-height-loose);
+      font-weight: var(--font-weight-light);
+      max-width: 48rem;
+    }
+
+    /* Application Section */
+    .apply-section {
+      margin-top: 5rem;
+      background: var(--color-near-black);
+      color: var(--color-white);
+      border-radius: var(--border-radius-lg);
+      padding: 3.5rem;
+      border: 1px solid var(--border-color-gold);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+
+    .apply-form label {
+      display: block;
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+      letter-spacing: var(--letter-spacing-wide);
+      color: var(--color-warm-gray);
+      margin-bottom: 0.4rem;
+    }
+
+    .apply-form input,
+    .apply-form textarea,
+    .apply-form select {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: var(--border-radius-md);
+      color: var(--color-white);
+      padding: 0.75rem 1rem;
+      font-family: inherit;
+      font-size: var(--font-size-sm);
+      margin-bottom: 1.25rem;
+      transition: border-color var(--transition-fast);
+    }
+
+    .apply-form input:focus,
+    .apply-form textarea:focus,
+    .apply-form select:focus {
+      outline: none;
+      border-color: var(--color-gold);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    @media (max-width: 900px) {
+      .role-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .apply-section {
+        grid-template-columns: 1fr;
+        padding: 2.25rem;
+        gap: 2rem;
+      }
+    }
+  </style>
 </head>
 <body>
-  <main class="simple-page">
-    <p class="section-label">Nóesis del Caribe</p>
-    <h1 class="section-title">Trabaja con nosotros</h1>
-    <p>Si deseas colaborar con el estudio, envía tu portafolio y datos de contacto. Revisaremos perfiles de arquitectura, diseño, ingeniería, visualización y supervisión de obra.</p>
-    <a class="btn btn--dark" href="mailto:arqcristaloft@gmail.com?subject=Portafolio%20profesional">Enviar portafolio</a>
+
+  <!-- ═══════════════════════════════════════
+       NAVIGATION
+  ═══════════════════════════════════════ -->
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Navegación principal">
+    <a href="/" class="nav__logo" aria-label="Nóesis del Caribe — Inicio">
+      <svg class="nav__logo-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <polygon points="18,80 18,28 38,18 38,80" fill="#D3AB2D"/>
+        <rect x="22" y="32" width="8" height="8" fill="rgba(25,23,20,0.35)"/>
+        <polygon points="46,80 46,38 72,22 72,56 58,56 58,80" fill="#D3AB2D"/>
+        <polygon points="58,56 72,56 72,80 58,80" fill="rgba(25,23,20,0.18)"/>
+      </svg>
+      <div class="nav__logo-text">
+        <strong>Nóesis del Caribe</strong>
+        <span>Ingeniería &amp; Arquitectura</span>
+      </div>
+    </a>
+
+    <ul class="nav__links" id="navMenu" role="list">
+      <li><a href="/#services">Servicios</a></li>
+      <li><a href="/#portfolio">Portafolio</a></li>
+      <li><a href="/#proceso">Proceso</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/#cotizar" class="nav__cta">Cotizar Proyecto</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══════════════════════════════════════
+       HERO
+  ═══════════════════════════════════════ -->
+  <header class="careers-hero">
+    <div class="careers-hero__wrap">
+      <div class="careers-hero__eyebrow">Equipo &amp; Alianzas Profesionales</div>
+      <h1 class="careers-hero__title">Diseña con Visión, Construye con Propósito</h1>
+      <p class="careers-hero__subtitle">
+        En Nóesis del Caribe creemos que la arquitectura trascendente surge de la unión entre rigor ingenieril, sensibilidad estética y trabajo colaborativo. Buscamos mentes creativas y precisas.
+      </p>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════
+       CULTURE & VALUES
+  ═══════════════════════════════════════ -->
+  <section class="careers-culture" aria-labelledby="culture-title">
+    <div class="careers-culture__wrap">
+      <p class="section-label">Nuestra Cultura</p>
+      <h2 class="section-title" id="culture-title">¿Por qué colaborar con Nóesis?</h2>
+      <div class="culture-grid">
+        <div class="culture-card">
+          <span class="culture-card__icon" aria-hidden="true">🏛️</span>
+          <h3 class="culture-card__title">Proyectos de Alto Nivel</h3>
+          <p class="culture-card__desc">Intervenimos en residencias de lujo, villas de descanso y espacios comerciales en Santo Domingo, La Romana y polos turísticos de RD.</p>
+        </div>
+        <div class="culture-card">
+          <span class="culture-card__icon" aria-hidden="true">🌐</span>
+          <h3 class="culture-card__title">Flexibilidad &amp; Metodología Remota</h3>
+          <p class="culture-card__desc">Flujo de trabajo digital optimizado en la nube que permite colaboración fluida tanto presencial en Santo Domingo como 100% remota.</p>
+        </div>
+        <div class="culture-card">
+          <span class="culture-card__icon" aria-hidden="true">💎</span>
+          <h3 class="culture-card__title">Estándar de Calidad Impecable</h3>
+          <p class="culture-card__desc">Sin atajos. Cuidamos cada encuentro de material, cada plano acotado y cada render fotorrealista con devoción arquitectónica.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       OPEN POSITIONS
+  ═══════════════════════════════════════ -->
+  <main class="careers-body">
+    <div class="careers-wrap">
+      <p class="section-label">Convocatorias Abiertas</p>
+      <h2 class="section-title">Posiciones y Colaboraciones Disponibles</h2>
+
+      <div class="roles-list">
+
+        <!-- Role 1 -->
+        <article class="role-card">
+          <div class="role-card__main">
+            <div class="role-card__tags">
+              <span class="role-tag role-tag--gold">Arquitectura</span>
+              <span class="role-tag">Santo Domingo / Híbrido</span>
+              <span class="role-tag">Tiempo Completo / Proyecto</span>
+            </div>
+            <h3 class="role-card__title">Arquitecto(a) Proyectista de Interiores &amp; Residencial</h3>
+            <p class="role-card__desc">
+              Responsable de conceptualización espacial, anteproyectos, selección de acabados, diseño de mobiliario integrado y elaboración de planos ejecutivos para proyectos residenciales de alta gama.
+            </p>
+          </div>
+          <a href="#postular" class="btn btn--primary" style="white-space:nowrap" onclick="selectRole('Arquitecto(a) Proyectista')">Postular ahora</a>
+        </article>
+
+        <!-- Role 2 -->
+        <article class="role-card">
+          <div class="role-card__main">
+            <div class="role-card__tags">
+              <span class="role-tag role-tag--gold">Visualización 3D</span>
+              <span class="role-tag">100% Remoto</span>
+              <span class="role-tag">Por Proyecto / Freelance</span>
+            </div>
+            <h3 class="role-card__title">Artista de Visualización Arquitectónica &amp; Renders 3D</h3>
+            <p class="role-card__desc">
+              Modelado de volumetrías complejas, ambientación fotorrealista, iluminación físicamente correcta y postproducción de escenas diurnas y nocturnas con software contemporáneo (3ds Max, Corona, Blender, D5, Lumion).
+            </p>
+          </div>
+          <a href="#postular" class="btn btn--primary" style="white-space:nowrap" onclick="selectRole('Artista Visualizador 3D')">Postular ahora</a>
+        </article>
+
+        <!-- Role 3 -->
+        <article class="role-card">
+          <div class="role-card__main">
+            <div class="role-card__tags">
+              <span class="role-tag role-tag--gold">Ingeniería &amp; BIM</span>
+              <span class="role-tag">Remoto / Híbrido</span>
+              <span class="role-tag">Medio Tiempo / Proyecto</span>
+            </div>
+            <h3 class="role-card__title">Dibujante Técnico CAD / Modelador BIM (Revit)</h3>
+            <p class="role-card__desc">
+              Desarrollo de documentación técnica, plantas dimensionadas, secciones constructivas, despieces hidrosanitarios y eléctricos conforme a los reglamentos y normativas de edificación de la República Dominicana.
+            </p>
+          </div>
+          <a href="#postular" class="btn btn--primary" style="white-space:nowrap" onclick="selectRole('Modelador BIM / CAD')">Postular ahora</a>
+        </article>
+
+      </div>
+
+      <!-- Application Box -->
+      <section class="apply-section" id="postular">
+        <div>
+          <span style="font-size:0.75rem;font-weight:700;color:var(--color-gold);letter-spacing:0.2em;text-transform:uppercase;display:block;margin-bottom:0.75rem">Postulación Directa</span>
+          <h3 style="font-size:2rem;font-weight:900;line-height:1.2;margin-bottom:1rem">Envía tu Portafolio al Estudio</h3>
+          <p style="color:var(--color-warm-gray);line-height:1.8;font-size:0.95rem;margin-bottom:1.5rem">
+            Revisamos activamente portafolios y hojas de vida de profesionales independientes y talentos emergentes. Cuéntanos sobre tu experiencia y comparte enlaces a tus trabajos más destacados (Behance, Google Drive, web personal o PDF).
+          </p>
+          <div style="font-size:0.85rem;color:var(--color-warm-gray);line-height:1.6">
+            <p>📍 Santo Domingo, República Dominicana</p>
+            <p>✉️ <a href="mailto:arqcristaloft@gmail.com" style="color:var(--color-gold);text-decoration:none">arqcristaloft@gmail.com</a></p>
+            <p>💬 <a href="https://wa.me/18295425046" style="color:var(--color-gold);text-decoration:none">WhatsApp Directo: +1 (829) 542-5046</a></p>
+          </div>
+        </div>
+
+        <form class="apply-form" onsubmit="handleApplySubmit(event)">
+          <div>
+            <label for="appRole">Posición de interés</label>
+            <select id="appRole" required>
+              <option value="Arquitecto(a) Proyectista">Arquitecto(a) Proyectista</option>
+              <option value="Artista Visualizador 3D">Artista de Visualización 3D</option>
+              <option value="Modelador BIM / CAD">Modelador BIM / Dibujante CAD</option>
+              <option value="Otra colaboración profesional">Otra colaboración profesional</option>
+            </select>
+          </div>
+          <div>
+            <label for="appName">Nombre completo</label>
+            <input type="text" id="appName" placeholder="Tu nombre y apellido" required />
+          </div>
+          <div>
+            <label for="appEmail">Correo electrónico</label>
+            <input type="email" id="appEmail" placeholder="tu@correo.com" required />
+          </div>
+          <div>
+            <label for="appPortfolio">Enlace a Portafolio / Behance / Drive</label>
+            <input type="url" id="appPortfolio" placeholder="https://..." required />
+          </div>
+          <div>
+            <label for="appNote">Breve reseña o mensaje</label>
+            <textarea id="appNote" rows="3" placeholder="Cuéntanos brevemente sobre tu experiencia y disponibilidad..."></textarea>
+          </div>
+          <button type="submit" class="btn btn--primary" style="width:100%;justify-content:center">Enviar candidatura</button>
+          <p id="applySuccess" style="display:none;color:var(--color-gold);font-size:0.85rem;margin-top:1rem;text-align:center">
+            ¡Mensaje preparado! Te hemos redirigido a tu correo para enviar tu portafolio directamente a arqcristaloft@gmail.com.
+          </p>
+        </form>
+      </section>
+
+    </div>
   </main>
+
+  <!-- ═══════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <p class="footer__brand-name">Nóesis del Caribe</p>
+        <p class="footer__brand-sub">Ingeniería &amp; Arquitectura</p>
+        <p class="footer__desc">Estudio de ingeniería y arquitectura con sede en Santo Domingo, República Dominicana. Transformamos espacios con diseño de excelencia.</p>
+        <div class="footer__social" role="list" aria-label="Redes sociales">
+          <a class="footer__social-btn" href="https://www.instagram.com/noesis.cb/" target="_blank" rel="noopener" role="listitem" aria-label="Instagram">📷</a>
+          <a class="footer__social-btn" href="https://wa.me/18295425046" target="_blank" rel="noopener" role="listitem" aria-label="WhatsApp">💬</a>
+          <a class="footer__social-btn" href="https://www.linkedin.com/in/cristal-fabian-8961b53a7/" target="_blank" rel="noopener" role="listitem" aria-label="LinkedIn">💼</a>
+        </div>
+      </div>
+
+      <div class="footer__col">
+        <h4 class="footer__col-title">Servicios</h4>
+        <ul class="footer__links" role="list">
+          <li><a href="/#services">Diseño Arquitectónico</a></li>
+          <li><a href="/#services">Diseño de Interiores</a></li>
+          <li><a href="/#services">Visualización 3D</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h4 class="footer__col-title">Empresa</h4>
+        <ul class="footer__links" role="list">
+          <li><a href="/#nosotros">Nosotros</a></li>
+          <li><a href="/#portfolio">Portafolio</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/careers">Trabaja con nosotros</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h4 class="footer__col-title">Contacto</h4>
+        <ul class="footer__links" role="list">
+          <li><span>📍 Santo Domingo, RD</span></li>
+          <li><a href="tel:+18295425046">📞 +1 (829) 542-5046</a></li>
+          <li><a href="mailto:arqcristaloft@gmail.com">✉️ arqcristaloft@gmail.com</a></li>
+          <li><a href="/#cotizar" class="footer__links-cta">→ Cotizar proyecto</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p>© 2026 Nóesis del Caribe. Todos los derechos reservados.</p>
+      <p><a href="/terminos" style="color:var(--color-gold);text-decoration:none">Términos &amp; Privacidad</a> · <a href="/admin" style="color:inherit;opacity:.4;font-size:.8rem">Admin</a></p>
+    </div>
+  </footer>
+
+  <script>
+    function selectRole(roleTitle) {
+      const select = document.getElementById('appRole');
+      for (let i = 0; i < select.options.length; i++) {
+        if (select.options[i].value === roleTitle) {
+          select.selectedIndex = i;
+          break;
+        }
+      }
+    }
+
+    function handleApplySubmit(e) {
+      e.preventDefault();
+      const role = document.getElementById('appRole').value;
+      const name = document.getElementById('appName').value;
+      const email = document.getElementById('appEmail').value;
+      const portfolio = document.getElementById('appPortfolio').value;
+      const note = document.getElementById('appNote').value;
+
+      const subject = encodeURIComponent(`Candidatura: ${role} — ${name}`);
+      const body = encodeURIComponent(
+        `Hola Nóesis del Caribe,\n\nMi nombre es ${name} y me gustaría postular a la posición de ${role}.\n\n` +
+        `Mi correo de contacto: ${email}\n` +
+        `Enlace a mi portafolio/CV: ${portfolio}\n\n` +
+        `Notas adicionales:\n${note}\n\nQuedo a la espera de su respuesta.\nSaludos cordiales,\n${name}`
+      );
+
+      const mailtoUrl = `mailto:arqcristaloft@gmail.com?subject=${subject}&body=${body}`;
+      document.getElementById('applySuccess').style.display = 'block';
+      window.location.href = mailtoUrl;
+    }
+  </script>
+
 </body>
 </html>

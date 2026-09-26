@@ -12,9 +12,9 @@ window.NOESIS_CONFIG = {
   mode: 'production',
   apiBaseUrl: '',
   stripeCheckoutEndpoint: '/api/payments/checkout-session',
-  studioEmail: 'info@noesisdelcaribe.com',
-  whatsappUrl: 'https://wa.me/18090000000',
-  instagramUrl: 'https://www.instagram.com/',
+  studioEmail: 'arqcristaloft@gmail.com',
+  whatsappUrl: 'https://wa.me/18295425046',
+  instagramUrl: 'https://www.instagram.com/noesis.cb/',
   facebookUrl: 'https://www.facebook.com/',
-  linkedinUrl: 'https://www.linkedin.com/',
+  linkedinUrl: 'https://www.linkedin.com/in/cristal-fabian-8961b53a7/',
 };

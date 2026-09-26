@@ -286,9 +286,12 @@ class Database:
             conn.execute(
                 """
                 UPDATE quotes SET sent_at = ?
-                WHERE order_id = ? AND sent_at IS NULL
-                ORDER BY created_at DESC
-                LIMIT 1
+                WHERE id = (
+                    SELECT id FROM quotes
+                    WHERE order_id = ? AND sent_at IS NULL
+                    ORDER BY created_at DESC
+                    LIMIT 1
+                )
                 """,
                 (utcnow(), order_id),
             )
