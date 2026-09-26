@@ -28,7 +28,7 @@ Edita `.env` antes de producción:
 - `SMTP_*`: credenciales SMTP para correos.
 - `STUDIO_EMAIL`: correo del arquitecto/estudio.
 
-El frontend usa rutas relativas en [config.js](D:/noesis/js/config.js), por lo que no expone claves secretas.
+El frontend usa rutas relativas en [config.js](js/config.js), por lo que no expone claves secretas.
 
 ## Flujo productivo
 
@@ -73,7 +73,7 @@ checkout.session.completed
 
 ## Datos
 
-Por defecto usa SQLite en `backend/data/noesis.sqlite3`. Para migrar a Supabase/PostgreSQL, usa el esquema base en [supabase-schema.sql](D:/noesis/docs/supabase-schema.sql) y adapta el repositorio de datos.
+Por defecto usa SQLite en `backend/data/noesis.sqlite3`. Para migrar a Supabase/PostgreSQL, usa el esquema base en [supabase-schema.sql](docs/supabase-schema.sql) y adapta el repositorio de datos.
 
 ## Verificación realizada
 

@@ -3,8 +3,8 @@ from pydantic import BaseModel, EmailStr, Field, field_validator
 
 
 class AdminLogin(BaseModel):
-    username: str = Field(min_length=1, max_length=60)
-    password: str = Field(min_length=8, max_length=200)
+    username: str = Field(min_length=1, max_length=80)
+    password: str = Field(min_length=3, max_length=200)
 
 
 class Customer(BaseModel):
@@ -78,11 +78,6 @@ class StatusUpdate(BaseModel):
 class CheckoutFromToken(BaseModel):
     """Initiate Stripe checkout using the client's secure token."""
     token: str = Field(min_length=10, max_length=100)
-
-
-class AdminLogin(BaseModel):
-    username: str = Field(min_length=1, max_length=80)
-    password: str = Field(min_length=1, max_length=200)
 
 
 class OrderResponse(BaseModel):

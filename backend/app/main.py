@@ -51,11 +51,14 @@ _rate_store: dict[str, list[float]] = defaultdict(list)
 
 def _check_rate(key: str, max_req: int, window: int) -> bool:
     now = time.monotonic()
-    hits = [t for t in _rate_store[key] if now - t < window]
-    _rate_store[key] = hits
+    hits = [t for t in _rate_store.get(key, []) if now - t < window]
+    if hits:
+        _rate_store[key] = hits
+    else:
+        _rate_store.pop(key, None)
     if len(hits) >= max_req:
         return False
-    _rate_store[key].append(now)
+    _rate_store.setdefault(key, []).append(now)
     return True
 
 def _client_ip(request: Request) -> str:
@@ -450,3 +453,23 @@ def admin_page() -> FileResponse:
 @app.get("/mi-pedido")
 def client_order_page() -> FileResponse:
     return FileResponse(ROOT / "pages" / "mi-pedido.html")
+
+@app.get("/terminos")
+def terminos_page() -> FileResponse:
+    return FileResponse(ROOT / "pages" / "terminos.html")
+
+@app.get("/blog")
+def blog_page() -> FileResponse:
+    return FileResponse(ROOT / "pages" / "blog.html")
+
+@app.get("/careers")
+def careers_page() -> FileResponse:
+    return FileResponse(ROOT / "pages" / "careers.html")
+
+@app.get("/robots.txt")
+def robots_txt() -> FileResponse:
+    return FileResponse(ROOT / "robots.txt", media_type="text/plain")
+
+@app.get("/sitemap.xml")
+def sitemap_xml() -> FileResponse:
+    return FileResponse(ROOT / "sitemap.xml", media_type="application/xml")
