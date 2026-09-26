@@ -3,75 +3,585 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Términos y condiciones del servicio de Nóesis del Caribe — uso del sitio, solicitudes de cotización y contratación de servicios." />
+  <meta name="description" content="Términos y condiciones del servicio y política de privacidad de Nóesis del Caribe — estudio de ingeniería y arquitectura en Santo Domingo, República Dominicana." />
   <meta name="author" content="Nóesis del Caribe" />
-  <meta name="robots" content="noindex, follow" />
+  <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://noesisdelcaribe.com/terminos" />
-  <meta property="og:title" content="Términos y condiciones — Nóesis del Caribe" />
+  <meta property="og:title" content="Términos y Condiciones &amp; Privacidad — Nóesis del Caribe" />
+  <meta property="og:description" content="Marco contractual, propiedad intelectual y política de privacidad para servicios de arquitectura e ingeniería." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://noesisdelcaribe.com/terminos" />
   <meta property="og:site_name" content="Nóesis del Caribe" />
-  <title>Términos y condiciones — Nóesis del Caribe</title>
+  <title>Términos y Condiciones &amp; Privacidad — Nóesis del Caribe</title>
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,300;0,400;0,700;0,900;1,300&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../css/variables.css" />
-  <link rel="stylesheet" href="../css/reset.css" />
-  <link rel="stylesheet" href="../css/base.css" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="/css/variables.css" />
+  <link rel="stylesheet" href="/css/reset.css" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/nav.css" />
+  <link rel="stylesheet" href="/css/footer.css" />
+
   <style>
-    .legal-page {
-      max-width: 52rem;
-      margin: 0 auto;
-      padding: 5rem 1.5rem;
+    .legal-hero {
+      background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(211, 171, 45, 0.18), transparent 70%),
+                  var(--color-bg-dark);
+      color: var(--color-white);
+      padding: 8.5rem var(--section-padding-h) 4rem;
+      border-bottom: 1px solid var(--border-color-gold);
+      position: relative;
     }
 
-    .legal-page h1 {
-      font-size: clamp(2rem, 5vw, 3rem);
+    .legal-hero__wrap {
+      max-width: var(--container-max);
+      margin: 0 auto;
+    }
+
+    .legal-hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: var(--letter-spacing-caps);
+      text-transform: uppercase;
+      color: var(--color-gold);
       margin-bottom: 1rem;
     }
 
-    .legal-page h2 {
-      font-size: 1.25rem;
-      margin: 2rem 0 0.75rem;
+    .legal-hero__eyebrow::before {
+      content: "";
+      width: 1.5rem;
+      height: 2px;
+      background: var(--color-gold);
     }
 
-    .legal-page p,
-    .legal-page li {
-      color: var(--color-text-muted);
+    .legal-hero__title {
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: var(--font-weight-black);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.25rem;
+    }
+
+    .legal-hero__subtitle {
+      font-size: var(--font-size-md);
+      color: var(--color-warm-gray);
+      max-width: 44rem;
       line-height: var(--line-height-loose);
+      font-weight: var(--font-weight-light);
     }
 
-    .legal-page ul {
-      margin-left: 1.25rem;
+    .legal-hero__meta {
+      margin-top: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      font-size: var(--font-size-xs);
+      color: var(--color-warm-gray);
+      letter-spacing: var(--letter-spacing-wide);
     }
 
-    .legal-page__back {
-      margin-top: 2.5rem;
+    .legal-hero__meta span strong {
+      color: var(--color-gold);
+    }
+
+    /* Quick jump navigation */
+    .legal-tabs {
+      background: #12100e;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky;
+      top: 4.5rem;
+      z-index: 50;
+      padding: 0 var(--section-padding-h);
+      backdrop-filter: blur(12px);
+    }
+
+    .legal-tabs__wrap {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      display: flex;
+      gap: 2rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .legal-tabs__wrap::-webkit-scrollbar {
+      display: none;
+    }
+
+    .legal-tabs__link {
+      display: inline-block;
+      padding: 1rem 0;
+      color: var(--color-warm-gray);
+      text-decoration: none;
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: var(--letter-spacing-wide);
+      text-transform: uppercase;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+      transition: color var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .legal-tabs__link:hover,
+    .legal-tabs__link--active {
+      color: var(--color-gold);
+      border-bottom-color: var(--color-gold);
+    }
+
+    /* Legal layout */
+    .legal-body {
+      background: var(--color-bg-primary);
+      padding: 4.5rem var(--section-padding-h) 6rem;
+    }
+
+    .legal-grid {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .legal-sidebar {
+      position: sticky;
+      top: 9rem;
+      background: var(--color-light-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius-lg);
+      padding: 1.75rem;
+    }
+
+    .legal-sidebar__title {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-black);
+      letter-spacing: var(--letter-spacing-wider);
+      text-transform: uppercase;
+      color: var(--color-olive);
+      margin-bottom: 1.25rem;
+    }
+
+    .legal-sidebar__nav {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .legal-sidebar__nav a {
+      color: var(--color-near-black);
+      text-decoration: none;
+      font-size: var(--font-size-sm);
+      line-height: 1.4;
+      transition: color var(--transition-fast);
+      display: block;
+    }
+
+    .legal-sidebar__nav a:hover {
+      color: var(--color-gold-dark);
+      padding-left: 4px;
+    }
+
+    .legal-sidebar__cta {
+      margin-top: 1.75rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .legal-sidebar__cta p {
+      font-size: var(--font-size-xs);
+      color: var(--color-olive);
+      margin-bottom: 0.75rem;
+      line-height: var(--line-height-normal);
+    }
+
+    /* Content styling */
+    .legal-content {
+      max-width: 52rem;
+    }
+
+    .legal-section {
+      margin-bottom: 3.5rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .legal-section:last-of-type {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .legal-section__badge {
+      display: inline-block;
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-black);
+      letter-spacing: var(--letter-spacing-caps);
+      text-transform: uppercase;
+      color: var(--color-gold-dark);
+      background: var(--color-gold-faint);
+      border: 1px solid var(--border-color-gold);
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--border-radius-sm);
+      margin-bottom: 0.75rem;
+    }
+
+    .legal-section h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: var(--font-weight-black);
+      color: var(--color-near-black);
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.01em;
+    }
+
+    .legal-section h3 {
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-near-black);
+      margin: 1.75rem 0 0.5rem;
+    }
+
+    .legal-section p,
+    .legal-section li {
+      font-size: var(--font-size-base);
+      color: var(--color-olive);
+      line-height: var(--line-height-loose);
+      font-weight: var(--font-weight-light);
+      margin-bottom: 1rem;
+    }
+
+    .legal-section ul,
+    .legal-section ol {
+      margin: 1rem 0 1.5rem 1.5rem;
+    }
+
+    .legal-section li {
+      margin-bottom: 0.5rem;
+    }
+
+    .legal-highlight-box {
+      background: rgba(211, 171, 45, 0.07);
+      border-left: 3px solid var(--color-gold);
+      border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .legal-highlight-box p {
+      margin: 0;
+      color: var(--color-near-black);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-regular);
+    }
+
+    @media (max-width: 900px) {
+      .legal-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .legal-sidebar {
+        display: none;
+      }
+      .legal-hero {
+        padding-top: 7rem;
+      }
     }
   </style>
 </head>
 <body>
-  <main class="legal-page">
-    <p class="section-label">Nóesis del Caribe</p>
-    <h1>Términos y condiciones</h1>
-    <p>Estos términos aplican al uso del sitio web, la solicitud de cotizaciones y la contratación de servicios de arquitectura, ingeniería, visualización y consultoría.</p>
 
-    <h2>1. Alcance del servicio</h2>
-    <p>Las propuestas, precios y tiempos definitivos se confirman por escrito según la información entregada por el cliente, el alcance técnico requerido y la disponibilidad del estudio.</p>
+  <!-- ═══════════════════════════════════════
+       NAVIGATION
+  ═══════════════════════════════════════ -->
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Navegación principal">
+    <a href="/" class="nav__logo" aria-label="Nóesis del Caribe — Inicio">
+      <svg class="nav__logo-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <polygon points="18,80 18,28 38,18 38,80" fill="#D3AB2D"/>
+        <rect x="22" y="32" width="8" height="8" fill="rgba(25,23,20,0.35)"/>
+        <polygon points="46,80 46,38 72,22 72,56 58,56 58,80" fill="#D3AB2D"/>
+        <polygon points="58,56 72,56 72,80 58,80" fill="rgba(25,23,20,0.18)"/>
+      </svg>
+      <div class="nav__logo-text">
+        <strong>Nóesis del Caribe</strong>
+        <span>Ingeniería &amp; Arquitectura</span>
+      </div>
+    </a>
 
-    <h2>2. Información del cliente</h2>
-    <p>El cliente declara que los datos, medidas, fotografías y requisitos enviados son correctos y cuenta con autorización para compartirlos.</p>
+    <ul class="nav__links" id="navMenu" role="list">
+      <li><a href="/#services">Servicios</a></li>
+      <li><a href="/#portfolio">Portafolio</a></li>
+      <li><a href="/#proceso">Proceso</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/#cotizar" class="nav__cta">Cotizar Proyecto</a></li>
+    </ul>
+  </nav>
 
-    <h2>3. Pagos</h2>
-    <p>Los pagos se procesarán mediante los canales habilitados por el estudio. En modo demo, el sitio no procesa cargos reales.</p>
+  <!-- ═══════════════════════════════════════
+       HERO
+  ═══════════════════════════════════════ -->
+  <header class="legal-hero">
+    <div class="legal-hero__wrap">
+      <div class="legal-hero__eyebrow">Marco Jurídico &amp; Compromiso Ético</div>
+      <h1 class="legal-hero__title">Términos del Servicio y Política de Privacidad</h1>
+      <p class="legal-hero__subtitle">
+        Conoce los lineamientos contractuales, protección de derechos de autor y salvaguarda de datos que rigen la contratación de servicios de diseño arquitectónico e ingeniería en Nóesis del Caribe.
+      </p>
+      <div class="legal-hero__meta">
+        <span>Última actualización: <strong>Septiembre 2026</strong></span>
+        <span>Jurisdicción: <strong>Santo Domingo, República Dominicana</strong></span>
+        <span>Leyes aplicables: <strong>Ley 65-00 (Derecho de Autor) &amp; Ley 172-13 (Datos Personales)</strong></span>
+      </div>
+    </div>
+  </header>
 
-    <h2>4. Entregables</h2>
-    <p>Los entregables se definen en cada propuesta. Cambios fuera del alcance acordado pueden generar ajustes de costo y calendario.</p>
+  <!-- ═══════════════════════════════════════
+       TABS QUICK NAVIGATION
+  ═══════════════════════════════════════ -->
+  <nav class="legal-tabs" aria-label="Secciones legales">
+    <div class="legal-tabs__wrap">
+      <a href="#servicios" class="legal-tabs__link legal-tabs__link--active">1. Alcance de Servicios</a>
+      <a href="#cotizaciones" class="legal-tabs__link">2. Cotizaciones y Pagos</a>
+      <a href="#propiedad" class="legal-tabs__link">3. Propiedad Intelectual</a>
+      <a href="#entregables" class="legal-tabs__link">4. Entregables y Revisiones</a>
+      <a href="#privacidad" class="legal-tabs__link">5. Política de Privacidad</a>
+      <a href="#jurisdiccion" class="legal-tabs__link">6. Jurisdicción</a>
+    </div>
+  </nav>
 
-    <h2>5. Privacidad</h2>
-    <p>Los datos se usan para responder solicitudes, preparar propuestas, coordinar servicios y enviar confirmaciones relacionadas con el proyecto.</p>
+  <!-- ═══════════════════════════════════════
+       MAIN LEGAL CONTENT
+  ═══════════════════════════════════════ -->
+  <main class="legal-body">
+    <div class="legal-grid">
 
-    <a class="btn btn--dark legal-page__back" href="../index.html#cotizar">Volver al sitio</a>
+      <!-- Sticky Table of Contents -->
+      <aside class="legal-sidebar" aria-label="Índice de contenido">
+        <p class="legal-sidebar__title">Contenido</p>
+        <ul class="legal-sidebar__nav">
+          <li><a href="#servicios">1. Alcance de los Servicios</a></li>
+          <li><a href="#cotizaciones">2. Cotizaciones y Pagos</a></li>
+          <li><a href="#propiedad">3. Propiedad Intelectual (Ley 65-00)</a></li>
+          <li><a href="#entregables">4. Entregables y Revisiones</a></li>
+          <li><a href="#cliente">5. Responsabilidades del Cliente</a></li>
+          <li><a href="#privacidad">6. Política de Privacidad (Ley 172-13)</a></li>
+          <li><a href="#cancelaciones">7. Cancelaciones y Reembolsos</a></li>
+          <li><a href="#jurisdiccion">8. Ley Aplicable y Jurisdicción</a></li>
+        </ul>
+
+        <div class="legal-sidebar__cta">
+          <p>¿Tienes dudas sobre una cláusula o requerimiento especial?</p>
+          <a href="mailto:arqcristaloft@gmail.com?subject=Consulta%20Legal%20Noesis" class="btn btn--outline" style="width:100%;font-size:0.75rem;padding:0.6rem 0.8rem">Contactar al Estudio</a>
+        </div>
+      </aside>
+
+      <!-- Main Text -->
+      <div class="legal-content">
+
+        <!-- Section 1 -->
+        <section class="legal-section" id="servicios">
+          <span class="legal-section__badge">Cláusula I</span>
+          <h2>1. Alcance de los Servicios</h2>
+          <p>
+            Nóesis del Caribe (en adelante, "el Estudio") presta servicios profesionales especializados en diseño arquitectónico, diseño de interiores, modelado y visualización 3D, desarrollo de planos técnicos ejecutivos y consultoría de ingeniería en Santo Domingo y todo el territorio de la República Dominicana, así como en modalidad remota internacional.
+          </p>
+          <p>
+            Los servicios contratados a través de nuestro portal digital comprenden las especificaciones particulares convenidas en la cotización formal emitida. Salvo acuerdo explícito y presupuestado por escrito, los servicios de diseño remoto no incluyen trámites presenciales de licencias de construcción, visados colegiados ante el Colegio Dominicano de Ingenieros, Arquitectos y Agrimensores (CODIA), supervisiones físicas de obra ni peritajes topográficos en sitio.
+          </p>
+          <div class="legal-highlight-box">
+            <p><strong>Nota técnica:</strong> Si tu proyecto requiere visado CODIA o tramitación ante el Ministerio de Obras Públicas y Comunicaciones (MOPC) o el Ayuntamiento correspondiente, coordínalo previamente con nuestro equipo para estructurar el paquete técnico y colegiatura requerida.</p>
+          </div>
+        </section>
+
+        <!-- Section 2 -->
+        <section class="legal-section" id="cotizaciones">
+          <span class="legal-section__badge">Cláusula II</span>
+          <h2>2. Cotizaciones, Presupuestos y Esquema de Pagos</h2>
+          <p>
+            El envío del formulario en nuestro sitio web genera una solicitud de cotización sin compromiso económico inicial para el cliente. En un plazo promedio de 24 a 48 horas hábiles, el Estudio analiza el metraje, tipología del espacio y requisitos para emitir una propuesta formal detallada acompañada de un identificador de pedido único (ej. <code>NOE-XXXXXX</code>) y enlace seguro de seguimiento.
+          </p>
+          <h3>Validez de las cotizaciones</h3>
+          <p>
+            Las cotizaciones emitidas tienen una vigencia estándar de treinta (30) días calendario a partir de su expedición. Transcurrido dicho período, el Estudio se reserva el derecho de reajustar los honorarios conforme a fluctuaciones de costos o disponibilidad de calendario.
+          </p>
+          <h3>Formas y procesamiento de pago</h3>
+          <p>
+            Los pagos se efectúan a través de los canales autorizados por Nóesis del Caribe:
+          </p>
+          <ul>
+            <li><strong>Plataforma Stripe Checkout:</strong> Procesamiento internacional cifrado mediante tarjeta de débito/crédito (Visa, Mastercard, American Express).</li>
+            <li><strong>Transferencia bancaria local:</strong> Cuentas corporativas en entidades bancarias dominicanas (Banco Popular Dominicano, Banco BHD, Banreservas) en pesos dominicanos (DOP) o dólares estadounidenses (USD).</li>
+          </ul>
+          <p>
+            El inicio efectivo de los trabajos de diseño comenzará una vez acreditado el pago inicial o el total convenido en la cotización.
+          </p>
+        </section>
+
+        <!-- Section 3 -->
+        <section class="legal-section" id="propiedad">
+          <span class="legal-section__badge">Cláusula III</span>
+          <h2>3. Propiedad Intelectual y Derechos de Autor (Ley 65-00)</h2>
+          <p>
+            De conformidad con la <strong>Ley No. 65-00 sobre Derecho de Autor</strong> de la República Dominicana y los tratados internacionales de propiedad intelectual suscritos por el país:
+          </p>
+          <ul>
+            <li><strong>Derechos Morales:</strong> Todos los conceptos preliminares, bocetos, modelos 3D, renders hiperrealistas, planos arquitectónicos y soluciones distributivas son obras de autoría protegida. Los derechos morales corresponden inalienable e imprescriptiblemente a los arquitectos proyectistas de Nóesis del Caribe.</li>
+            <li><strong>Licencia de Uso del Cliente:</strong> Al liquidar los honorarios acordados, el cliente adquiere una licencia de uso exclusiva para la ejecución material y edificación del proyecto específico indicado en la orden, en el inmueble y ubicación determinados.</li>
+            <li><strong>Restricciones:</strong> Queda terminantemente prohibida la reproducción parcial o total de los diseños para proyectos inmobiliarios distintos o la cesión a terceras partes promotoras sin autorización expresa, previa y por escrito de Nóesis del Caribe.</li>
+            <li><strong>Derecho de Divulgación en Portafolio:</strong> El Estudio conserva el derecho de exhibir las imágenes generadas, renders y fotografías finales de la obra en su portafolio comercial, sitio web, conferencias y redes sociales, resguardando en todo momento la identidad y ubicación exacta del cliente si este así lo solicita por motivos de confidencialidad.</li>
+          </ul>
+        </section>
+
+        <!-- Section 4 -->
+        <section class="legal-section" id="entregables">
+          <span class="legal-section__badge">Cláusula IV</span>
+          <h2>4. Entregables, Fases de Trabajo y Revisiones</h2>
+          <p>
+            Cada orden de servicio establece con exactitud el tipo y formato de los entregables digitales, los cuales pueden incluir:
+          </p>
+          <ul>
+            <li>Plantas arquitectónicas acotadas y distribuciones espaciales en formato digital (PDF alta resolución y/o DWG/Revit según contrato).</li>
+            <li>Renders fotorrealistas en resolución 4K con iluminación diurna o nocturna.</li>
+            <li>Guías de materiales, especificaciones técnicas y paletas cromáticas recomendadas.</li>
+          </ul>
+          <h3>Rondas de revisión incluidas</h3>
+          <p>
+            Todo proyecto estándar incluye dos (2) rondas formales de revisiones y ajustes sobre la propuesta conceptual presentada, dentro de los límites del metraje y programa arquitectónico inicial. Modificaciones sustanciales posteriores a la aprobación del anteproyecto (cambio de terreno, ampliación de metros cuadrados o sustitución de estilo) se presupuestarán como adicionales.
+          </p>
+        </section>
+
+        <!-- Section 5 -->
+        <section class="legal-section" id="cliente">
+          <span class="legal-section__badge">Cláusula V</span>
+          <h2>5. Responsabilidades y Declaraciones del Cliente</h2>
+          <p>El cliente declara y garantiza que:</p>
+          <ul>
+            <li>Es titular de los derechos sobre el inmueble objeto de la intervención o cuenta con la debida autorización de su propietario legítimo.</li>
+            <li>Las medidas, fotos, planos existentes y especificaciones compartidas a través del portal reflejan fielmente el estado actual del espacio.</li>
+            <li>Es responsable de verificar que el proyecto cumpla con las normas de zonificación de su municipio y el régimen de condominio aplicable al inmueble.</li>
+          </ul>
+        </section>
+
+        <!-- Section 6 -->
+        <section class="legal-section" id="privacidad">
+          <span class="legal-section__badge">Cláusula VI</span>
+          <h2>6. Política de Privacidad y Tratamiento de Datos (Ley 172-13)</h2>
+          <p>
+            En cumplimiento de la <strong>Ley No. 172-13 sobre Protección Integral de los Datos Personales</strong> de la República Dominicana, le informamos sobre cómo recopilamos y tratamos su información:
+          </p>
+          <h3>Finalidad de los datos</h3>
+          <p>
+            Los datos personales suministrados (nombre, correo electrónico, teléfono, dirección del inmueble, presupuestos y fotos) se emplean exclusivamente para:
+          </p>
+          <ul>
+            <li>Generar y remitir su cotización personalizada y contratos de servicios.</li>
+            <li>Coordinar las fases proyectuales y mantener comunicación fluida del estado de la obra.</li>
+            <li>Procesar de forma segura transacciones financieras y emisión de comprobantes fiscales.</li>
+            <li>Permitir el acceso exclusivo al portal del cliente (<code>/mi-pedido</code>) mediante tokens criptográficos inviolables (<code>clientToken</code> de 256 bits).</li>
+          </ul>
+          <h3>Seguridad y almacenamiento</h3>
+          <p>
+            Nóesis del Caribe implementa rigurosas medidas de seguridad técnicas y administrativas. Los archivos fotográficos de su proyecto se almacenan en servidores con acceso restringido y no son accesibles al público general. No comercializamos, alquilamos ni transferimos sus datos a terceros con fines publicitarios.
+          </p>
+          <h3>Derechos ARCO</h3>
+          <p>
+            Usted tiene derecho a ejercer sus derechos de Acceso, Rectificación, Cancelación y Oposición sobre sus datos personales en cualquier momento enviando una comunicación escrita con el asunto "Derechos ARCO" a <a href="mailto:arqcristaloft@gmail.com">arqcristaloft@gmail.com</a>.
+          </p>
+        </section>
+
+        <!-- Section 7 -->
+        <section class="legal-section" id="cancelaciones">
+          <span class="legal-section__badge">Cláusula VII</span>
+          <h2>7. Cancelaciones, Desistimientos y Reembolsos</h2>
+          <p>
+            Dado el carácter de servicio intelectual hecho a la medida, los reembolsos se calculan en función de la etapa de desarrollo alcanzada:
+          </p>
+          <ul>
+            <li><strong>Antes del inicio de diseño:</strong> Reembolso del 90% del monto abonado (reteniendo un 10% por costos administrativos y de plataforma de cobro).</li>
+            <li><strong>Fase conceptual en proceso:</strong> Reembolso de hasta el 50% según las horas de trabajo profesional devengadas por el equipo de diseño.</li>
+            <li><strong>Entrega de anteproyecto o planos finales:</strong> No aplica derecho a reembolso al haberse consumado la producción de la propiedad intelectual acordada.</li>
+          </ul>
+        </section>
+
+        <!-- Section 8 -->
+        <section class="legal-section" id="jurisdiccion">
+          <span class="legal-section__badge">Cláusula VIII</span>
+          <h2>8. Ley Aplicable y Jurisdicción Competente</h2>
+          <p>
+            El presente acuerdo se rige e interpreta íntegramente de conformidad con las leyes de la República Dominicana. Para cualquier divergencia, litigio o reclamación derivada de la interpretación o ejecución de los servicios, las partes se someten voluntariamente a la jurisdicción exclusiva de los tribunales del Distrito Nacional, Santo Domingo, renunciando a cualquier otro fuero que pudiera corresponderles.
+          </p>
+          <div class="legal-highlight-box" style="margin-top:2rem">
+            <p><strong>Nóesis del Caribe — Estudio de Ingeniería &amp; Arquitectura</strong><br>
+            Santo Domingo, República Dominicana · Correo: <a href="mailto:arqcristaloft@gmail.com">arqcristaloft@gmail.com</a> · Tel: +1 (829) 542-5046</p>
+          </div>
+          <div style="margin-top:2.5rem;display:flex;gap:1rem;flex-wrap:wrap">
+            <a href="/" class="btn btn--primary">Volver al inicio</a>
+            <a href="/#cotizar" class="btn btn--outline">Solicitar cotización</a>
+          </div>
+        </section>
+
+      </div>
+    </div>
   </main>
+
+  <!-- ═══════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <p class="footer__brand-name">Nóesis del Caribe</p>
+        <p class="footer__brand-sub">Ingeniería &amp; Arquitectura</p>
+        <p class="footer__desc">Estudio de ingeniería y arquitectura con sede en Santo Domingo, República Dominicana. Transformamos espacios con diseño de excelencia.</p>
+        <div class="footer__social" role="list" aria-label="Redes sociales">
+          <a class="footer__social-btn" href="https://www.instagram.com/noesis.cb/" target="_blank" rel="noopener" role="listitem" aria-label="Instagram">📷</a>
+          <a class="footer__social-btn" href="https://wa.me/18295425046" target="_blank" rel="noopener" role="listitem" aria-label="WhatsApp">💬</a>
+          <a class="footer__social-btn" href="https://www.linkedin.com/in/cristal-fabian-8961b53a7/" target="_blank" rel="noopener" role="listitem" aria-label="LinkedIn">💼</a>
+        </div>
+      </div>
+
+      <div class="footer__col">
+        <h4 class="footer__col-title">Servicios</h4>
+        <ul class="footer__links" role="list">
+          <li><a href="/#services">Diseño Arquitectónico</a></li>
+          <li><a href="/#services">Diseño de Interiores</a></li>
+          <li><a href="/#services">Visualización 3D</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h4 class="footer__col-title">Empresa</h4>
+        <ul class="footer__links" role="list">
+          <li><a href="/#nosotros">Nosotros</a></li>
+          <li><a href="/#portfolio">Portafolio</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/careers">Trabaja con nosotros</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h4 class="footer__col-title">Contacto</h4>
+        <ul class="footer__links" role="list">
+          <li><span>📍 Santo Domingo, RD</span></li>
+          <li><a href="tel:+18295425046">📞 +1 (829) 542-5046</a></li>
+          <li><a href="mailto:arqcristaloft@gmail.com">✉️ arqcristaloft@gmail.com</a></li>
+          <li><a href="/#cotizar" class="footer__links-cta">→ Cotizar proyecto</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p>© 2026 Nóesis del Caribe. Todos los derechos reservados.</p>
+      <p><a href="/terminos" style="color:var(--color-gold);text-decoration:none">Términos &amp; Privacidad</a> · <a href="/admin" style="color:inherit;opacity:.4;font-size:.8rem">Admin</a></p>
+    </div>
+  </footer>
+
 </body>
 </html>

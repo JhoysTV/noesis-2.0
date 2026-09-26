@@ -3,29 +3,698 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Blog de Nóesis del Caribe — artículos sobre diseño arquitectónico, interiores y construcción en República Dominicana." />
+  <meta name="description" content="Blog de Nóesis del Caribe — artículos y guías sobre arquitectura bioclimática, diseño de interiores, renders 3D y construcción en República Dominicana." />
   <meta name="author" content="Nóesis del Caribe" />
   <link rel="canonical" href="https://noesisdelcaribe.com/blog" />
-  <meta property="og:title" content="Blog — Nóesis del Caribe" />
-  <meta property="og:description" content="Artículos sobre diseño arquitectónico, interiores y construcción en República Dominicana." />
+  <meta property="og:title" content="Blog &amp; Criterios de Diseño — Nóesis del Caribe" />
+  <meta property="og:description" content="Artículos sobre diseño arquitectónico, interiores, bioclimática y visualización en el Caribe." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://noesisdelcaribe.com/blog" />
   <meta property="og:site_name" content="Nóesis del Caribe" />
-  <title>Blog — Nóesis del Caribe</title>
+  <title>Blog &amp; Criterios de Diseño — Nóesis del Caribe</title>
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,300;0,400;0,700;0,900;1,300&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../css/variables.css" />
-  <link rel="stylesheet" href="../css/reset.css" />
-  <link rel="stylesheet" href="../css/base.css" />
-  <style>.simple-page{max-width:48rem;margin:0 auto;padding:6rem 1.5rem}.simple-page p{color:var(--color-text-muted);line-height:var(--line-height-loose)}.simple-page .btn{margin-top:2rem}</style>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="/css/variables.css" />
+  <link rel="stylesheet" href="/css/reset.css" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/nav.css" />
+  <link rel="stylesheet" href="/css/footer.css" />
+
+  <style>
+    .blog-hero {
+      background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(211, 171, 45, 0.22), transparent 70%),
+                  var(--color-bg-dark);
+      color: var(--color-white);
+      padding: 8.5rem var(--section-padding-h) 4.5rem;
+      border-bottom: 1px solid var(--border-color-gold);
+    }
+
+    .blog-hero__wrap {
+      max-width: var(--container-max);
+      margin: 0 auto;
+    }
+
+    .blog-hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: var(--letter-spacing-caps);
+      text-transform: uppercase;
+      color: var(--color-gold);
+      margin-bottom: 1rem;
+    }
+
+    .blog-hero__eyebrow::before {
+      content: "";
+      width: 1.5rem;
+      height: 2px;
+      background: var(--color-gold);
+    }
+
+    .blog-hero__title {
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: var(--font-weight-black);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.25rem;
+    }
+
+    .blog-hero__subtitle {
+      font-size: var(--font-size-md);
+      color: var(--color-warm-gray);
+      max-width: 46rem;
+      line-height: var(--line-height-loose);
+      font-weight: var(--font-weight-light);
+    }
+
+    /* Filter Bar */
+    .blog-filters {
+      background: #151310;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 1.25rem var(--section-padding-h);
+      position: sticky;
+      top: 4.5rem;
+      z-index: 40;
+      backdrop-filter: blur(14px);
+    }
+
+    .blog-filters__wrap {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .blog-filters__wrap::-webkit-scrollbar {
+      display: none;
+    }
+
+    .blog-filter-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--color-warm-gray);
+      padding: 0.5rem 1.15rem;
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: var(--letter-spacing-wide);
+      text-transform: uppercase;
+      border-radius: var(--border-radius-pill);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .blog-filter-btn:hover,
+    .blog-filter-btn--active {
+      background: var(--color-gold);
+      color: var(--color-near-black);
+      border-color: var(--color-gold);
+    }
+
+    /* Articles Grid */
+    .blog-body {
+      background: var(--color-bg-primary);
+      padding: 5rem var(--section-padding-h) 7rem;
+    }
+
+    .blog-grid {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .blog-card {
+      background: var(--color-white);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-card);
+      transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+    }
+
+    .blog-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(25, 23, 20, 0.08);
+      border-color: var(--color-gold);
+    }
+
+    .blog-card__header-thumb {
+      height: 190px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .thumb--bioclimatic {
+      background: linear-gradient(135deg, #1b261d 0%, #2e4433 60%, #4a6b4a 100%);
+    }
+
+    .thumb--interiors {
+      background: linear-gradient(135deg, #2a2016 0%, #523b24 60%, #876239 100%);
+    }
+
+    .thumb--renders {
+      background: linear-gradient(135deg, #161a25 0%, #24314c 60%, #3e5684 100%);
+    }
+
+    .thumb--materials {
+      background: linear-gradient(135deg, #23201e 0%, #463c37 60%, #6e5e54 100%);
+    }
+
+    .blog-card__thumb-badge {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: rgba(25, 23, 20, 0.85);
+      border: 1px solid var(--border-color-gold);
+      color: var(--color-gold);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: var(--letter-spacing-wide);
+      text-transform: uppercase;
+      padding: 0.3rem 0.75rem;
+      border-radius: var(--border-radius-pill);
+      backdrop-filter: blur(8px);
+    }
+
+    .blog-card__icon-accent {
+      font-size: 3.5rem;
+      opacity: 0.85;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
+    }
+
+    .blog-card__content {
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .blog-card__meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: var(--font-size-xs);
+      color: var(--color-text-faint);
+      margin-bottom: 0.85rem;
+    }
+
+    .blog-card__title {
+      font-size: 1.35rem;
+      font-weight: var(--font-weight-bold);
+      color: var(--color-near-black);
+      line-height: 1.3;
+      margin-bottom: 0.85rem;
+    }
+
+    .blog-card__excerpt {
+      font-size: var(--font-size-sm);
+      color: var(--color-olive);
+      line-height: var(--line-height-loose);
+      font-weight: var(--font-weight-light);
+      margin-bottom: 1.75rem;
+      flex: 1;
+    }
+
+    .blog-card__btn {
+      align-self: flex-start;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-near-black);
+      text-transform: uppercase;
+      letter-spacing: var(--letter-spacing-wide);
+      background: transparent;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: color var(--transition-fast);
+    }
+
+    .blog-card__btn:hover {
+      color: var(--color-gold-dark);
+    }
+
+    /* Lead magnet banner */
+    .blog-cta {
+      background: radial-gradient(circle at 100% 50%, rgba(211, 171, 45, 0.15), transparent 60%),
+                  var(--color-bg-dark);
+      color: var(--color-white);
+      border-radius: var(--border-radius-lg);
+      padding: 3.5rem;
+      margin-top: 4.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      border: 1px solid var(--border-color-gold);
+    }
+
+    .blog-cta__content h3 {
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: var(--font-weight-black);
+      margin-bottom: 0.75rem;
+    }
+
+    .blog-cta__content p {
+      color: var(--color-warm-gray);
+      font-size: var(--font-size-base);
+      max-width: 36rem;
+      line-height: var(--line-height-loose);
+      margin: 0;
+    }
+
+    /* Article Modal */
+    .article-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(18, 16, 14, 0.85);
+      backdrop-filter: blur(10px);
+      z-index: 300;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition-base);
+    }
+
+    .article-modal--open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .article-modal__dialog {
+      background: var(--color-white);
+      max-width: 48rem;
+      width: 100%;
+      max-height: 88vh;
+      border-radius: var(--border-radius-lg);
+      overflow-y: auto;
+      padding: 3rem;
+      position: relative;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4);
+    }
+
+    .article-modal__close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: var(--color-light-bg);
+      border: none;
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-near-black);
+      transition: background var(--transition-fast);
+    }
+
+    .article-modal__close:hover {
+      background: var(--color-gold);
+    }
+
+    @media (max-width: 768px) {
+      .blog-cta {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 2.25rem;
+      }
+      .article-modal__dialog {
+        padding: 1.75rem;
+      }
+    }
+  </style>
 </head>
 <body>
-  <main class="simple-page">
-    <p class="section-label">Nóesis del Caribe</p>
-    <h1 class="section-title">Blog</h1>
-    <p>Estamos preparando artículos sobre diseño, construcción, planificación y visualización arquitectónica. Mientras tanto, puedes solicitar una cotización desde el sitio principal.</p>
-    <a class="btn btn--dark" href="../index.html#cotizar">Solicitar cotización</a>
+
+  <!-- ═══════════════════════════════════════
+       NAVIGATION
+  ═══════════════════════════════════════ -->
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Navegación principal">
+    <a href="/" class="nav__logo" aria-label="Nóesis del Caribe — Inicio">
+      <svg class="nav__logo-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <polygon points="18,80 18,28 38,18 38,80" fill="#D3AB2D"/>
+        <rect x="22" y="32" width="8" height="8" fill="rgba(25,23,20,0.35)"/>
+        <polygon points="46,80 46,38 72,22 72,56 58,56 58,80" fill="#D3AB2D"/>
+        <polygon points="58,56 72,56 72,80 58,80" fill="rgba(25,23,20,0.18)"/>
+      </svg>
+      <div class="nav__logo-text">
+        <strong>Nóesis del Caribe</strong>
+        <span>Ingeniería &amp; Arquitectura</span>
+      </div>
+    </a>
+
+    <ul class="nav__links" id="navMenu" role="list">
+      <li><a href="/#services">Servicios</a></li>
+      <li><a href="/#portfolio">Portafolio</a></li>
+      <li><a href="/#proceso">Proceso</a></li>
+      <li><a href="/blog" style="color:var(--color-gold)">Blog</a></li>
+      <li><a href="/#cotizar" class="nav__cta">Cotizar Proyecto</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══════════════════════════════════════
+       HERO
+  ═══════════════════════════════════════ -->
+  <header class="blog-hero">
+    <div class="blog-hero__wrap">
+      <div class="blog-hero__eyebrow">Bitácora &amp; Criterios de Diseño</div>
+      <h1 class="blog-hero__title">Perspectivas de Arquitectura, Construcción &amp; Espacio</h1>
+      <p class="blog-hero__subtitle">
+        Artículos, análisis técnicos y metodologías proyectuales aplicadas al contexto caribeño: desde confort bioclimático y optimización de metrajes hasta la precisión de la visualización tridimensional fotorrealista.
+      </p>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════
+       FILTER BAR
+  ═══════════════════════════════════════ -->
+  <aside class="blog-filters" aria-label="Filtro de temas">
+    <div class="blog-filters__wrap">
+      <button class="blog-filter-btn blog-filter-btn--active" data-cat="all">Todos los temas</button>
+      <button class="blog-filter-btn" data-cat="bioclimatica">Bioclimática</button>
+      <button class="blog-filter-btn" data-cat="interiores">Interiores</button>
+      <button class="blog-filter-btn" data-cat="tecnologia">Tecnología 3D</button>
+      <button class="blog-filter-btn" data-cat="materiales">Materiales &amp; Obra</button>
+    </div>
+  </aside>
+
+  <!-- ═══════════════════════════════════════
+       ARTICLES
+  ═══════════════════════════════════════ -->
+  <main class="blog-body">
+    <div class="blog-grid" id="blogGrid">
+
+      <!-- Article 1 -->
+      <article class="blog-card" data-cat="bioclimatica">
+        <div class="blog-card__header-thumb thumb--bioclimatic">
+          <span class="blog-card__thumb-badge">Bioclimática</span>
+          <span class="blog-card__icon-accent" aria-hidden="true">🍃</span>
+        </div>
+        <div class="blog-card__content">
+          <div class="blog-card__meta">
+            <span>6 min lectura</span>
+            <span>·</span>
+            <span>Septiembre 2026</span>
+          </div>
+          <h2 class="blog-card__title">Arquitectura Bioclimática en el Caribe: Ventilación Cruzada y Aislamiento</h2>
+          <p class="blog-card__excerpt">
+            Cómo la orientación solar pasiva, la ventilación inducida y los aleros perimetrales reducen hasta un 40% el consumo energético en residencias dominicanas sin sacrificar sofisticación estética.
+          </p>
+          <button class="blog-card__btn" onclick="openArticle('bioclimatica')">Leer artículo completo →</button>
+        </div>
+      </article>
+
+      <!-- Article 2 -->
+      <article class="blog-card" data-cat="interiores">
+        <div class="blog-card__header-thumb thumb--interiors">
+          <span class="blog-card__thumb-badge">Interiores</span>
+          <span class="blog-card__icon-accent" aria-hidden="true">📐</span>
+        </div>
+        <div class="blog-card__content">
+          <div class="blog-card__meta">
+            <span>5 min lectura</span>
+            <span>·</span>
+            <span>Agosto 2026</span>
+          </div>
+          <h2 class="blog-card__title">De 80 a 160 m²: Claves para una Distribución Inteligente</h2>
+          <p class="blog-card__excerpt">
+            Estrategias de zonificación flexible, carpintería a medida multifuncional y continuidad de pavimentos para multiplicar la amplitud visual y el confort habitable.
+          </p>
+          <button class="blog-card__btn" onclick="openArticle('interiores')">Leer artículo completo →</button>
+        </div>
+      </article>
+
+      <!-- Article 3 -->
+      <article class="blog-card" data-cat="tecnologia">
+        <div class="blog-card__header-thumb thumb--renders">
+          <span class="blog-card__thumb-badge">Tecnología 3D</span>
+          <span class="blog-card__icon-accent" aria-hidden="true">🖥️</span>
+        </div>
+        <div class="blog-card__content">
+          <div class="blog-card__meta">
+            <span>4 min lectura</span>
+            <span>·</span>
+            <span>Julio 2026</span>
+          </div>
+          <h2 class="blog-card__title">El Valor del Render Hiperrealista antes del Primer Vaciado</h2>
+          <p class="blog-card__excerpt">
+            La simulación computacional de materiales, texturas e iluminación solar precisa previene costosas modificaciones en obra y alinea expectativas entre cliente y constructor.
+          </p>
+          <button class="blog-card__btn" onclick="openArticle('renders')">Leer artículo completo →</button>
+        </div>
+      </article>
+
+      <!-- Article 4 -->
+      <article class="blog-card" data-cat="materiales">
+        <div class="blog-card__header-thumb thumb--materials">
+          <span class="blog-card__thumb-badge">Materiales &amp; Obra</span>
+          <span class="blog-card__icon-accent" aria-hidden="true">🧱</span>
+        </div>
+        <div class="blog-card__content">
+          <div class="blog-card__meta">
+            <span>7 min lectura</span>
+            <span>·</span>
+            <span>Junio 2026</span>
+          </div>
+          <h2 class="blog-card__title">Materiales Contemporáneos frente a la Salinidad y Humedad Costera</h2>
+          <p class="blog-card__excerpt">
+            Selección técnica de maderas tratadas al autoclave, microcementos hidrófugos y aluminios anodizados para garantizar longevidad estructural en zonas de alta salinidad marina.
+          </p>
+          <button class="blog-card__btn" onclick="openArticle('materiales')">Leer artículo completo →</button>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- Lead magnet CTA -->
+    <div class="blog-cta" style="max-width:var(--container-max);margin:4rem auto 0">
+      <div class="blog-cta__content">
+        <h3>¿Tienes una visión para tu próximo espacio?</h3>
+        <p>Aplica estos criterios en tu proyecto. Envíanos las fotos y medidas de tu espacio y recibe tu cotización detallada en 24 a 48 horas.</p>
+      </div>
+      <a href="/#cotizar" class="btn btn--primary" style="white-space:nowrap">Cotizar mi Proyecto</a>
+    </div>
   </main>
+
+  <!-- Article Modal Reader -->
+  <div class="article-modal" id="articleModal" role="dialog" aria-modal="true" aria-labelledby="modalArticleTitle">
+    <div class="article-modal__dialog">
+      <button class="article-modal__close" onclick="closeArticle()" aria-label="Cerrar artículo">✕</button>
+      <div id="modalArticleBody"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <p class="footer__brand-name">Nóesis del Caribe</p>
+        <p class="footer__brand-sub">Ingeniería &amp; Arquitectura</p>
+        <p class="footer__desc">Estudio de ingeniería y arquitectura con sede en Santo Domingo, República Dominicana. Transformamos espacios con diseño de excelencia.</p>
+        <div class="footer__social" role="list" aria-label="Redes sociales">
+          <a class="footer__social-btn" href="https://www.instagram.com/noesis.cb/" target="_blank" rel="noopener" role="listitem" aria-label="Instagram">📷</a>
+          <a class="footer__social-btn" href="https://wa.me/18295425046" target="_blank" rel="noopener" role="listitem" aria-label="WhatsApp">💬</a>
+          <a class="footer__social-btn" href="https://www.linkedin.com/in/cristal-fabian-8961b53a7/" target="_blank" rel="noopener" role="listitem" aria-label="LinkedIn">💼</a>
+        </div>
+      </div>
+
+      <div class="footer__col">
+        <h4 class="footer__col-title">Servicios</h4>
+        <ul class="footer__links" role="list">
+          <li><a href="/#services">Diseño Arquitectónico</a></li>
+          <li><a href="/#services">Diseño de Interiores</a></li>
+          <li><a href="/#services">Visualización 3D</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h4 class="footer__col-title">Empresa</h4>
+        <ul class="footer__links" role="list">
+          <li><a href="/#nosotros">Nosotros</a></li>
+          <li><a href="/#portfolio">Portafolio</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/careers">Trabaja con nosotros</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h4 class="footer__col-title">Contacto</h4>
+        <ul class="footer__links" role="list">
+          <li><span>📍 Santo Domingo, RD</span></li>
+          <li><a href="tel:+18295425046">📞 +1 (829) 542-5046</a></li>
+          <li><a href="mailto:arqcristaloft@gmail.com">✉️ arqcristaloft@gmail.com</a></li>
+          <li><a href="/#cotizar" class="footer__links-cta">→ Cotizar proyecto</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p>© 2026 Nóesis del Caribe. Todos los derechos reservados.</p>
+      <p><a href="/terminos" style="color:var(--color-gold);text-decoration:none">Términos &amp; Privacidad</a> · <a href="/admin" style="color:inherit;opacity:.4;font-size:.8rem">Admin</a></p>
+    </div>
+  </footer>
+
+  <script>
+    // Filter logic
+    const filterButtons = document.querySelectorAll('.blog-filter-btn');
+    const cards = document.querySelectorAll('.blog-card');
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach(b => b.classList.remove('blog-filter-btn--active'));
+        btn.classList.add('blog-filter-btn--active');
+        const cat = btn.dataset.cat;
+        cards.forEach(card => {
+          if (cat === 'all' || card.dataset.cat === cat) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Article Content Registry
+    const ARTICLES = {
+      bioclimatica: {
+        title: "Arquitectura Bioclimática en el Caribe: Ventilación Cruzada y Aislamiento",
+        category: "Bioclimática",
+        date: "Septiembre 2026",
+        body: `
+          <p style="font-size:1.1rem;line-height:1.7;color:var(--color-near-black);margin-bottom:1.5rem">
+            En un entorno insular tropical como la República Dominicana, el diseño arquitectónico no puede limitarse a la volumetría exterior; debe responder de manera inteligente al movimiento de los vientos alisios y a la radiación solar incidente.
+          </p>
+          <h3 style="margin:1.5rem 0 0.5rem;font-size:1.25rem">1. El principio de la ventilación inducida</h3>
+          <p style="color:var(--color-olive);line-height:1.8;margin-bottom:1rem">
+            Orientar estratégicamente los vanos y celosías hacia el este y noreste permite capturar las brisas predominantes. Al combinar aberturas bajas de entrada con aberturas altas de salida en fachadas opuestas, generamos el "efecto chimenea", evacuando el aire caliente acumulado bajo las cubiertas de hormigón.
+          </p>
+          <h3 style="margin:1.5rem 0 0.5rem;font-size:1.25rem">2. Protección pasiva: Aleros y quiebrasoles</h3>
+          <p style="color:var(--color-olive);line-height:1.8;margin-bottom:1.5rem">
+            Evitar que los rayos solares incidan directamente en las superficies acristaladas reduce drásticamente la ganancia térmica por efecto invernadero. La incorporación de voladizos generosos y pantallas bioclimáticas no solo aporta carácter escultórico a la fachada, sino que protege los muros de la degradación por lluvia torrencial.
+          </p>
+          <div style="background:var(--color-light-bg);padding:1.5rem;border-left:3px solid var(--color-gold);border-radius:4px;margin:1.5rem 0">
+            <strong style="color:var(--color-near-black)">Conclusión Nóesis:</strong>
+            <p style="margin:0.5rem 0 0;font-size:0.9rem;color:var(--color-olive)">Un buen proyecto arquitectónico en Santo Domingo logra un 40% de confort térmico natural antes de requerir climatización mecánica.</p>
+          </div>
+        `
+      },
+      interiores: {
+        title: "De 80 a 160 m²: Claves para una Distribución Inteligente",
+        category: "Interiores",
+        date: "Agosto 2026",
+        body: `
+          <p style="font-size:1.1rem;line-height:1.7;color:var(--color-near-black);margin-bottom:1.5rem">
+            El reto del diseño de interiores contemporáneo no es añadir metros, sino erradicar los espacios residuales. Mediante transiciones fluidas y mobiliario concebido como arquitectura interior, un apartamento de 80 m² puede ofrecer la experiencia espacial de una vivienda de 130 m².
+          </p>
+          <h3 style="margin:1.5rem 0 0.5rem;font-size:1.25rem">Continuidad de materiales y suelos continuos</h3>
+          <p style="color:var(--color-olive);line-height:1.8;margin-bottom:1rem">
+            La fragmentación del pavimento en múltiples acabados genera barreras visuales que encogen las estancias. La aplicación de porcelanatos de gran formato o microcementos en tonos arena unifica sala, cocina y terrazas, difuminando los límites.
+          </p>
+          <h3 style="margin:1.5rem 0 0.5rem;font-size:1.25rem">Mobiliario empotrado y tabiquería funcional</h3>
+          <p style="color:var(--color-olive);line-height:1.8;margin-bottom:1.5rem">
+            Sustituir tabiques ciegos por celosías de roble o paneles móviles permite integrar zonas de trabajo y descanso sin sacrificar la luminosidad natural ni la privacidad puntual.
+          </p>
+        `
+      },
+      renders: {
+        title: "El Valor del Render Hiperrealista antes del Primer Vaciado",
+        category: "Tecnología 3D",
+        date: "Julio 2026",
+        body: `
+          <p style="font-size:1.1rem;line-height:1.7;color:var(--color-near-black);margin-bottom:1.5rem">
+            Tradicionalmente, la arquitectura se comunicaba en planos bidimensionales que resultaban abstractos para la mayoría de los clientes. Hoy, la renderización fotorrealista constituye una herramienta de control técnico y validación emocional indispensable.
+          </p>
+          <h3 style="margin:1.5rem 0 0.5rem;font-size:1.25rem">Validación de iluminación física real</h3>
+          <p style="color:var(--color-olive);line-height:1.8;margin-bottom:1rem">
+            Simulamos la temperatura de color de la luz artificial (3000K vs 4000K) y la incidencia del sol a las 8:00 AM, 12:00 PM y 5:30 PM. Esto permite ajustar alturas de falsos techos y posiciones de luminarias antes de cablear una sola caja eléctrica.
+          </p>
+          <h3 style="margin:1.5rem 0 0.5rem;font-size:1.25rem">Ahorro y cero sorpresas en presupuesto</h3>
+          <p style="color:var(--color-olive);line-height:1.8;margin-bottom:1.5rem">
+            Un cambio de textura o demolición de muro en plano digital cuesta cero pesos; el mismo cambio en obra implica demolición, escombros, retrasos y sobrecostos.
+          </p>
+        `
+      },
+      materiales: {
+        title: "Materiales Contemporáneos frente a la Salinidad y Humedad Costera",
+        category: "Materiales & Obra",
+        date: "Junio 2026",
+        body: `
+          <p style="font-size:1.1rem;line-height:1.7;color:var(--color-near-black);margin-bottom:1.5rem">
+            Las obras en el litoral caribeño enfrentan dos factores implacables: la humedad relativa superior al 80% y los cloruros transportados por la brisa marina.
+          </p>
+          <h3 style="margin:1.5rem 0 0.5rem;font-size:1.25rem">Metales: Anodizado marino y tornillería A4</h3>
+          <p style="color:var(--color-olive);line-height:1.8;margin-bottom:1rem">
+            El aluminio convencional sin tratamiento suficiente sufre corrosión galvánica en menos de 24 meses. Especificamos perfiles con espesor de capa anódica mínima de 20-25 micras y herrajes de acero inoxidable grado 316 (marino).
+          </p>
+          <h3 style="margin:1.5rem 0 0.5rem;font-size:1.25rem">Piedras y maderas autóctonas</h3>
+          <p style="color:var(--color-olive);line-height:1.8;margin-bottom:1.5rem">
+            La piedra coralina dominicana, debidamente sellada, aporta un aislamiento térmico incomparable al tacto descalzo en áreas de piscina, mientras que maderas tropicales densas como la teca o el ipe garantizan resistencia biológica sin pudrición.
+          </p>
+        `
+      }
+    };
+
+    function openArticle(key) {
+      const art = ARTICLES[key];
+      if (!art) return;
+      const modal = document.getElementById('articleModal');
+      const body = document.getElementById('modalArticleBody');
+      body.innerHTML = `
+        <span style="display:inline-block;font-size:0.75rem;font-weight:700;color:var(--color-gold-dark);background:var(--color-gold-faint);border:1px solid var(--color-gold-border);padding:0.25rem 0.65rem;border-radius:2px;text-transform:uppercase;margin-bottom:0.75rem">\${art.category} · \${art.date}</span>
+        <h2 id="modalArticleTitle" style="font-size:1.8rem;font-weight:900;line-height:1.2;margin-bottom:1.5rem;color:var(--color-near-black)">\${art.title}</h2>
+        \${art.body}
+        <div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border-color);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem">
+          <span style="font-size:0.8rem;color:var(--color-olive)">Nóesis del Caribe · Estudio de Ingeniería &amp; Arquitectura</span>
+          <a href="/#cotizar" class="btn btn--primary" style="font-size:0.8rem;padding:0.6rem 1rem">Cotizar Proyecto</a>
+        </div>
+      `;
+      modal.classList.add('article-modal--open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeArticle() {
+      const modal = document.getElementById('articleModal');
+      modal.classList.remove('article-modal--open');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('articleModal').addEventListener('click', (e) => {
+      if (e.target === e.currentTarget) closeArticle();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeArticle();
+    });
+  </script>
+
 </body>
 </html>
