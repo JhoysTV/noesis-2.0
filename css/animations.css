@@ -1,14 +1,16 @@
 /* ============================================================
    animations.css — Scroll-triggered & Transition Animations
+   Nóesis del Caribe — Luxury Architectural Studio
    ============================================================ */
 
 /* ── Fade-up reveal (IntersectionObserver-driven) ─────────── */
 .fade-up {
   opacity: 0;
-  transform: translateY(1.875rem);
+  transform: translateY(2.5rem);
   transition:
-    opacity 0.6s ease,
-    transform 0.6s ease;
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 
 .fade-up.is-visible {
@@ -26,6 +28,30 @@
 /* ── Counter animation state ──────────────────────────────── */
 .hero__stat-num {
   display: inline-block;
+}
+
+/* ── Subtle Floating Animation ────────────────────────────── */
+@keyframes float-subtle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.floating-element {
+  animation: float-subtle 4s ease-in-out infinite;
+}
+
+/* ── Golden Shimmer Sweep ─────────────────────────────────── */
+@keyframes gold-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 /* ── Smooth section reveal ────────────────────────────────── */

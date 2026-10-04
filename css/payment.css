@@ -1,14 +1,19 @@
 /* ============================================================
    payment.css — Payment Section
+   Nóesis del Caribe — Luxury Architectural Studio
    ============================================================ */
 
 .payment {
-  background-color: var(--color-bg-primary);
+  background-color: var(--color-deep-black);
+  position: relative;
+  overflow: hidden;
 }
 
 .payment__wrap {
-  max-width: 56.25rem;
+  max-width: 58rem;
   margin: 0 auto;
+  position: relative;
+  z-index: 2;
 }
 
 .payment__header {
@@ -19,24 +24,30 @@
 .payment__intro {
   margin: 0 auto;
   text-align: center;
+  max-width: 36rem;
 }
 
 /* ── Quote summary card ───────────────────────────────────── */
 .quote-summary {
-  background-color: var(--color-bg-dark);
+  background: var(--gradient-dark-elevated);
+  border: 1px solid var(--border-color-gold);
   color: var(--color-white);
   padding: 3rem;
-  border-radius: var(--border-radius-md);
-  margin-bottom: var(--space-2xl);
+  border-radius: var(--border-radius-lg);
+  margin-bottom: 2.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: var(--space-2xl);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 25px rgba(211, 171, 45, 0.12);
 }
 
 .quote-summary__label {
+  font-family: var(--font-mono);
   font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-regular);
+  font-weight: var(--font-weight-medium);
   letter-spacing: var(--letter-spacing-wider);
   text-transform: uppercase;
   color: var(--color-warm-gray);
@@ -44,87 +55,104 @@
 }
 
 .quote-summary__price {
-  font-size: 3.5rem;
+  font-family: var(--font-display);
+  font-size: 3.75rem;
   font-weight: var(--font-weight-black);
   color: var(--color-gold);
   line-height: 1;
+  text-shadow: 0 0 25px rgba(211, 171, 45, 0.4);
 }
 
 .quote-summary__currency {
-  font-size: 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
   font-weight: var(--font-weight-light);
   color: var(--color-warm-gray);
   vertical-align: super;
-  margin-right: 0.25rem;
+  margin-right: 0.35rem;
 }
 
 .quote-summary__project {
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
-  color: var(--color-warm-gray);
-  margin-top: 0.75rem;
-  font-weight: var(--font-weight-light);
+  color: var(--color-warm-light);
+  margin-top: 0.85rem;
+  font-weight: var(--font-weight-regular);
 }
 
 .quote-summary__breakdown {
   flex: 1;
+  background: rgba(25, 23, 20, 0.6);
+  padding: 1.5rem;
+  border-radius: var(--border-radius-sm);
+  border: 1px solid var(--border-color);
 }
 
 .quote-line {
   display: flex;
   justify-content: space-between;
-  padding: 0.625rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 0.65rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   font-size: 0.875rem;
   font-weight: var(--font-weight-light);
-  color: var(--color-warm-gray);
+  color: var(--color-warm-light);
   gap: var(--space-md);
 }
 
 .quote-line--total {
   color: var(--color-white);
   font-weight: var(--font-weight-bold);
-  font-size: 1rem;
+  font-size: 1.05rem;
   border-bottom: none;
   margin-top: 0.5rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-color);
 }
 
 .quote-line__total-amount {
+  font-family: var(--font-mono);
   color: var(--color-gold);
+  font-weight: var(--font-weight-black);
 }
 
 /* ── Payment method buttons ───────────────────────────────── */
 .payment-methods {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  margin-bottom: var(--space-2xl);
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
 }
 
 .pay-method {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.375rem;
+  gap: 0.45rem;
   border: 1px solid var(--border-color);
-  border-radius: var(--border-radius-sm);
-  padding: 1.5rem;
+  border-radius: var(--border-radius-md);
+  padding: 1.6rem 1.25rem;
   cursor: pointer;
+  background: var(--gradient-dark-elevated);
   transition:
     border-color var(--transition-base),
-    background-color var(--transition-base);
+    background-color var(--transition-base),
+    box-shadow var(--transition-base),
+    transform var(--transition-fast);
   text-align: center;
-  background-color: transparent;
   font-family: var(--font-family);
+  backdrop-filter: blur(10px);
 }
 
 .pay-method:hover {
   border-color: var(--color-gold);
-  background-color: var(--color-gold-faint);
+  background-color: rgba(211, 171, 45, 0.08);
+  transform: translateY(-2px);
 }
 
 .pay-method--selected {
   border-color: var(--color-gold);
-  background-color: var(--color-gold-faint);
+  background: linear-gradient(145deg, rgba(46, 41, 33, 0.9) 0%, rgba(25, 23, 20, 0.95) 100%);
+  box-shadow: 0 0 20px rgba(211, 171, 45, 0.2);
 }
 
 .pay-method:focus-visible {
@@ -133,65 +161,104 @@
 }
 
 .pay-method__icon {
-  font-size: 1.75rem;
+  font-size: 2rem;
   display: block;
   margin-bottom: 0.25rem;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
 }
 
 .pay-method__name {
-  font-size: 0.875rem;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
   font-weight: var(--font-weight-bold);
-  color: var(--color-text-primary);
+  color: var(--color-white);
 }
 
 .pay-method__desc {
+  font-family: var(--font-mono);
   font-size: var(--font-size-xs);
   color: var(--color-warm-gray);
 }
 
 /* ── Card form area ───────────────────────────────────────── */
 .pay-form {
-  background-color: var(--color-bg-section);
-  padding: 2.5rem;
-  border-radius: var(--border-radius-sm);
+  background: var(--gradient-dark-elevated);
+  padding: 3rem;
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--border-color);
   margin-bottom: var(--space-xl);
+  box-shadow: var(--shadow-card);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
 }
 
-/* ── Card visual preview ──────────────────────────────────── */
+/* ── Card visual preview (Titanium Obsidian Black Edition) ── */
 .card-preview {
-  background: linear-gradient(135deg, var(--color-olive) 0%, var(--color-near-black) 100%);
-  border-radius: 0.75rem;
-  padding: 1.5rem 1.75rem;
+  background: linear-gradient(135deg, #2b2721 0%, #161411 60%, #0d0c0a 100%);
+  border: 1px solid rgba(211, 171, 45, 0.45);
+  border-radius: 1rem;
+  padding: 1.85rem 2rem;
   color: var(--color-white);
-  margin-bottom: 2rem;
+  margin: 0 auto 2.5rem;
   position: relative;
   overflow: hidden;
-  max-width: 21.25rem;
+  max-width: 24rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7), 0 0 30px rgba(211, 171, 45, 0.15);
 }
 
 .card-preview::before {
   content: '';
   position: absolute;
-  top: -2.5rem;
-  right: -2.5rem;
-  width: 7.5rem;
-  height: 7.5rem;
+  top: -3rem;
+  right: -3rem;
+  width: 10rem;
+  height: 10rem;
   border-radius: 50%;
-  background: rgba(211, 171, 45, 0.12);
+  background: radial-gradient(circle, rgba(211, 171, 45, 0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.card-preview::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.08) 40%,
+    rgba(211, 171, 45, 0.15) 50%,
+    transparent 60%
+  );
   pointer-events: none;
 }
 
 .card-preview__chip {
-  font-size: 1.375rem;
-  margin-bottom: 1.25rem;
+  width: 2.5rem;
+  height: 1.8rem;
+  background: linear-gradient(135deg, #F5DE7A 0%, #D3AB2D 50%, #A8881F 100%);
+  border-radius: 4px;
   display: block;
+  margin-bottom: 1.5rem;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 2px 6px rgba(0, 0, 0, 0.4);
+  position: relative;
+}
+
+.card-preview__chip::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 2px;
 }
 
 .card-preview__number {
-  font-size: 1.125rem;
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
   font-weight: var(--font-weight-bold);
-  letter-spacing: 0.2em;
-  margin-bottom: 1rem;
+  letter-spacing: 0.22em;
+  margin-bottom: 1.25rem;
+  color: #F7F6F3;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .card-preview__meta {
@@ -201,16 +268,20 @@
 }
 
 .card-preview__meta-label {
+  font-family: var(--font-mono);
   font-size: 0.625rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.6);
   text-transform: uppercase;
   letter-spacing: var(--letter-spacing-wide);
   margin-bottom: 0.25rem;
 }
 
 .card-preview__meta-value {
-  font-size: 0.8125rem;
+  font-family: var(--font-display);
+  font-size: 0.875rem;
   font-weight: var(--font-weight-bold);
+  letter-spacing: 0.05em;
+  color: var(--color-white);
 }
 
 .card-preview__brand {
@@ -219,37 +290,38 @@
 }
 
 .card-preview__circle {
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 1.75rem;
+  height: 1.75rem;
   border-radius: 50%;
   display: block;
 }
 
 .card-preview__circle--back {
-  background-color: rgba(211, 171, 45, 0.5);
+  background-color: rgba(232, 200, 74, 0.7);
 }
 
 .card-preview__circle--front {
   background-color: var(--color-gold);
-  margin-left: -0.75rem;
+  margin-left: -0.85rem;
 }
 
 /* Card input fields container */
 .card-fields {
-  max-width: 30rem;
+  max-width: 32rem;
+  margin: 0 auto;
 }
 
 /* Security note */
 .pay-security-note {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.875rem 1rem;
-  background-color: var(--color-gold-faint);
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  background-color: rgba(211, 171, 45, 0.08);
   border: 1px solid var(--border-color-gold);
   border-radius: var(--border-radius-sm);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-light);
-  color: var(--color-text-muted);
-  margin-bottom: 1.75rem;
+  color: var(--color-warm-light);
+  margin-bottom: 2rem;
 }

@@ -1,18 +1,19 @@
 /* ============================================================
    modals.css — Dialog / Modal Overlays
+   Nóesis del Caribe — Luxury Architectural Studio
    ============================================================ */
 
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(25, 23, 20, 0.88);
+  background-color: rgba(17, 15, 13, 0.92);
   z-index: var(--z-modal);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: var(--space-md);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: var(--glass-blur-lg);
+  -webkit-backdrop-filter: var(--glass-blur-lg);
 }
 
 .modal-overlay[hidden] {
@@ -20,19 +21,22 @@
 }
 
 .modal {
-  background-color: var(--color-bg-primary);
-  padding: 4rem;
-  border-radius: var(--border-radius-md);
+  background: var(--gradient-dark-elevated);
+  border: 1px solid var(--border-color-gold);
+  padding: 4rem 3.5rem;
+  border-radius: var(--border-radius-lg);
   text-align: center;
-  max-width: 30rem;
+  max-width: 32rem;
   width: 100%;
-  animation: modal-in 0.35s ease;
+  animation: modal-in 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7), 0 0 35px rgba(211, 171, 45, 0.2);
+  position: relative;
 }
 
 @keyframes modal-in {
   from {
     opacity: 0;
-    transform: translateY(1.5rem) scale(0.97);
+    transform: translateY(2rem) scale(0.96);
   }
   to {
     opacity: 1;
@@ -41,28 +45,31 @@
 }
 
 .modal__icon {
-  width: 4.5rem;
-  height: 4.5rem;
-  background-color: var(--color-gold-faint);
+  width: 5rem;
+  height: 5rem;
+  background: var(--gradient-gold);
+  color: var(--color-near-black);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 1.75rem;
-  font-size: 2rem;
+  margin: 0 auto 2rem;
+  font-size: 2.25rem;
+  box-shadow: 0 0 30px rgba(211, 171, 45, 0.4);
 }
 
 .modal__title {
-  font-size: 1.75rem;
+  font-family: var(--font-display);
+  font-size: 2rem;
   font-weight: var(--font-weight-black);
-  color: var(--color-text-primary);
+  color: var(--color-white);
   margin-bottom: 1rem;
 }
 
 .modal__desc {
-  font-size: 0.9375rem;
+  font-size: 1rem;
   font-weight: var(--font-weight-light);
-  color: var(--color-text-muted);
+  color: var(--color-warm-gray);
   line-height: var(--line-height-loose);
-  margin-bottom: var(--space-xl);
+  margin-bottom: 2.5rem;
 }

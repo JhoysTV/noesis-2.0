@@ -1,5 +1,6 @@
 /* ============================================================
    nav.css — Navigation Bar
+   Nóesis del Caribe — Luxury Architectural Studio
    ============================================================ */
 
 .nav {
@@ -12,31 +13,50 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 var(--section-padding-h);
-  height: 4.5rem;
-  background-color: rgba(25, 23, 20, 0.96);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--border-color-gold);
-  transition: box-shadow var(--transition-base);
+  height: 4.75rem;
+  background-color: var(--glass-bg-nav);
+  backdrop-filter: var(--glass-blur-lg);
+  -webkit-backdrop-filter: var(--glass-blur-lg);
+  border-bottom: 1px solid var(--border-color);
+  transition:
+    background-color var(--transition-base),
+    box-shadow var(--transition-base),
+    height var(--transition-base),
+    border-color var(--transition-base);
 }
 
 .nav--scrolled {
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+  height: 4.25rem;
+  background-color: rgba(17, 15, 13, 0.96);
+  border-bottom-color: var(--border-color-gold);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7), 0 0 20px rgba(211, 171, 45, 0.1);
 }
 
 /* ── Logo ─────────────────────────────────────────────────── */
 .nav__logo {
   display: flex;
   align-items: center;
-  gap: 0.875rem;
+  gap: 1rem;
   text-decoration: none;
   flex-shrink: 0;
+  position: relative;
+  transition: transform var(--transition-fast);
+}
+
+.nav__logo:hover {
+  transform: translateY(-1px);
 }
 
 .nav__logo-icon {
-  width: 2.375rem;
-  height: 2.375rem;
+  width: 2.5rem;
+  height: 2.5rem;
   flex-shrink: 0;
+  filter: drop-shadow(0 0 10px rgba(211, 171, 45, 0.35));
+  transition: filter var(--transition-base);
+}
+
+.nav__logo:hover .nav__logo-icon {
+  filter: drop-shadow(0 0 16px rgba(211, 171, 45, 0.6));
 }
 
 .nav__logo-text {
@@ -46,75 +66,94 @@
 }
 
 .nav__logo-text strong {
-  font-size: 0.875rem;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
   font-weight: var(--font-weight-black);
   color: var(--color-white);
   letter-spacing: var(--letter-spacing-wide);
   text-transform: uppercase;
+  background: linear-gradient(135deg, #ffffff 0%, #DCD6CC 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .nav__logo-text span {
+  font-family: var(--font-mono);
   font-size: 0.625rem;
-  font-weight: var(--font-weight-light);
-  color: var(--color-warm-gray);
-  letter-spacing: var(--letter-spacing-wider);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-gold);
+  letter-spacing: var(--letter-spacing-caps);
+  text-transform: uppercase;
+  margin-top: 2px;
 }
 
 /* ── Links ────────────────────────────────────────────────── */
 .nav__links {
   display: flex;
   align-items: center;
-  gap: 2.25rem;
+  gap: 2.5rem;
   list-style: none;
 }
 
 .nav__links a {
+  font-family: var(--font-mono);
   font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-regular);
+  font-weight: var(--font-weight-medium);
   color: var(--color-warm-gray);
-  letter-spacing: var(--letter-spacing-wide);
+  letter-spacing: var(--letter-spacing-wider);
   text-transform: uppercase;
   text-decoration: none;
-  transition: color var(--transition-base);
+  transition:
+    color var(--transition-base),
+    text-shadow var(--transition-base);
   position: relative;
-  padding-bottom: 0.2rem;
+  padding: 0.4rem 0;
 }
 
 .nav__links a::after {
   content: '';
   position: absolute;
-  bottom: -2px;
+  bottom: 0;
   left: 0;
   right: 0;
-  height: 1px;
-  background-color: var(--color-gold);
+  height: 2px;
+  background: var(--gradient-gold);
   transform: scaleX(0);
+  transform-origin: right center;
   transition: transform var(--transition-base);
 }
 
 .nav__links a:hover,
 .nav__links a[aria-current="page"] {
   color: var(--color-gold);
+  text-shadow: 0 0 12px rgba(211, 171, 45, 0.4);
 }
 
 .nav__links a:hover::after,
 .nav__links a[aria-current="page"]::after {
   transform: scaleX(1);
+  transform-origin: left center;
 }
 
 /* ── CTA button ───────────────────────────────────────────── */
 .nav__cta {
-  background-color: var(--color-gold) !important;
+  background: var(--gradient-gold) !important;
   color: var(--color-near-black) !important;
-  padding: 0.5625rem 1.25rem !important;
+  padding: 0.65rem 1.45rem !important;
   border-radius: var(--border-radius-sm) !important;
-  font-weight: var(--font-weight-bold) !important;
+  font-weight: var(--font-weight-black) !important;
   letter-spacing: var(--letter-spacing-wide) !important;
-  transition: background-color var(--transition-base) !important;
+  box-shadow: 0 4px 18px rgba(211, 171, 45, 0.35) !important;
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-base) !important;
+  text-shadow: none !important;
 }
 
 .nav__cta:hover {
-  background-color: var(--color-gold-light) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 24px rgba(211, 171, 45, 0.55) !important;
+  color: #000000 !important;
 }
 
 .nav__cta::after {
@@ -126,32 +165,45 @@
   display: none;
   flex-direction: column;
   justify-content: center;
-  gap: 5px;
-  width: 2rem;
-  height: 2rem;
-  padding: 0;
-  background: none;
-  border: none;
+  align-items: center;
+  gap: 6px;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0.4rem;
+  background: rgba(33, 30, 25, 0.6);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
   cursor: pointer;
+  transition: border-color var(--transition-base), background-color var(--transition-base);
+}
+
+.nav__hamburger:hover {
+  border-color: var(--color-gold);
+  background-color: rgba(211, 171, 45, 0.12);
 }
 
 .nav__hamburger span {
   display: block;
   width: 100%;
-  height: 1px;
+  height: 2px;
   background-color: var(--color-white);
   border-radius: 1px;
-  transition: transform var(--transition-base), opacity var(--transition-base);
+  transition: transform var(--transition-base), opacity var(--transition-base), background-color var(--transition-base);
+}
+
+.nav__hamburger[aria-expanded="true"] span {
+  background-color: var(--color-gold);
 }
 
 .nav__hamburger[aria-expanded="true"] span:nth-child(1) {
-  transform: translateY(6px) rotate(45deg);
+  transform: translateY(8px) rotate(45deg);
 }
 
 .nav__hamburger[aria-expanded="true"] span:nth-child(2) {
   opacity: 0;
+  transform: scaleX(0);
 }
 
 .nav__hamburger[aria-expanded="true"] span:nth-child(3) {
-  transform: translateY(-6px) rotate(-45deg);
+  transform: translateY(-8px) rotate(-45deg);
 }

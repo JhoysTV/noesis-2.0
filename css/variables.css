@@ -1,39 +1,69 @@
 /* ============================================================
    variables.css — Design Tokens
    Nóesis del Caribe — Ingeniería & Arquitectura
-   Brand identity: Rebrand 2025
+   Luxury Rebrand 2026 — Original Palette Preserved
    ============================================================ */
 
 :root {
 
-  /* ── Brand Colors ──────────────────────────────────── */
+  /* ── Brand Colors (Original Palette Preserved) ────────── */
   --color-gold:         #D3AB2D;
   --color-gold-light:   #E8C84A;
   --color-gold-dark:    #A8881F;
   --color-gold-faint:   rgba(211, 171, 45, 0.08);
-  --color-gold-border:  rgba(211, 171, 45, 0.25);
+  --color-gold-subtle:  rgba(211, 171, 45, 0.15);
+  --color-gold-border:  rgba(211, 171, 45, 0.28);
+  --color-gold-glow:    rgba(211, 171, 45, 0.35);
 
   --color-olive:        #4D4637;
   --color-olive-light:  #6b6045;
+  --color-olive-dark:   #342f24;
+  --color-olive-faint:  rgba(77, 70, 55, 0.12);
+
   --color-warm-gray:    #B3AA99;
+  --color-warm-light:   #DCD6CC;
+  --color-warm-faint:   rgba(179, 170, 153, 0.15);
+
   --color-near-black:   #191714;
+  --color-deep-black:   #110f0d;
+  --color-surface-dark: #211e19;
+  --color-surface-elev: #2a2620;
+
   --color-light-bg:     #E8E8E8;
+  --color-light-cream:  #F7F6F3;
   --color-white:        #ffffff;
 
   /* ── Semantic aliases ──────────────────────────────── */
-  --color-bg-primary:   var(--color-white);
-  --color-bg-section:   var(--color-light-bg);
+  --color-bg-primary:   var(--color-near-black);
+  --color-bg-section:   #1f1c18;
+  --color-bg-section-alt: #161411;
+  --color-bg-card:      rgba(33, 30, 25, 0.85);
+  --color-bg-card-hover:rgba(42, 38, 32, 0.95);
+  --color-bg-light:     var(--color-light-bg);
   --color-bg-dark:      var(--color-near-black);
-  --color-text-primary: var(--color-near-black);
-  --color-text-muted:   var(--color-olive);
-  --color-text-faint:   var(--color-warm-gray);
+
+  --color-text-primary: #F7F6F3;
+  --color-text-muted:   var(--color-warm-gray);
+  --color-text-faint:   #7d7568;
+  --color-text-on-gold: var(--color-near-black);
   --color-accent:       var(--color-gold);
+
+  /* ── Gradients ─────────────────────────────────────── */
+  --gradient-gold:          linear-gradient(135deg, #D3AB2D 0%, #E8C84A 50%, #A8881F 100%);
+  --gradient-gold-metallic: linear-gradient(135deg, #F5DE7A 0%, #D3AB2D 40%, #A8881F 75%, #F0D565 100%);
+  --gradient-gold-subtle:   linear-gradient(135deg, rgba(211, 171, 45, 0.18) 0%, rgba(232, 200, 74, 0.04) 100%);
+  --gradient-dark-surface:  linear-gradient(180deg, rgba(33, 30, 25, 0.95) 0%, rgba(25, 23, 20, 0.98) 100%);
+  --gradient-dark-elevated: linear-gradient(145deg, rgba(42, 38, 32, 0.9) 0%, rgba(25, 23, 20, 0.95) 100%);
+  --gradient-radial-glow:   radial-gradient(circle at 50% 0%, rgba(211, 171, 45, 0.15) 0%, transparent 70%);
 
   /* ── Typography ────────────────────────────────────── */
   --font-family:        'Albert Sans', sans-serif;
+  --font-display:       'Syne', 'Albert Sans', sans-serif;
+  --font-mono:          'Space Grotesk', monospace;
 
   --font-weight-light:  300;
   --font-weight-regular:400;
+  --font-weight-medium: 500;
   --font-weight-bold:   700;
   --font-weight-black:  900;
 
@@ -43,63 +73,82 @@
   --font-size-md:       1.0625rem;  /* 17px */
   --font-size-lg:       1.25rem;    /* 20px */
   --font-size-xl:       1.5rem;     /* 24px */
+  --font-size-2xl:      2rem;       /* 32px */
+  --font-size-3xl:      2.75rem;    /* 44px */
 
-  --line-height-tight:  1.05;
-  --line-height-normal: 1.5;
-  --line-height-loose:  1.75;
+  --line-height-tight:  1.08;
+  --line-height-snug:   1.25;
+  --line-height-normal: 1.55;
+  --line-height-loose:  1.8;
 
   --letter-spacing-wide:  0.08em;
   --letter-spacing-wider: 0.15em;
-  --letter-spacing-caps:  0.25em;
+  --letter-spacing-caps:  0.22em;
+  --letter-spacing-hero:  -0.035em;
 
   /* ── Spacing ───────────────────────────────────────── */
+  --space-2xs:  0.1875rem;
   --space-xs:   0.25rem;
   --space-sm:   0.5rem;
   --space-md:   1rem;
   --space-lg:   1.5rem;
   --space-xl:   2rem;
   --space-2xl:  3rem;
-  --space-3xl:  4rem;
-  --space-4xl:  6rem;
+  --space-3xl:  4.5rem;
+  --space-4xl:  6.5rem;
 
-  --section-padding-v: 6.25rem;   /* 100px */
-  --section-padding-h: 3.75rem;   /* 60px */
+  --section-padding-v: clamp(4.5rem, 8vw, 7.5rem);
+  --section-padding-h: clamp(1.5rem, 5vw, 4.5rem);
 
-  --container-max:      1200px;
+  --container-max:      1280px;
 
   /* ── Borders & Radius ──────────────────────────────── */
-  --border-radius-sm:  2px;
-  --border-radius-md:  4px;
-  --border-radius-lg:  8px;
+  --border-radius-xs:  2px;
+  --border-radius-sm:  4px;
+  --border-radius-md:  8px;
+  --border-radius-lg:  14px;
+  --border-radius-xl:  20px;
   --border-radius-pill:9999px;
 
-  --border-color:            rgba(25, 23, 20, 0.10);
-  --border-color-medium:     rgba(25, 23, 20, 0.18);
-  --border-color-gold:       rgba(211, 171, 45, 0.30);
-  --border-color-light:      rgba(255, 255, 255, 0.10);
+  --border-color:            rgba(211, 171, 45, 0.14);
+  --border-color-medium:     rgba(211, 171, 45, 0.24);
+  --border-color-gold:       rgba(211, 171, 45, 0.35);
+  --border-color-gold-solid: #D3AB2D;
+  --border-color-light:      rgba(255, 255, 255, 0.12);
+  --border-color-subtle:     rgba(179, 170, 153, 0.14);
 
-  /* ── Transitions ───────────────────────────────────── */
-  --transition-fast:   150ms ease;
-  --transition-base:   220ms ease;
-  --transition-slow:   380ms ease;
+  /* ── Transitions & Motion ──────────────────────────── */
+  --transition-fast:   160ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-base:   280ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow:   450ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-spring: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
 
   /* ── Z-index layers ────────────────────────────────── */
-  --z-nav:     100;
-  --z-overlay: 200;
-  --z-modal:   300;
+  --z-blueprint: 1;
+  --z-content:   2;
+  --z-nav:       100;
+  --z-overlay:   200;
+  --z-modal:     300;
 
-  /* ── Shadows ───────────────────────────────────────── */
-  --shadow-card:            0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
-  --shadow-card-hover:      0 16px 36px -6px rgba(25, 23, 20, 0.12), 0 0 0 1px rgba(211, 171, 45, 0.35);
-  --shadow-elevation-high:  0 24px 54px -12px rgba(25, 23, 20, 0.18), 0 1px 3px rgba(0,0,0,0.06);
-  --shadow-gold-glow:       0 0 35px rgba(211, 171, 45, 0.25);
-  --shadow-gold-subtle:     0 4px 20px rgba(211, 171, 45, 0.15);
-  --shadow-focus:           0 0 0 3px rgba(211, 171, 45, 0.40);
+  /* ── Shadows & Glows ───────────────────────────────── */
+  --shadow-card:            0 4px 20px -2px rgba(0, 0, 0, 0.35), 0 0 0 1px var(--border-color);
+  --shadow-card-hover:      0 20px 40px -8px rgba(0, 0, 0, 0.55), 0 0 25px rgba(211, 171, 45, 0.22), 0 0 0 1px rgba(211, 171, 45, 0.5);
+  --shadow-elevation-high:  0 30px 60px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--border-color);
+  --shadow-gold-glow:       0 0 35px rgba(211, 171, 45, 0.32);
+  --shadow-gold-subtle:     0 4px 24px rgba(211, 171, 45, 0.20);
+  --shadow-focus:           0 0 0 3px rgba(211, 171, 45, 0.45);
 
   /* ── Glassmorphism ──────────────────────────────────── */
   --glass-bg-dark:          rgba(25, 23, 20, 0.82);
-  --glass-bg-card:          rgba(255, 255, 255, 0.90);
-  --glass-bg-subtle:        rgba(211, 171, 45, 0.04);
-  --glass-blur:             blur(16px);
-  --glass-border-gold:      1px solid rgba(211, 171, 45, 0.28);
+  --glass-bg-nav:           rgba(17, 15, 13, 0.88);
+  --glass-bg-card:          rgba(33, 30, 25, 0.85);
+  --glass-bg-subtle:        rgba(211, 171, 45, 0.05);
+  --glass-blur:             blur(18px);
+  --glass-blur-lg:          blur(28px);
+  --glass-border-gold:      1px solid rgba(211, 171, 45, 0.25);
+  --glass-border-subtle:    1px solid rgba(255, 255, 255, 0.08);
+
+  /* ── Blueprint Grid ────────────────────────────────── */
+  --blueprint-line-major:   rgba(211, 171, 45, 0.07);
+  --blueprint-line-minor:   rgba(255, 255, 255, 0.02);
 }

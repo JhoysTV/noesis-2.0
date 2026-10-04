@@ -1,6 +1,6 @@
 /* ============================================================
    responsive.css — Responsive Breakpoints
-   Mobile-first progressive enhancement via max-width queries
+   Nóesis del Caribe — Luxury Architectural Studio
    ============================================================ */
 
 /* ── Tablet (≤ 1024px) ────────────────────────────────────── */
@@ -11,11 +11,13 @@
   }
 
   .services__grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 
   .portfolio__grid {
     grid-template-columns: repeat(6, 1fr);
+    gap: 1.25rem;
   }
 
   .port-item:nth-child(1) { grid-column: span 6; }
@@ -26,7 +28,7 @@
 
   .process__steps {
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-3xl) 0;
+    gap: 2rem;
   }
 
   .process__steps::before {
@@ -35,63 +37,81 @@
 
   .quote-section__wrap {
     grid-template-columns: 1fr;
-    gap: var(--space-3xl);
+    gap: 3.5rem;
   }
 
   .about__wrap {
     grid-template-columns: 1fr;
-    gap: var(--space-3xl);
+    gap: 3.5rem;
   }
 
   .footer__top {
     grid-template-columns: 1fr 1fr;
-    gap: var(--space-2xl);
+    gap: 3rem;
   }
 }
 
-/* ── Mobile (≤ 640px) ─────────────────────────────────────── */
-@media (max-width: 40rem) {
+/* ── Mobile (≤ 768px) ─────────────────────────────────────── */
+@media (max-width: 48rem) {
 
   :root {
-    --section-padding-v: 4rem;
+    --section-padding-v: 4.5rem;
     --section-padding-h: 1.5rem;
   }
 
   /* Nav */
   .nav {
     padding: 0 1.5rem;
+    height: 4.25rem;
   }
 
   .nav__links {
     display: none;
     position: fixed;
-    top: 4.5rem;
+    top: 4.25rem;
     left: 0;
     right: 0;
     flex-direction: column;
     align-items: stretch;
     gap: 0;
-    background-color: rgba(25, 23, 20, 0.98);
+    background-color: rgba(17, 15, 13, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-top: 1px solid var(--border-color-gold);
-    padding: 1rem 1.5rem 2rem;
+    border-bottom: 1px solid var(--border-color-gold);
+    padding: 1.5rem 1.75rem 2.5rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
   }
 
   .nav__links--open {
     display: flex;
+    animation: menu-down 0.35s ease;
+  }
+
+  @keyframes menu-down {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .nav__links li {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid rgba(211, 171, 45, 0.12);
   }
 
   .nav__links a {
     display: block;
-    padding: 1rem 0;
-    font-size: 0.875rem;
+    padding: 1.15rem 0;
+    font-size: 0.9rem;
+    letter-spacing: var(--letter-spacing-wider);
   }
 
   .nav__cta {
-    margin-top: 0.5rem;
+    margin-top: 1.25rem;
     text-align: center;
     border-radius: var(--border-radius-sm) !important;
   }
@@ -102,38 +122,38 @@
 
   /* Hero */
   .hero {
-    padding: 5rem 1.5rem 0;
+    padding: 6.5rem 1.5rem 3.5rem;
   }
 
   .hero__stats {
-    flex-direction: column;
-    gap: 1.5rem;
-    align-items: center;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
   }
 
   /* Services */
   .services__header {
     flex-direction: column;
     align-items: flex-start;
+    gap: 1rem;
   }
 
-  .services__grid {
-    grid-template-columns: 1fr;
-    gap: 2px;
+  .service-card {
+    padding: 2.5rem 2rem;
+  }
+
+  .order-cart {
+    padding: 1.75rem 1.5rem;
   }
 
   .order-cart__item {
     grid-template-columns: 1fr auto;
   }
 
-  .order-cart__item span:nth-child(2) {
-    grid-column: 1;
-  }
-
   /* Portfolio */
   .portfolio__header {
     flex-direction: column;
     align-items: flex-start;
+    gap: 1.5rem;
   }
 
   .portfolio__grid {
@@ -146,22 +166,28 @@
   }
 
   .port-item__thumb {
-    min-height: 14rem;
+    min-height: 16rem;
+  }
+
+  .port-item:nth-child(1) .port-item__thumb {
+    min-height: 22rem;
   }
 
   /* Process */
   .process__header {
     flex-direction: column;
     align-items: flex-start;
+    gap: 1rem;
   }
 
   .process__steps {
     grid-template-columns: 1fr;
+    gap: 1.25rem;
   }
 
   /* Form */
   .form-card {
-    padding: 2rem 1.5rem;
+    padding: 2.25rem 1.5rem;
   }
 
   .form-row {
@@ -172,7 +198,8 @@
   .quote-summary {
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--space-xl);
+    gap: 1.75rem;
+    padding: 2rem 1.5rem;
   }
 
   .payment-methods {
@@ -180,12 +207,26 @@
   }
 
   .pay-form {
+    padding: 2rem 1.25rem;
+  }
+
+  .card-preview {
     padding: 1.5rem;
+  }
+
+  .card-preview__number {
+    font-size: 1.05rem;
+    letter-spacing: 0.15em;
   }
 
   /* About */
   .about__images {
-    display: none; /* simplify on mobile */
+    grid-template-columns: 1fr;
+  }
+
+  .about__img--wide {
+    grid-column: span 1;
+    height: 14rem;
   }
 
   .values-grid {
@@ -194,17 +235,17 @@
 
   /* Footer */
   .footer {
-    padding: 3.75rem 1.5rem 2rem;
+    padding: 4.5rem 1.5rem 2rem;
   }
 
   .footer__top {
     grid-template-columns: 1fr;
-    gap: var(--space-xl);
+    gap: 2.5rem;
   }
 
   .footer__bottom {
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.75rem;
     text-align: center;
   }
 
